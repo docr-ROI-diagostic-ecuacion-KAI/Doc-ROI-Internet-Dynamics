@@ -3,787 +3,441 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Doc ROI · Internet Dynamics</title>
+  <title>DOC ROI - Internet Dynamics</title>
   <style>
-    :root {
-      --black:#02060b;
-      --ink:#0a1723;
-      --navy:#071d33;
-      --petrol:#0b425c;
-      --blue:#0878bd;
-      --sky:#8bd3ff;
-      --soft:#edf7fc;
-      --paper:#f7fbfe;
-      --line:#c9dfea;
-      --muted:#637d91;
-      --white:#fff;
-      --ok:#147d73;
-      --warn:#9a6a0a;
-      --bad:#8d2e3a;
-      --shadow:0 18px 60px rgba(5,20,35,.18);
+    :root{
+      --black:#05070b;
+      --ink:#0b0f19;
+      --muted:#566273;
+      --line:#dde5ee;
+      --soft:#f6f7f9;
+      --white:#ffffff;
+      --blue:#003b5c;
+      --blue-2:#075f91;
+      --ice:#d8ecf8;
+      --panel:#eef4f8;
+      --shadow:0 14px 36px rgba(5,7,11,.06);
+      --header:58px;
       --radius:8px;
-      --header:68px;
     }
-
     *{box-sizing:border-box}
-    html{scroll-behavior:smooth;scroll-padding-top:calc(var(--header) + 18px)}
-    body{
-      margin:0;
-      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-      color:var(--ink);
-      background:var(--paper);
-    }
+    html{scroll-behavior:smooth;scroll-padding-top:86px}
+    body{margin:0;font-family:Inter,Helvetica,Arial,sans-serif;background:#f7fafc;color:var(--ink)}
     a{color:inherit}
-    code{font-family:"SFMono-Regular",Consolas,monospace;background:rgba(8,120,189,.09);border-radius:5px;padding:2px 5px}
-    p{margin:0;color:#365267;line-height:1.6}
-    h1,h2,h3{margin:0;font-weight:500;letter-spacing:0;color:var(--ink)}
-    h1{font-size:clamp(42px,8vw,82px);line-height:.96;max-width:920px}
-    h2{font-size:clamp(28px,4vw,44px);line-height:1.08}
-    h3{font-size:20px;line-height:1.24}
-
-    .topbar{
-      position:sticky;top:0;z-index:80;height:var(--header);
-      display:flex;align-items:center;justify-content:space-between;gap:20px;
-      padding:0 clamp(16px,4vw,40px);
-      background:rgba(0,0,0,.94);color:var(--white);
-      border-bottom:1px solid rgba(139,211,255,.22);
-    }
-    .brand{display:flex;align-items:center;gap:12px;text-decoration:none;min-width:0}
-    .brand img{width:128px;height:40px;object-fit:contain;border-radius:4px}
-    nav{display:flex;gap:8px;align-items:center}
-    nav a,.menu a{text-decoration:none;color:#e8f6ff;padding:10px 12px;border-radius:8px;font-size:14px}
-    nav a:hover,.menu a:hover{background:rgba(139,211,255,.13)}
-    .header-action{background:#fff;color:#05070b!important;border:1px solid #fff;border-radius:8px;padding:10px 14px;font-weight:800}
-    .header-action:hover{background:#f3f6f8!important;color:#05070b!important}
-    .hamburger{display:none;width:42px;height:42px;border:1px solid rgba(139,211,255,.3);border-radius:8px;background:transparent;color:white}
-    .hamburger span,.hamburger span:before,.hamburger span:after{content:"";display:block;width:18px;height:2px;background:currentColor;position:relative;margin:auto}
-    .hamburger span:before{position:absolute;top:-6px}.hamburger span:after{position:absolute;top:6px}
-    .menu{display:none;position:fixed;top:var(--header);right:14px;z-index:90;min-width:260px;padding:10px;background:rgba(2,6,11,.98);border:1px solid rgba(139,211,255,.28);border-radius:8px;box-shadow:var(--shadow)}
-    .menu.open{display:grid}
-
-    .page{width:min(1180px,calc(100% - 28px));margin:0 auto}
-    .hero{min-height:calc(100svh - var(--header));display:grid;align-items:center;padding:54px 0 42px;background:
-      linear-gradient(90deg,rgba(247,251,254,.94),rgba(247,251,254,.68)),
-      url("https://docroi.marketing/wp-content/uploads/2026/05/JorgeLucio.png") right center/auto 100% no-repeat}
-    .eyebrow{display:inline-block;margin-bottom:18px;color:var(--blue);font-size:12px;font-weight:500;letter-spacing:.09em;text-transform:uppercase}
-    .lead{max-width:830px;margin-top:22px;font-size:clamp(18px,2.2vw,23px);color:#243d50}
-    .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
-    .btn{
-      display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:38px;
-      border:1px solid #a9c8da;border-radius:8px;background:white;color:var(--ink);
-      padding:9px 12px;font:inherit;font-size:14px;cursor:pointer;text-decoration:none
-    }
-    .btn.primary{background:linear-gradient(135deg,var(--blue),var(--petrol));border-color:var(--blue);color:white}
-    .btn.dark{background:var(--black);color:white;border-color:#24445a}
-    .btn.subtle{background:#eef7fc}
-    .btn[aria-pressed="true"]{background:var(--blue);color:white}
-
-    section{padding:52px 0;border-top:1px solid #d9e8f0;scroll-margin-top:100px}
-    .section-head{display:grid;grid-template-columns:minmax(0,.9fr) minmax(280px,.55fr);gap:32px;align-items:end;margin-bottom:24px}
-    .kicker{display:block;margin-bottom:10px;color:var(--blue);font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase}
-    .grid{display:grid;gap:16px}.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
-    .card{background:white;border:1px solid #d6e6ef;border-radius:8px;box-shadow:var(--shadow);padding:18px}
-    .card.blue{background:#082238;color:white;border-color:#143b58}.card.blue h3,.card.blue p{color:white}.card.blue p{opacity:.9}
-    ul{margin:12px 0 0;padding-left:18px;color:#365267;line-height:1.55}
-    .formula{overflow:auto;white-space:nowrap;background:#071d33;color:#eaf8ff;border-radius:8px;padding:14px;font-family:"SFMono-Regular",Consolas,monospace}
-    .note{font-size:12px;color:#6f8798;margin-top:12px}
-    .learning-layout{display:grid;grid-template-columns:200px 1fr;gap:20px;align-items:start}
-    .learning-nav{display:grid;gap:7px}
-    .learning-pill{border:1px solid #cbdde8;border-radius:5px;background:#edf3f7;padding:10px 12px;font-weight:800;color:#05070b;font-size:14px}
-    .learning-pill.active{background:#05070b;color:white;border-color:#05070b}
-    .learning-card{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:20px;border:1px solid #cbdde8;border-radius:8px;background:white;padding:16px;box-shadow:0 14px 36px rgba(5,7,11,.06)}
-    .session-badge{display:inline-flex;width:max-content;background:#003b5c;color:white;border-radius:999px;padding:7px 10px;font-size:11px;font-weight:900;letter-spacing:.04em;margin-bottom:12px}
-    .method-box{border-left:2px solid #0878bd;background:#f0f6fa;padding:12px 14px;margin:14px 0}
-    .visual-card{border:1px solid #cbdde8;border-radius:8px;background:
-      linear-gradient(#d8e8f0 1px,transparent 1px),
-      linear-gradient(90deg,#d8e8f0 1px,transparent 1px),#fbfdff;background-size:16px 16px;padding:12px}
-    .visual-card .mini-node{border:1px solid #315d78;border-radius:8px;background:#fff;padding:7px 10px;font-size:12px;font-weight:700;text-align:center;margin:8px auto;width:max-content}
-
-    .process-strip{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:16px}
-    .process-strip div{border:1px solid #b9d7e7;border-radius:8px;background:#f3f9fd;padding:12px;text-align:center;font-size:13px;color:#173249}
-
-    .lab{background:#eef5f9;border:1px solid #cfe2ed;border-radius:8px;box-shadow:var(--shadow);overflow:hidden}
-    .labbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:10px;background:#071d33;color:white;border-bottom:1px solid #153d5b}
-    .labbar input{min-width:220px;flex:1;max-width:360px;background:#0d2a44;color:white;border-color:#315d78}
-    input,select,textarea{width:100%;border:1px solid #b7d1df;border-radius:8px;background:white;color:var(--ink);padding:9px 10px;font:inherit;font-size:14px}
-    textarea{resize:vertical;min-height:78px}label{display:grid;gap:6px;font-size:13px;color:#39566b}
-    .labbody{display:grid;grid-template-columns:280px 1fr 320px;min-height:720px}
-    .palette{background:#f8fcfe;border-right:1px solid #d1e3ed;padding:12px;overflow:auto}
-    .palette.hidden{display:none}
-    .palette-group{margin-bottom:12px;border:1px solid #d8e8f0;border-radius:8px;background:white;overflow:hidden}
-    .palette-title{padding:10px 12px;background:#edf7fc;color:#0c4563;font-weight:500;display:flex;justify-content:space-between;align-items:center}
-    .tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:10px}
-    .tile{border:1px solid #bfd8e6;border-radius:8px;background:white;padding:9px;min-height:54px;text-align:left;cursor:pointer;color:#163147;font-size:13px}
-    .tile:hover{border-color:var(--blue);box-shadow:0 0 0 2px rgba(8,120,189,.08)}
-    .tile small{display:block;color:#6b8495;margin-top:4px}
-
-    .workspace{display:grid;grid-template-rows:auto 1fr;background:#f7fbfe;min-width:0}
-    .canvas-tools{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:8px 10px;background:white;border-bottom:1px solid #d7e6ee}
-    .mode-tabs{display:flex;gap:8px;flex-wrap:wrap}
-    .zoom-box{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#486272}
-    .zoom-box .btn{min-height:28px;padding:4px 8px;font-size:12px}
-    .canvas-wrap{position:relative;overflow:hidden;background:
-      radial-gradient(circle,#c9dfea 1px,transparent 1px) 0 0/22px 22px,
-      #fbfdff;min-height:620px}
+    h1,h2,h3,p{margin:0}
+    h1{font-size:clamp(38px,6vw,68px);line-height:.98;font-weight:900;letter-spacing:-.02em}
+    h2{font-size:clamp(28px,4vw,46px);line-height:1.05;font-weight:900;letter-spacing:-.01em}
+    h3{font-size:20px;line-height:1.2;font-weight:900}
+    p{font-size:16px;line-height:1.65;color:#30475a}
+    button,input,select,textarea{font:inherit}
+    section[id]{scroll-margin-top:86px}
+    .docroi-header{position:sticky;top:0;z-index:50;height:var(--header);display:flex;align-items:center;justify-content:space-between;gap:18px;padding:0 18px;background:#000;border-bottom:1px solid rgba(255,255,255,.12)}
+    .docroi-logo{display:flex;align-items:center;text-decoration:none}
+    .docroi-logo img{height:30px;width:auto;display:block}
+    .docroi-nav{display:flex;align-items:center;gap:8px}
+    .docroi-nav a{color:#f5f7fb;text-decoration:none;font-size:13px;font-weight:800;padding:9px 11px;border-radius:8px}
+    .docroi-nav a:hover{background:rgba(255,255,255,.08)}
+    .docroi-nav .action{background:#fff;color:#05070b;border:1px solid #fff}
+    .menu-btn{display:none;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:8px;padding:8px 10px;font-weight:900}
+    .mobile-menu{display:none;position:fixed;top:var(--header);right:12px;z-index:60;background:#000;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:10px;box-shadow:0 20px 60px rgba(0,0,0,.28)}
+    .mobile-menu.open{display:grid}
+    .mobile-menu a{color:#fff;text-decoration:none;padding:10px 12px;border-radius:8px;font-size:14px;font-weight:800}
+    .wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+    .hero{min-height:calc(100svh - var(--header));display:grid;align-items:center;background:linear-gradient(90deg,rgba(247,250,252,.98) 0%,rgba(247,250,252,.88) 46%,rgba(216,236,248,.54) 100%),url("https://docroi.marketing/wp-content/uploads/2026/05/Imagen1.png") right center/auto 100% no-repeat;border-bottom:1px solid var(--line)}
+    .hero .wrap{width:100%;display:grid;grid-template-columns:minmax(0,620px) 1fr;gap:34px;align-items:center}
+    .eyebrow{display:inline-block;color:var(--blue-2);font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px}
+    .hero p{max-width:620px;margin-top:18px}
+    .hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+    .btn{border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);padding:10px 13px;min-height:38px;font-size:13px;font-weight:900;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+    .btn.primary{background:var(--black);border-color:var(--black);color:#fff}
+    .btn.blue{background:var(--blue);border-color:var(--blue);color:#fff}
+    .btn.ghost{background:#eef4f8}
+    .btn[aria-pressed=true]{background:var(--blue);border-color:var(--blue);color:#fff}
+    .training{padding:22px 0 28px;background:#fff}
+    .training-grid{display:grid;grid-template-columns:210px 1fr;gap:24px;align-items:start}
+    .lesson-nav{display:grid;gap:8px;position:sticky;top:80px}
+    .lesson-tag{display:inline-block;background:#003b5c;color:#fff;border-radius:999px;padding:8px 10px;font-size:11px;font-weight:900;width:max-content}
+    .lesson-nav a{display:block;text-decoration:none;border:1px solid #cad9e5;background:#edf3f7;color:#05070b;border-radius:5px;padding:11px 12px;font-size:14px;font-weight:900}
+    .lesson-nav a.active{background:#05070b;color:#fff;border-color:#05070b}
+    .lesson-card{border:1px solid #cbdde8;border-radius:8px;background:#fff;box-shadow:var(--shadow);padding:26px;display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:24px;min-height:560px}
+    .lesson-content{display:grid;align-content:start}
+    .session{display:inline-flex;width:max-content;background:#003b5c;color:#fff;border-radius:999px;padding:8px 11px;font-size:11px;font-weight:900;letter-spacing:.04em;margin-bottom:14px}
+    .lesson-content h2{font-size:clamp(30px,4vw,44px)}
+    .lesson-content h3{font-size:17px;margin-top:26px;margin-bottom:10px}
+    .method{border-left:3px solid #0073aa;background:#eef5f9;padding:15px 18px;margin:18px 0}
+    .method strong{display:block;margin-bottom:6px}
+    .key{font-size:15px;line-height:1.7;color:#254053;margin-top:10px}
+    .sources{border-top:1px solid #e1e9ef;margin-top:18px;padding-top:10px;color:#50677a;font-size:11px;line-height:1.45}
+    .lesson-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .visual-panel{border:1px solid #cbdde8;border-radius:8px;background:linear-gradient(#dcecf4 1px,transparent 1px),linear-gradient(90deg,#dcecf4 1px,transparent 1px),#fbfdff;background-size:18px 18px;padding:13px;min-height:420px}
+    .visual-panel h4{margin:0 0 10px;font-size:12px;color:#003b5c}
+    .flow-stack{display:grid;gap:9px;justify-items:center}
+    .flow-node{min-width:96px;border:1px solid #315d78;background:#fff;border-radius:8px;padding:8px 10px;text-align:center;font-size:12px;font-weight:900}
+    .flow-arrow{color:#003b5c;font-weight:900}
+    .small-loop{width:118px;margin:18px auto 0;border:1px dashed #0073aa;border-radius:8px;background:#fff;color:#003b5c;text-align:center;padding:10px;font-size:12px;font-weight:900}
+    .section{padding:48px 0;border-top:1px solid var(--line)}
+    .section-head{display:grid;grid-template-columns:minmax(0,.9fr) minmax(280px,.55fr);gap:28px;align-items:end;margin-bottom:20px}
+    .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+    .card{background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);padding:20px}
+    .card b{display:block;color:var(--blue);font-size:12px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+    .card.dark{background:#071d33;color:#fff;border-color:#071d33}
+    .card.dark p,.card.dark h3{color:#fff}
+    .equation{font-family:"SFMono-Regular",Consolas,monospace;background:#071d33;color:#eaf6fb;border-radius:8px;padding:14px;overflow:auto;white-space:nowrap;font-size:13px;margin-top:12px}
+    .lab-section{padding:18px 0 40px;background:#fff;border-top:1px solid var(--line)}
+    .tool{border:1px solid var(--line);background:#fff;border-radius:8px;overflow:hidden;box-shadow:var(--shadow)}
+    .tool-top{display:grid;grid-template-columns:minmax(180px,1fr) auto;gap:10px;padding:10px;background:#fff;border-bottom:1px solid var(--line)}
+    .project input{width:100%;border:1px solid var(--line);border-radius:8px;padding:9px 10px;font-size:13px}
+    .tool-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+    .tool-actions .btn{padding:8px 10px;min-height:34px;font-size:12px}
+    .tool-main{display:grid;grid-template-columns:230px minmax(0,1fr) 260px;min-height:690px}
+    .left-panel{border-right:1px solid var(--line);background:#f8fbfd;overflow:auto}
+    .panel-title{padding:11px 12px;border-bottom:1px solid var(--line);font-size:12px;font-weight:900;color:#003b5c;display:flex;justify-content:space-between;align-items:center}
+    .palette-group{border-bottom:1px solid var(--line)}
+    .palette-head{width:100%;border:0;background:#edf4f8;color:#0b0f19;text-align:left;padding:10px 12px;font-weight:900;cursor:pointer}
+    .tiles{display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:9px}
+    .tile{background:#fff;border:1px solid #cbdde8;border-radius:8px;min-height:48px;padding:8px;text-align:left;font-size:12px;font-weight:900;cursor:pointer}
+    .tile small{display:block;font-weight:500;color:#637587;margin-top:3px}
+    .tile:hover{border-color:#0073aa}
+    .work{display:grid;grid-template-rows:auto 1fr auto;background:#fbfdff;min-width:0}
+    .viewbar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px;background:#fff;border-bottom:1px solid var(--line)}
+    .views,.zoom{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+    .viewbar .btn,.zoom .btn{padding:6px 9px;min-height:30px;font-size:12px}
+    .zoom span{font-size:12px;color:#51697b}
+    .canvas{position:relative;overflow:hidden;min-height:520px;background:linear-gradient(#dcecf4 1px,transparent 1px),linear-gradient(90deg,#dcecf4 1px,transparent 1px),#fbfdff;background-size:24px 24px}
     .world{position:absolute;inset:0;transform-origin:0 0}
-    .edges{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
-    .edge{fill:none;stroke:#0878bd;stroke-width:2.2;pointer-events:stroke;cursor:pointer}
-    .edge.selected{stroke:#061d33;stroke-width:3.2}
-    .node{
-      position:absolute;min-width:120px;min-height:64px;border:1px solid #8abbd5;border-radius:8px;background:white;
-      color:#0b2638;box-shadow:0 12px 34px rgba(21,54,76,.16);user-select:none
-    }
-    .node.core{width:178px;height:92px;background:#eef8fe;border-width:2px;border-color:#0878bd}
-    .node.dark{background:#0b425c;color:white;border-color:#8bd3ff}
-    .node.selected{outline:3px solid rgba(8,120,189,.35)}
-    .node-title{height:100%;display:grid;place-items:center;text-align:center;padding:12px 14px;font-weight:500;cursor:move}
-    .node-meta{display:block;font-size:12px;font-weight:400;color:inherit;opacity:.7;margin-top:4px}
-    .port{position:absolute;width:16px;height:16px;border-radius:50%;background:#0878bd;border:2px solid white;box-shadow:0 0 0 1px #0878bd}
-    .port.r{right:-8px;top:calc(50% - 8px)}.port.l{left:-8px;top:calc(50% - 8px)}
+    .edges{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+    .edge{fill:none;stroke:#0073aa;stroke-width:2.1}
+    .node{position:absolute;width:148px;min-height:72px;background:#fff;border:1px solid #80b4cf;border-radius:8px;box-shadow:0 10px 26px rgba(0,59,92,.12);user-select:none}
+    .node.core{width:164px;min-height:86px;background:#eef8fe;border:2px solid #0073aa}
+    .node.infrastructure:not(.core){background:#003b5c;color:#fff;border-color:#d8ecf8}
+    .node.selected{outline:3px solid rgba(0,115,170,.25)}
+    .node-title{display:grid;place-items:center;min-height:inherit;text-align:center;padding:12px;font-weight:900;cursor:move}
+    .node-title span{display:block;font-size:11px;font-weight:500;opacity:.72;margin-top:5px}
     .resize{position:absolute;right:0;bottom:0;width:18px;height:18px;cursor:nwse-resize}
-    .resize:after{content:"";position:absolute;right:4px;bottom:4px;width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;opacity:.5}
-    .loop-note{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:132px;min-height:92px;border-radius:8px;border:1px dashed #84c7ea;color:#0878bd;display:grid;place-items:center;text-align:center;font-size:12px;background:rgba(255,255,255,.9);pointer-events:none;padding:10px}
-    .loop-note strong{font-size:14px;line-height:1.2;color:#003b5c}
-    .diiip-section{background:#003b5c;color:#fff;padding:72px 24px;width:100vw;margin-left:calc(50% - 50vw)}
+    .resize:after{content:"";position:absolute;right:4px;bottom:4px;width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;opacity:.45}
+    .feedback-note{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:130px;border:1px dashed #0073aa;border-radius:8px;background:rgba(255,255,255,.92);padding:10px;text-align:center;color:#003b5c;font-size:12px;font-weight:900;pointer-events:none}
+    .bottom-deck{display:grid;grid-template-columns:1fr 1fr;gap:9px;border-top:1px solid var(--line);background:#f8fbfd;padding:9px}
+    .slider-card{border:1px solid var(--line);background:#fff;border-radius:8px;padding:10px}
+    .slider-card h4{margin:0 0 8px;color:#003b5c;font-size:12px}
+    .sliders{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .range{display:grid;gap:4px}
+    .range label{display:flex;justify-content:space-between;gap:8px;color:#40586b;font-size:12px}
+    .range input{width:100%;accent-color:#003b5c}
+    .right-panel{border-left:1px solid var(--line);background:#f8fbfd;overflow:auto}
+    .config{padding:12px;display:grid;gap:10px}
+    .config label{display:grid;gap:5px;font-size:12px;color:#40586b;font-weight:800}
+    .config input,.config select,.config textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:8px 9px;font-size:13px;background:#fff}
+    .config textarea{min-height:72px;resize:vertical}
+    .dashboard,.equation-view{display:none;padding:14px;overflow:auto;background:#f7fafc}
+    .dashboard.active,.equation-view.active{display:block}
+    .canvas.hidden,.bottom-deck.hidden{display:none}
+    .metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:12px}
+    .metric{background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px;text-align:center}
+    .metric small{display:block;color:#566273;font-size:12px;margin-bottom:5px}
+    .metric strong{display:block;font-size:23px;color:#003b5c}
+    .metric em{display:block;font-size:11px;line-height:1.35;color:#687b8b;font-style:normal;margin-top:6px}
+    .chartbox{background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px;margin-bottom:12px}
+    .chart{width:100%;min-height:310px;display:block}
+    .table-wrap{overflow:auto}
+    table{border-collapse:collapse;width:100%;min-width:760px;font-size:12px;background:#fff}
+    th,td{border-bottom:1px solid #e7eef4;padding:9px;text-align:left;vertical-align:top}
+    th{background:#edf4f8;color:#003b5c;position:sticky;left:0}
+    .eq-list{display:grid;gap:9px}
+    .eq-line{border:1px solid var(--line);background:#fff;border-radius:8px;padding:10px;font-size:13px}
+    .eq-line b{color:#003b5c}
+    .diiip{background:#003b5c;color:#fff;padding:72px 24px;width:100vw;margin-left:calc(50% - 50vw)}
     .diiip-inner{max-width:980px;margin:0 auto}
     .diiip-head{text-align:center;max-width:760px;margin:0 auto 34px}
     .diiip-head span{display:block;color:#d8ecf8;font-size:12px;font-weight:900;letter-spacing:.06em;margin-bottom:12px}
-    .diiip-head h2{font-size:42px;line-height:1.12;margin:0 0 18px;font-weight:900;color:#fff}
-    .diiip-head p{font-size:17px;line-height:1.75;color:#eaf6fb;margin:0}
+    .diiip-head h2{color:#fff;font-size:42px;line-height:1.12;margin-bottom:18px}
+    .diiip-head p{color:#eaf6fb}
     .diiip-list{display:grid;gap:10px}
     .diiip-item{background:#fff;color:#0b0f19;border-radius:8px;padding:16px 20px;display:grid;grid-template-columns:64px 1fr;gap:16px;align-items:center;border:1px solid #e5e7eb}
     .diiip-letter{width:48px;height:48px;border-radius:8px;background:#0b0f19;color:#fff;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900}
-    .diiip-item strong{display:block;font-size:20px;margin-bottom:4px;color:#0b0f19}
-    .diiip-item p{margin:0;font-size:14px;line-height:1.5;color:#5b6472}
-    .kai-section{position:relative;background:linear-gradient(180deg,rgba(11,15,25,.98) 0%,rgba(11,15,25,.94) 54%,rgba(0,59,92,.82) 100%),url('https://docroi.marketing/wp-content/uploads/2026/05/Imagen1.png') center/cover no-repeat;color:#fff;padding:78px 24px;overflow:hidden;width:100vw;margin-left:calc(50% - 50vw)}
+    .diiip-item p{font-size:14px;line-height:1.5;color:#5b6472}
+    .kai{position:relative;background:linear-gradient(180deg,rgba(11,15,25,.98),rgba(0,59,92,.82)),url("https://docroi.marketing/wp-content/uploads/2026/05/Imagen1.png") center/cover no-repeat;color:#fff;padding:78px 24px;width:100vw;margin-left:calc(50% - 50vw)}
     .kai-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:34px;align-items:center}
-    .kai-section h2{font-size:clamp(36px,8vw,58px);line-height:1.04;margin:0 0 22px;font-weight:900;letter-spacing:-1.2px;color:#fff}
-    .kai-section p{font-size:18px;line-height:1.8;color:#edf2f7;margin:0 0 22px;max-width:720px}
-    .kai-badge{display:inline-block;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.22);color:#d8ecf8;border-radius:999px;padding:10px 15px;font-size:12px;font-weight:900;letter-spacing:.06em;margin-bottom:22px}
-    .kai-download{background:#fff;color:#0b0f19;border-radius:8px;padding:30px;box-shadow:0 24px 60px rgba(0,0,0,.26)}
-    .kai-download h3{font-size:clamp(28px,6vw,38px);line-height:1.12;margin:0 0 16px;font-weight:900;color:#0b0f19}
-    .kai-download p{font-size:16px;line-height:1.75;color:#5b6472;margin:0 0 22px}
-    .kai-box{background:#f1f4f8;border:1px solid #e1e7ef;border-radius:8px;padding:18px;margin-bottom:24px}
+    .kai h2{color:#fff;font-size:clamp(36px,8vw,58px)}
+    .kai p{color:#edf2f7}
+    .kai-card{background:#fff;color:#0b0f19;border-radius:8px;padding:30px;box-shadow:0 24px 60px rgba(0,0,0,.26)}
+    .kai-card p{color:#5b6472}
+    .kai-box{background:#f1f4f8;border:1px solid #e1e7ef;border-radius:8px;padding:18px;margin:20px 0}
     .kai-box ul{margin:0;padding-left:20px;color:#5b6472;line-height:1.75;font-size:15px}
-    .kai-button{width:100%;display:inline-flex;align-items:center;justify-content:center;background:#0b0f19;color:#fff;text-decoration:none;border-radius:8px;padding:12px 16px;font-weight:900}
-
-    .panel{background:#f8fcfe;border-left:1px solid #d1e3ed;padding:12px;overflow:auto}
-    .panel.hidden{display:none}
-    .panel-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}
-    .panel-body{display:grid;gap:12px}.panel-section{border:1px solid #d8e8f0;border-radius:8px;background:white;padding:12px}
-    .range{display:grid;gap:6px;margin-top:10px}.range span{display:flex;justify-content:space-between;color:#39566b;font-size:13px}
-    input[type=range]{padding:0;accent-color:var(--blue)}
-    .config-list{display:grid;gap:10px}
-
-    .dashboard{display:none;padding:18px;overflow:auto;background:#f7fbfe}
-    .dashboard.active{display:block}
-    .canvas-wrap.hidden{display:none}
-    .metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:14px}
-    .metric{background:white;border:1px solid #d6e6ef;border-radius:8px;padding:12px;box-shadow:0 10px 30px rgba(21,54,76,.06);text-align:center}
-    .metric small{display:block;color:#607b8d;margin-bottom:5px;font-size:12px}.metric strong{display:block;font-size:23px;font-weight:500;color:#071d33}.metric em{display:block;margin-top:6px;color:#6f8798;font-style:normal;font-size:12px;line-height:1.35}
-    .chartbox{background:white;border:1px solid #d6e6ef;border-radius:8px;padding:14px;box-shadow:0 10px 30px rgba(21,54,76,.08);margin-bottom:14px}
-    svg.chart{width:100%;min-height:310px;display:block}
-    .equation-lines{display:grid;gap:10px}
-    .eq-line{background:white;border:1px solid #d6e6ef;border-radius:8px;padding:10px;font-size:13px}
-    .eq-line b{color:#0a4058}
-    .canvas-bottom{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px;background:#f8fcfe;border-top:1px solid #d1e3ed}
-    .slider-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-    .canvas-bottom .panel-section{padding:10px}
-
-    .table-wrap{overflow:auto;border:1px solid #d6e6ef;border-radius:8px;background:white}
-    table{border-collapse:collapse;width:100%;min-width:880px;font-size:13px}
-    th,td{padding:10px 12px;border-bottom:1px solid #e3eef4;text-align:left;vertical-align:top}
-    th{background:#edf7fc;color:#0b425c;position:sticky;left:0}
-
-    footer{margin-top:56px;background:#000;color:white;padding:68px 24px 54px;text-align:center}
-    .footer-inner{max-width:920px;margin:0 auto}
-    .footer-inner img{height:72px;width:auto;border-radius:4px}.footer-inner p{color:#c0c7d1}
+    .footer{background:#000;padding:68px 24px 54px;text-align:center}
+    .footer img{height:72px;width:auto;display:block}
     .footer-links{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:14px;color:#d1d5db;font-size:14px;line-height:1.6;margin:24px 0}
-    .toast{position:fixed;right:16px;bottom:16px;z-index:100;padding:12px 14px;border-radius:8px;background:#071d33;color:white;box-shadow:var(--shadow);opacity:0;transform:translateY(10px);transition:.2s;pointer-events:none}
+    .footer a{color:#d1d5db;text-decoration:none}
+    .toast{position:fixed;right:16px;bottom:16px;background:#05070b;color:#fff;border-radius:8px;padding:12px 14px;font-size:13px;font-weight:800;box-shadow:0 20px 50px rgba(0,0,0,.18);opacity:0;transform:translateY(10px);transition:.2s;pointer-events:none;z-index:80}
     .toast.show{opacity:1;transform:translateY(0)}
-
-    @media(max-width:1050px){.labbody{grid-template-columns:1fr}.palette,.panel{border:0;border-bottom:1px solid #d1e3ed}.metrics{grid-template-columns:repeat(2,1fr)}.section-head,.cols-2,.cols-3,.learning-layout,.learning-card,.canvas-bottom{grid-template-columns:1fr}}
-    @media(max-width:720px){nav{display:none}.hamburger{display:block}.hero{background:#f7fbfe}.process-strip{grid-template-columns:1fr 1fr}.metrics{grid-template-columns:1fr}.tiles,.slider-grid{grid-template-columns:1fr}.labbar input{max-width:none}.canvas-wrap{min-height:560px}}
-    @media print{
-      .topbar,.hero,section:not(#lab-section),.labbar,.palette,.panel,.canvas-tools footer,.toast{display:none!important}
-      .labbody{display:block}.canvas-wrap{display:block!important;border:2px solid #111;min-height:680px}.dashboard{display:block!important}
-      @page{size:landscape;margin:12mm}
-    }
+    @media(max-width:1040px){.hero .wrap,.training-grid,.lesson-card,.section-head,.tool-main,.bottom-deck{grid-template-columns:1fr}.lesson-nav{position:static}.right-panel,.left-panel{border:0;border-bottom:1px solid var(--line)}.metrics{grid-template-columns:repeat(2,1fr)}.cards{grid-template-columns:1fr}}
+    @media(max-width:720px){.docroi-nav{display:none}.menu-btn{display:block}.lesson-card{padding:16px}.sliders,.tiles,.metrics{grid-template-columns:1fr}.tool-top{grid-template-columns:1fr}.tool-actions{justify-content:flex-start}.hero{background:#f7fafc}.diiip-head h2{font-size:32px}.diiip-item{grid-template-columns:52px 1fr}}
   </style>
 </head>
 <body>
-  <header class="topbar">
-    <a class="brand" href="https://el-botiquin-del-doc-roi.vercel.app/" target="_blank" rel="noopener">
-      <img src="https://docroi.marketing/wp-content/uploads/2026/05/Logo_Negro_DoC_ROI.jpg" alt="DOC ROI">
-    </a>
-    <nav>
+  <header class="docroi-header">
+    <a class="docroi-logo" href="https://el-botiquin-del-doc-roi.vercel.app/" target="_blank" rel="noopener"><img src="https://docroi.marketing/wp-content/uploads/2026/05/Logo_Negro_DoC_ROI.jpg" alt="DOC ROI"></a>
+    <nav class="docroi-nav" aria-label="Main navigation">
       <a href="#consultation">Method</a>
       <a href="#model">Resources</a>
-      <a class="header-action" href="#lab-section">Open tool</a>
+      <a class="action" href="#laboratory">Open tool</a>
     </nav>
-    <button class="hamburger" id="menuBtn" aria-label="Open menu"><span></span></button>
+    <button class="menu-btn" id="menuBtn" type="button">Menu</button>
   </header>
-  <div class="menu" id="menu">
-    <a href="#consultation">Training</a>
-    <a href="#communication">Communication process</a>
-    <a href="#forrester">Forrester and system dynamics</a>
-    <a href="#model">Internet Dynamics variables</a>
-    <a href="#lab-section">Laboratory</a>
-    <a href="#equation">Equation</a>
-    <a href="#diiip">DIIIP</a>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#consultation">Method</a>
+    <a href="#communication">Communication</a>
+    <a href="#system">System dynamics</a>
+    <a href="#model">Variables</a>
+    <a href="#laboratory">Open tool</a>
   </div>
 
-  <main class="page">
-    <section class="hero">
-      <div>
-        <span class="eyebrow">Doc ROI capsule · Internet Dynamics</span>
-        <h1>Internet is a dynamic communication system.</h1>
-        <p class="lead">This capsule explains and simulates how users, content and infrastructure create a self-reinforcing digital communication loop, and how AI can accelerate that loop when the organization has processes, systems and data aligned to the customer.</p>
-        <div class="actions">
-          <a class="btn primary" href="#lab-section">Open the laboratory</a>
-          <a class="btn subtle" href="#communication">Understand the theory</a>
+  <main>
+    <section class="hero" id="top">
+      <div class="wrap">
+        <div>
+          <span class="eyebrow">DOC ROI · Internet Dynamics Vitamin</span>
+          <h1>Internet is a dynamic communication system.</h1>
+          <p>This capsule explains and simulates how users, content and infrastructure create a self-reinforcing digital communication loop, and how AI can accelerate that loop when the organization has processes, systems and data aligned to communication.</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#laboratory">Open the laboratory</a>
+            <a class="btn" href="#consultation">Understand the theory</a>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="consultation">
-      <div class="learning-layout">
-        <aside class="learning-nav" aria-label="Training sessions">
-          <span class="kicker">Formative consultation</span>
-          <a class="learning-pill active" href="#consultation">01 · Internet Dynamics</a>
-          <a class="learning-pill" href="#communication">02 · Communication</a>
-          <a class="learning-pill" href="#forrester">03 · System dynamics</a>
-          <a class="learning-pill" href="#model">04 · Variables</a>
-          <a class="learning-pill" href="#lab-section">05 · Laboratory</a>
+    <section class="training" id="consultation">
+      <div class="wrap training-grid">
+        <aside class="lesson-nav">
+          <span class="lesson-tag">FORMATIVE CONSULTATION</span>
+          <a class="active" href="#consultation">01 · Internet Dynamics</a>
+          <a href="#communication">02 · Communication</a>
+          <a href="#system">03 · System dynamics</a>
+          <a href="#model">04 · Variables</a>
+          <a href="#laboratory">05 · Laboratory</a>
         </aside>
-        <article class="learning-card">
-          <div>
-            <span class="session-badge">SESSION 1</span>
+        <article class="lesson-card">
+          <div class="lesson-content">
+            <span class="session">SESSION 1</span>
             <h2>The core idea: Internet automated the communication process.</h2>
-            <h3 style="margin-top:24px">Learning objective</h3>
-            <p style="margin-top:10px">Many organizations see Internet as a set of channels, campaigns or information systems. Internet Dynamics proposes a different view: Internet can be studied as a living communication system where users, content and infrastructure generate feedback, acceleration, delay and measurable behavior over time.</p>
-            <div class="method-box">
+            <h3>Learning objective</h3>
+            <p>Understand that Internet is not only a set of channels, campaigns or information systems. Internet Dynamics studies Internet as a communication system where users, content and infrastructure interact, generate feedback and change their behavior over time.</p>
+            <div class="method">
               <strong>Methodological rule</strong>
               <p>First identify the communication system. Then measure its endogenous variables, observe the external frictions, and only then simulate its evolution.</p>
             </div>
-            <p><strong>Key concepts:</strong> communication system · feedback loop · users · content · infrastructure · Forrester · AI arrival model</p>
-            <p class="note">Forrester, J. W. (1961). Industrial Dynamics. MIT Press. Shannon, C. E. and Weaver, W. (1949). The Mathematical Theory of Communication.</p>
-            <div class="actions" style="margin-top:16px">
+            <p class="key"><strong>Key concepts:</strong> communication system · feedback loop · users · content · infrastructure · Forrester · data loop</p>
+            <p class="sources"><strong>Sources:</strong> Shannon and Weaver (1949), Wiener (1948), Forrester (1961), Sterman (2000).</p>
+            <div class="lesson-actions">
+              <button class="btn" type="button" disabled>Previous</button>
               <a class="btn" href="#communication">Next</a>
-              <a class="btn dark" href="#lab-section">Go to laboratory</a>
+              <a class="btn primary" href="#laboratory">Go to laboratory</a>
             </div>
           </div>
-          <div class="visual-card" aria-label="Small Internet Dynamics visual example">
-            <strong style="font-size:12px;color:#003b5c">Three core nodes form the first map</strong>
-            <div class="mini-node">Users</div>
-            <div class="mini-node">Content</div>
-            <div class="mini-node">Infrastructure</div>
-            <strong style="display:block;margin-top:18px;font-size:12px;color:#003b5c">Feedback loop</strong>
-            <div style="margin:16px auto 4px;width:110px;border:1px dashed #0878bd;border-radius:8px;display:grid;place-items:center;color:#0878bd;font-weight:800;background:#fff;padding:12px;text-align:center">Data loop<br><span style="font-weight:500">feedback</span></div>
-          </div>
+          <aside class="visual-panel">
+            <h4>Communication Process</h4>
+            <div class="flow-stack">
+              <div class="flow-node">Emitter</div><div class="flow-arrow">↓</div>
+              <div class="flow-node">Code system</div><div class="flow-arrow">↓</div>
+              <div class="flow-node">Message</div><div class="flow-arrow">↓</div>
+              <div class="flow-node">Medium / Channel</div><div class="flow-arrow">↓</div>
+              <div class="flow-node">Receiver</div><div class="flow-arrow">↓</div>
+              <div class="flow-node">Feedback</div>
+            </div>
+            <div class="small-loop">Data loop<br>managed feedback</div>
+          </aside>
         </article>
       </div>
     </section>
 
-    <section id="communication">
-      <div class="section-head">
-        <div>
-          <span class="kicker">1 · Communication process</span>
-          <h2>Users are emitter and receiver. Content is message and mode. Infrastructure is medium, coding, decoding and feedback.</h2>
+    <section class="section" id="communication">
+      <div class="wrap">
+        <div class="section-head">
+          <div><span class="eyebrow">02 · Communication</span><h2>Feedback is the point where information becomes communication.</h2></div>
+          <p>If a message is only emitted, the system remains informational. Communication appears when the receiver responds, the system captures that response, and the organization can use the data to improve the next interaction.</p>
         </div>
-        <p>This is the bridge between classical communication theory and the Internet Dynamics model: Internet makes the communication process programmable, traceable and capable of automatic feedback.</p>
-      </div>
-      <div class="process-strip">
-        <div>Emitter<br><b>Users</b></div>
-        <div>Receiver<br><b>Users</b></div>
-        <div>Message<br><b>Content</b></div>
-        <div>Medium<br><b>Infrastructure</b></div>
-        <div>Coding / decoding<br><b>Systems</b></div>
-        <div>Feedback<br><b>Data loop</b></div>
-      </div>
-      <p class="note">References: Shannon and Weaver (1949), Wiener (1948), Kotler et al. (2019).</p>
-    </section>
-
-    <section id="forrester">
-      <div class="section-head">
-        <div>
-          <span class="kicker">2 · System dynamics</span>
-          <h2>Forrester gives us the language: stocks, flows, feedback, delays and reinforcing loops.</h2>
+        <div class="cards">
+          <div class="card"><b>Users</b><h3>Emitter and receiver</h3><p>Users can be people, companies, public administrations, connected objects or AI agents. They send and receive signals.</p></div>
+          <div class="card"><b>Content</b><h3>Message and mode</h3><p>Content carries the offer, brand, service, keyword, copy, product or knowledge object that makes the message meaningful.</p></div>
+          <div class="card"><b>Infrastructure</b><h3>Medium and decoding</h3><p>Infrastructure includes systems, devices, channels, workflow AI, data capture and the technical conditions that make feedback possible.</p></div>
         </div>
-        <p>Internet Dynamics applies system dynamics to a digital communication system. If users grow, content grows. If content grows, infrastructure must grow. If infrastructure improves, users can access, interact and generate more signals.</p>
-      </div>
-      <div class="grid cols-2">
-        <div class="card blue">
-          <span class="kicker">Explosive positive loop</span>
-          <h3>U ↔ C ↔ I ↔ U</h3>
-          <p>Users, content and infrastructure form a reinforcing loop. Without management variables, it tends to accelerate until friction, cost, saturation or weak management slows it down.</p>
-        </div>
-        <div class="card">
-          <span class="kicker">Forrester-inspired state update</span>
-          <div class="formula">Stock(t+1) = Stock(t) + inflow(t) - outflow(t)</div>
-          <p style="margin-top:12px">In this capsule, the stocks are Users, Content and Infrastructure. The inflows are growth, production, investment and AI automation. The outflows are churn, obsolescence, technical debt, cost and exogenous friction.</p>
-        </div>
-      </div>
-      <p class="note">References: Forrester (1961), Sterman (2000), Meadows (2008).</p>
-    </section>
-
-    <section id="model">
-      <div class="section-head">
-        <div>
-          <span class="kicker">3 · Internet Dynamics variables</span>
-          <h2>The model has three endogenous nodes and two management layers.</h2>
-        </div>
-        <p>The canvas is intentionally simple at the center: Users, Content and Infrastructure. Complexity appears as subnodes, measures and weights attached to those three core variables.</p>
-      </div>
-      <div class="grid cols-3">
-        <div class="card"><span class="kicker">Users · U</span><h3>Potential revenue and relationship</h3><p>Audience, cookies, cohorts, leads, fans, clients, promoters, IoT and AI agents. Users are the market side of communication.</p></div>
-        <div class="card"><span class="kicker">Content · C</span><h3>Offer, message and cost</h3><p>SEO, SEM, paid media, social, email, web, product, service, brand, keywords and consumption signals. Content is value proposal and communication cost.</p></div>
-        <div class="card"><span class="kicker">Infrastructure · I</span><h3>Medium, channel and technical capacity</h3><p>Devices, channels, workflow AI, CRM, ERP, analytics, tags, payment, ecommerce, cloud, performance and data capture. Infrastructure is also cost.</p></div>
-      </div>
-      <div class="grid cols-2" style="margin-top:16px">
-        <div class="card"><span class="kicker">Company management</span><p>Processes, organization, systems and data/AI maturity determine whether the company can manage the digital communication system.</p></div>
-        <div class="card"><span class="kicker">Exogenous ecosystem</span><p>PESTEL, legal, GDPR, competition, innovation, economic pressure and market culture accelerate or slow the system.</p></div>
       </div>
     </section>
 
-    <section id="lab-section">
-      <div class="section-head">
-        <div>
-          <span class="kicker">4 · Laboratory</span>
-          <h2>Build your Internet Dynamics map.</h2>
+    <section class="section" id="system">
+      <div class="wrap">
+        <div class="section-head">
+          <div><span class="eyebrow">03 · System dynamics</span><h2>Forrester gives the mathematical language for a changing communication system.</h2></div>
+          <p>System dynamics observes stocks, flows, feedback and delays. In this capsule, the stocks are users, content and infrastructure; the flows are growth, consumption, production, investment, obsolescence and friction.</p>
         </div>
-        <p>Select subnodes on the left, connect them to Users, Content or Infrastructure, add quantities and weights, and watch the equation, dashboard and projection update.</p>
+        <div class="cards">
+          <div class="card dark"><b>Reinforcing loop</b><h3>U &lt;-&gt; C &lt;-&gt; I</h3><p>More users generate more content consumption. More content requires more infrastructure. Better infrastructure creates more access and feedback.</p></div>
+          <div class="card"><b>Forrester-inspired state</b><h3>Stocks and flows</h3><div class="equation">Stock(t+1) = Stock(t) + inflow(t) - outflow(t)</div></div>
+          <div class="card"><b>Management layer</b><h3>Processes, systems and data</h3><p>Management variables decide whether the loop becomes effective communication or only digital noise.</p></div>
+        </div>
       </div>
+    </section>
 
-      <div class="lab">
-        <div class="labbar">
-          <input id="projectName" value="Internet Dynamics · communication system case" aria-label="Project name">
-          <button class="btn" id="openBtn">Open</button><input type="file" id="fileInput" accept=".json" hidden>
-          <button class="btn" id="saveBtn">Save project</button>
-          <button class="btn" id="clearBtn">Clear data</button>
-          <button class="btn" id="newBtn">New canvas</button>
-          <button class="btn" id="fullBtn">Fullscreen</button>
-          <button class="btn" id="printBtn">Print PDF</button>
-          <button class="btn" id="paletteBtn" aria-pressed="true">Panel</button>
-          <button class="btn" id="panelBtn" aria-pressed="true">Panel fixed</button>
-          <button class="btn" id="entityBtn">Entity</button>
-          <button class="btn" id="relationBtn" aria-pressed="false">Relation</button>
-          <button class="btn" id="undoBtn">Undo</button>
-          <button class="btn" id="redoBtn">Redo</button>
-          <button class="btn" id="deleteBtn">Delete</button>
-          <button class="btn" id="distributeBtn">Distribute</button>
-          <button class="btn" id="exampleBtn">Example</button>
+    <section class="section" id="model">
+      <div class="wrap">
+        <div class="section-head">
+          <div><span class="eyebrow">04 · Nodes and layers</span><h2>The model has three endogenous nodes and two management layers.</h2></div>
+          <p>The canvas is intentionally simple at the center. Complexity appears as subnodes and measurements connected to users, content and infrastructure.</p>
         </div>
-        <div class="labbody">
-          <aside class="palette" id="palette">
-            <div class="palette-group">
-              <div class="palette-title">Users <span>U</span></div>
-              <div class="tiles" id="tilesUsers"></div>
-            </div>
-            <div class="palette-group">
-              <div class="palette-title">Content <span>C</span></div>
-              <div class="tiles" id="tilesContent"></div>
-            </div>
-            <div class="palette-group">
-              <div class="palette-title">Infrastructure <span>I</span></div>
-              <div class="tiles" id="tilesInfrastructure"></div>
-            </div>
-          </aside>
+        <div class="cards">
+          <div class="card"><b>Users · U</b><h3>Market and relationship</h3><p>Audience, cookies, cohorts, leads, fans, clients, promoters, IoT and AI agents.</p></div>
+          <div class="card"><b>Content · C</b><h3>Offer and communication cost</h3><p>SEO, SEM, paid media, social, email, web, product, service, brand, keywords and consumption signals.</p></div>
+          <div class="card"><b>Infrastructure · I</b><h3>Medium and technical capacity</h3><p>Devices, workflow AI, CRM, ERP, analytics, tags, payment, ecommerce, cloud, performance and data capture.</p></div>
+        </div>
+      </div>
+    </section>
 
-          <div class="workspace">
-            <div class="canvas-tools">
-              <div class="mode-tabs">
-                <button class="btn subtle" id="canvasMode" aria-pressed="true">Canvas view</button>
-                <button class="btn subtle" id="dashboardMode" aria-pressed="false">Dashboard view</button>
-                <button class="btn subtle" id="equationMode" aria-pressed="false">Equation view</button>
-              </div>
-              <div class="zoom-box">
-                <button class="btn" id="zoomOut">−</button>
-                <span id="zoomLabel">100%</span>
-                <button class="btn" id="zoomIn">+</button>
-                <button class="btn" id="fitBtn">Fit</button>
-              </div>
-            </div>
-            <div class="canvas-wrap" id="canvasWrap">
-              <div class="world" id="world">
-                <svg class="edges" id="edges"></svg>
-                <div class="loop-note"><div><strong>Feedback loop</strong><br>Users · Content · Infrastructure<br>Data returns to management</div></div>
-              </div>
-            </div>
-            <div class="canvas-bottom" id="managementDeck">
-              <div class="panel-section">
-                <div class="palette-title" style="padding:0 0 8px;background:transparent">Company management variables</div>
-                <div class="slider-grid" id="companySliders"></div>
-              </div>
-              <div class="panel-section">
-                <div class="palette-title" style="padding:0 0 8px;background:transparent">Exogenous variables</div>
-                <div class="slider-grid" id="exoSliders"></div>
-              </div>
-            </div>
-            <div class="dashboard" id="dashboard">
-              <div class="metrics">
-                <div class="metric"><small>Internet Dynamics · I_net</small><strong id="mInet">0</strong><em>Global capacity of the system to communicate effectively through users, content and infrastructure.</em></div>
-                <div class="metric"><small>Digital communication</small><strong id="mComm">0</strong><em>Endogenous communication strength before company and exogenous correction.</em></div>
-                <div class="metric"><small>AI arrival gap</small><strong id="mGap">0</strong><em>Distance to the 100% model where AI can manage the relationship end to end.</em></div>
-                <div class="metric"><small>Economic capture</small><strong id="mMoney">0%</strong><em>Indicative view of revenue potential minus content and infrastructure pressure.</em></div>
-              </div>
-              <div class="chartbox"><svg class="chart" id="projection"></svg></div>
-              <div class="chartbox"><h3>Process inventory</h3><div class="table-wrap" style="margin-top:12px"><table id="inventory"></table></div></div>
-            </div>
-            <div class="dashboard" id="equationPanel">
-              <div class="chartbox">
-                <h3 id="equation">Internet Dynamics equation · step by step</h3>
-                <div class="equation-lines" id="equationLines" style="margin-top:14px"></div>
-              </div>
+    <section class="lab-section" id="laboratory">
+      <div class="wrap">
+        <div class="tool">
+          <div class="tool-top">
+            <div class="project"><label class="eyebrow" for="projectName" style="margin:0 0 5px">Project</label><input id="projectName" value="Internet Dynamics laboratory"></div>
+            <div class="tool-actions">
+              <button class="btn" id="openBtn">Open</button><input id="fileInput" type="file" accept=".json" hidden>
+              <button class="btn" id="saveBtn">Save project</button>
+              <button class="btn" id="clearBtn">Clear data</button>
+              <button class="btn" id="newBtn">New canvas</button>
+              <button class="btn" id="fullBtn">Fullscreen</button>
+              <button class="btn" id="printBtn">Print PDF</button>
+              <button class="btn" id="leftBtn" aria-pressed="true">Endogenous panel</button>
+              <button class="btn" id="rightBtn" aria-pressed="true">Configuration</button>
+              <button class="btn" id="entityBtn">Entity</button>
+              <button class="btn" id="deleteBtn">Delete</button>
+              <button class="btn" id="distributeBtn">Distribute</button>
+              <button class="btn primary" id="exampleBtn">Example</button>
             </div>
           </div>
-
-          <aside class="panel" id="configPanel">
-            <div class="panel-head">
-              <h3>Configuration</h3>
-              <button class="btn" id="closeConfig">Hide</button>
-            </div>
-            <div class="panel-body">
-              <div class="panel-section" id="emptyConfig">Select or double-click a node to configure its measure, quantity, weight and AI level.</div>
-              <div class="panel-section config-list" id="nodeConfig" hidden>
-                <label>Name <input id="cfgName"></label>
-                <label>Measure
-                  <select id="cfgMeasure"></select>
-                </label>
-                <label>Description <textarea id="cfgDesc"></textarea></label>
-                <label>Quantity / observed value <input id="cfgQty" type="number" min="0"></label>
-                <label>Expected maximum / arrival value <input id="cfgMax" type="number" min="1"></label>
-                <div class="range"><span><b>Communication weight</b><output id="cfgWeightOut">1.00</output></span><input id="cfgWeight" type="range" min="0" max="2" step=".05"></div>
-                <div class="range"><span><b>AI enablement</b><output id="cfgAiOut">0</output></span><input id="cfgAi" type="range" min="0" max="100"></div>
-                <label>Economic role
-                  <select id="cfgEconomics">
-                    <option value="revenue">Revenue potential</option>
-                    <option value="offer-cost">Offer and communication cost</option>
-                    <option value="infra-cost">Infrastructure and channel cost</option>
-                  </select>
-                </label>
+          <div class="tool-main">
+            <aside class="left-panel" id="leftPanel">
+              <div class="panel-title">Endogenous nodes <span>U · C · I</span></div>
+              <div class="palette-group"><button class="palette-head" data-toggle="usersTiles">Users</button><div class="tiles" id="usersTiles"></div></div>
+              <div class="palette-group"><button class="palette-head" data-toggle="contentTiles">Content</button><div class="tiles" id="contentTiles"></div></div>
+              <div class="palette-group"><button class="palette-head" data-toggle="infraTiles">Infrastructure</button><div class="tiles" id="infraTiles"></div></div>
+            </aside>
+            <section class="work">
+              <div class="viewbar">
+                <div class="views">
+                  <button class="btn" id="canvasMode" aria-pressed="true">Canvas</button>
+                  <button class="btn" id="dashboardMode" aria-pressed="false">Dashboard</button>
+                  <button class="btn" id="equationMode" aria-pressed="false">Equation</button>
+                </div>
+                <div class="zoom"><button class="btn" id="zoomOut">-</button><span id="zoomLabel">100%</span><button class="btn" id="zoomIn">+</button><button class="btn" id="fitBtn">Fit</button></div>
               </div>
-            </div>
-          </aside>
+              <div class="canvas" id="canvas">
+                <div class="world" id="world"><svg class="edges" id="edges"></svg><div class="feedback-note">Feedback loop<br>data returns to management</div></div>
+              </div>
+              <div class="bottom-deck" id="bottomDeck">
+                <div class="slider-card"><h4>Company management</h4><div class="sliders" id="companySliders"></div></div>
+                <div class="slider-card"><h4>Exogenous ecosystem</h4><div class="sliders" id="exoSliders"></div></div>
+              </div>
+              <div class="dashboard" id="dashboard">
+                <div class="metrics">
+                  <div class="metric"><small>Internet Dynamics</small><strong id="mInet">0</strong><em>Global capacity to communicate effectively through users, content and infrastructure.</em></div>
+                  <div class="metric"><small>Digital communication</small><strong id="mComm">0</strong><em>Endogenous communication strength before management and exogenous correction.</em></div>
+                  <div class="metric"><small>AI arrival gap</small><strong id="mGap">0</strong><em>Distance to the model where AI can manage the relationship end to end.</em></div>
+                  <div class="metric"><small>Economic capture</small><strong id="mMoney">0%</strong><em>Indicative view of revenue potential minus content and infrastructure pressure.</em></div>
+                </div>
+                <div class="chartbox"><svg class="chart" id="projection"></svg></div>
+                <div class="chartbox"><h3>Node inventory</h3><div class="table-wrap"><table id="inventory"></table></div></div>
+              </div>
+              <div class="equation-view" id="equationView"><div class="chartbox"><h3>Internet Dynamics equation · step by step</h3><div class="eq-list" id="equationLines"></div></div></div>
+            </section>
+            <aside class="right-panel" id="rightPanel">
+              <div class="panel-title">Configuration <button class="btn" id="hideConfig">Hide</button></div>
+              <div class="config">
+                <p id="emptyConfig">Double-click a node or select it on the canvas to edit its measure, quantity, expected maximum, weight and AI level.</p>
+                <div id="nodeConfig" hidden class="config">
+                  <label>Name <input id="cfgName"></label>
+                  <label>Measure <select id="cfgMeasure"></select></label>
+                  <label>Description <textarea id="cfgDesc"></textarea></label>
+                  <label>Observed quantity <input id="cfgQty" type="number" min="0"></label>
+                  <label>Arrival maximum <input id="cfgMax" type="number" min="1"></label>
+                  <div class="range"><label>Communication weight <output id="cfgWeightOut">1.00</output></label><input id="cfgWeight" type="range" min="0" max="2" step=".05"></div>
+                  <div class="range"><label>AI enablement <output id="cfgAiOut">0</output></label><input id="cfgAi" type="range" min="0" max="100"></div>
+                  <label>Economic role <select id="cfgEconomics"><option value="revenue">Revenue potential</option><option value="offer-cost">Offer and communication cost</option><option value="infra-cost">Infrastructure and channel cost</option></select></label>
+                </div>
+              </div>
+            </aside>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="diiip" class="diiip-section">
+    <section class="diiip" id="diiip">
       <div class="diiip-inner">
-        <div class="diiip-head">
-          <span>METHODOLOGY AT THE END OF THE JOURNEY</span>
-          <h2>DIIIP explains why this connection creates value</h2>
-          <p>After understanding the communication system, the feedback loop and the Internet Dynamics score, DIIIP organizes the logic: value does not appear in an isolated node. Value appears when raw data becomes a visible decision.</p>
-        </div>
+        <div class="diiip-head"><span>METHODOLOGY AT THE END OF THE JOURNEY</span><h2>DIIIP explains why this connection creates value</h2><p>After understanding the communication system, feedback and Internet Dynamics score, DIIIP organizes the logic: value does not appear in an isolated node. Value appears when raw data becomes a visible decision.</p></div>
         <div class="diiip-list">
           <div class="diiip-item"><div class="diiip-letter">D</div><div><strong>Data</strong><p>Signals captured from users, content, channels, devices, journeys, searches, campaigns and business systems.</p></div></div>
           <div class="diiip-item"><div class="diiip-letter">I</div><div><strong>Information</strong><p>Structured events with context: source, user type, content consumed, channel, moment, cost and expected result.</p></div></div>
-          <div class="diiip-item"><div class="diiip-letter">I</div><div><strong>Intelligence</strong><p>The system interprets patterns, detects gaps, reads friction and identifies where communication is losing value.</p></div></div>
+          <div class="diiip-item"><div class="diiip-letter">I</div><div><strong>Intelligence</strong><p>The system interprets patterns, detects gaps and identifies where communication is losing value.</p></div></div>
           <div class="diiip-item"><div class="diiip-letter">I</div><div><strong>Insights</strong><p>Actionable findings: which audience, content, channel or infrastructure variable must be improved first.</p></div></div>
           <div class="diiip-item"><div class="diiip-letter">P</div><div><strong>Personalization Actions</strong><p>Operational actions that personalize the message, automate the process and move the system closer to effective communication.</p></div></div>
         </div>
       </div>
     </section>
 
-    <section id="kai-roi" class="kai-section">
+    <section class="kai" id="kai-roi">
       <div class="kai-inner">
-        <div>
-          <span class="kai-badge">KAI ROI EQUATION · CUSTOMER EQUITY</span>
-          <h2>This connection is an entry point to the KAI ROI Equation</h2>
-          <p>The first connection does not end in automation. It ends when operational data can become information, intelligence, indicators, Customer Equity and economically defensible decisions.</p>
-          <p style="font-size:16px;color:#c9d6e2;margin:0">The KAI ROI Equation document offers an executive introduction to connect ROI, data monetization, Customer Equity and strategic decision-making inside the Doc ROI ecosystem.</p>
-        </div>
-        <div class="kai-download">
-          <span style="display:inline-block;background:#eaf6fb;color:#003b5c;border:1px solid #d8ecf8;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:900;letter-spacing:.04em;margin-bottom:16px">EXECUTIVE DOWNLOAD</span>
-          <h3>The KAI ROI Equation Book</h3>
-          <p>A short and clear guide to understand how data, ROI, Customer Equity and strategic decisions can be connected through the KAI ROI framework.</p>
-          <div class="kai-box"><strong style="display:block;font-size:17px;margin-bottom:10px;color:#0b0f19">Inside the document:</strong><ul><li>What the KAI ROI Equation is</li><li>Why Customer Equity matters</li><li>How ROI becomes a decision system</li><li>Why data must be monetized with purpose</li></ul></div>
-          <a href="https://docroi.marketing/kai-equation/" target="_blank" class="kai-button">Access the KAI ROI Equation →</a>
-        </div>
+        <div><span class="eyebrow" style="color:#d8ecf8">KAI ROI EQUATION · CUSTOMER EQUITY</span><h2>This connection is an entry point to the KAI ROI Equation</h2><p>The first connection does not end in automation. It ends when operational data can become information, intelligence, indicators, Customer Equity and economically defensible decisions.</p><p style="font-size:16px;color:#c9d6e2">The KAI ROI Equation document offers an executive introduction to connect ROI, data monetization, Customer Equity and strategic decision-making inside the Doc ROI ecosystem.</p></div>
+        <div class="kai-card"><span class="eyebrow">Executive download</span><h3>The KAI ROI Equation Book</h3><p>A short and clear guide to understand how data, ROI, Customer Equity and strategic decisions can be connected through the KAI ROI framework.</p><div class="kai-box"><strong>Inside the document:</strong><ul><li>What the KAI ROI Equation is</li><li>Why Customer Equity matters</li><li>How ROI becomes a decision system</li><li>Why data must be monetized with purpose</li></ul></div><a class="btn primary" style="width:100%" href="https://docroi.marketing/kai-equation/" target="_blank">Access the KAI ROI Equation -></a></div>
       </div>
     </section>
   </main>
 
-  <footer>
-    <div class="footer-inner">
-      <a href="https://el-botiquin-del-doc-roi.vercel.app/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;justify-content:center;text-decoration:none;margin-bottom:24px"><img src="https://docroi.marketing/wp-content/uploads/2026/05/Logo_Negro_DoC_ROI.jpg" alt="DOC ROI"></a>
-      <div style="margin-bottom:28px"><a href="https://doc-roi-executive.vercel.app/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;font-size:15px;font-weight:900;letter-spacing:.01em;line-height:1.4;border-bottom:1px solid rgba(255,255,255,.42);padding-bottom:4px">Consult with Doc ROI →</a></div>
-      <div class="footer-links">
-        <a href="https://docroi.marketing/aviso-legal/" target="_blank" rel="noopener" style="color:#d1d5db;text-decoration:none">Privacy policy</a><span style="opacity:.4">|</span>
-        <a href="https://docroi.marketing/aviso-legal/" target="_blank" rel="noopener" style="color:#d1d5db;text-decoration:none">Legal notice</a><span style="opacity:.4">|</span>
-        <a href="https://docroi.marketing/aviso-legal/" target="_blank" rel="noopener" style="color:#d1d5db;text-decoration:none">Intellectual property</a>
-      </div>
-      <p style="font-size:15px;line-height:1.9;font-weight:400;letter-spacing:.01em">The intellectual property of the Doc ROI ecosystem belongs to
-        <a href="https://docroi.marketing/ph-d-jorge-lucio/" target="_blank" rel="noopener" style="display:block;color:#f3f4f6;text-decoration:none;font-weight:500">Ph. D. Jorge Lucio Sánchez Galán.</a>
-      </p>
+  <footer class="footer">
+    <div style="max-width:920px;margin:0 auto">
+      <a href="https://el-botiquin-del-doc-roi.vercel.app/" target="_blank" style="display:inline-flex;align-items:center;justify-content:center;text-decoration:none;margin-bottom:24px"><img src="https://docroi.marketing/wp-content/uploads/2026/05/Logo_Negro_DoC_ROI.jpg" alt="DOC ROI"></a>
+      <div style="margin-bottom:28px"><a href="https://doc-roi-executive.vercel.app/" target="_blank" style="display:inline-flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;font-size:15px;font-weight:900;letter-spacing:.01em;line-height:1.4;border-bottom:1px solid rgba(255,255,255,.42);padding-bottom:4px">Consult with Doc ROI -></a></div>
+      <div class="footer-links"><a href="https://docroi.marketing/aviso-legal/" target="_blank" rel="noopener">Privacy policy</a><span style="opacity:.4">|</span><a href="https://docroi.marketing/aviso-legal/" target="_blank" rel="noopener">Legal notice</a><span style="opacity:.4">|</span><a href="https://docroi.marketing/aviso-legal/" target="_blank" rel="noopener">Intellectual property</a></div>
+      <div style="font-size:15px;line-height:1.9;color:#c0c7d1;font-weight:400;letter-spacing:.01em"><span style="display:block">The intellectual property of the Doc ROI ecosystem belongs to</span><a href="https://docroi.marketing/ph-d-jorge-lucio/" target="_blank" rel="noopener noreferrer" style="display:block;color:#f3f4f6;text-decoration:none;font-weight:500">Ph. D. Jorge Lucio Sanchez Galan.</a></div>
     </div>
   </footer>
   <div class="toast" id="toast">Done</div>
 
   <script>
-    const state = {
-      zoom: 1,
-      selected: null,
-      relationMode: false,
-      relationFrom: null,
-      nodes: [],
-      edges: [],
-      history: [],
-      future: [],
-      company: { processes: 3, organization: 3, systems: 3, dataAI: 2 },
-      exo: { legal: 3, economy: 3, politics: 3, competition: 3, innovation: 3, culture: 3 }
-    };
-
-    const palettes = {
-      Users: [
-        ["B2C", "Consumers"], ["B2B", "Companies"], ["B2G", "Public administration"], ["C2C", "Peer relation"],
-        ["IoT", "Connected things"], ["AI2C", "AI to consumer"], ["AI2B", "AI to business"], ["AI2AI", "Agent to agent"],
-        ["Cohorts", "Behavior groups"], ["Leads", "Potential clients"], ["Fans", "Audience"], ["Clients", "Customers"], ["Promoters", "High NPS users"], ["Other", "Custom user"]
-      ],
-      Content: [
-        ["SEO", "Organic demand"], ["SEM", "Search ads"], ["Paid media", "Paid content"], ["Email", "Direct message"],
-        ["Web / Search", "Owned web"], ["Social content", "Network content"], ["Keywords", "Search intent"], ["Product", "Offer"],
-        ["Service", "Service promise"], ["Brand", "Reputation"], ["Marketplace", "External offer"], ["Other", "Custom content"]
-      ],
-      Infrastructure: [
-        ["Mobile", "High communication fit"], ["PC", "Desktop access"], ["Tablet", "Secondary device"], ["TV", "Low personalization"],
-        ["Workflow AI", "Automation layer"], ["Generative AI", "Content and decision"], ["Agentic AI", "Autonomous action"], ["CRM", "Client relation"],
-        ["ERP", "Operations"], ["Analytics", "Measurement"], ["Tag manager", "Event capture"], ["1st party cookie", "Owned identity"],
-        ["UTM generator", "Attribution"], ["Web / CMS", "Owned channel"], ["Ecommerce", "Transaction"], ["Payment", "Payment system"],
-        ["NPS", "Satisfaction"], ["Loyalty", "Recurrence"], ["Customer service", "Support"], ["Other", "Custom infrastructure"]
-      ]
-    };
-
-    const measures = {
-      Users: ["Audience", "Cookies", "Cohorts", "Leads", "Followers", "Fans", "Clients", "Promoters", "IoT devices", "AI agents", "Other"],
-      Content: ["Keywords", "Content units", "Clicks", "Views", "CTR", "Conversion rate", "Consumption time", "Campaigns", "Offers", "Other"],
-      Infrastructure: ["Downloads", "Lighthouse score", "Core Web Vitals", "Channels", "Systems", "Automations", "APIs", "Transactions", "Data events", "Other"]
-    };
-
-    const world = document.getElementById("world");
-    const edgesSvg = document.getElementById("edges");
-    const toast = document.getElementById("toast");
-
-    function id(prefix){return prefix + Math.random().toString(36).slice(2,8)}
-    function showToast(text){toast.textContent=text;toast.classList.add("show");setTimeout(()=>toast.classList.remove("show"),1700)}
+    const state={zoom:1,selected:null,nodes:[],edges:[],history:[],future:[],company:{processes:3,organization:3,systems:3,dataAI:2},exo:{legal:3,economy:3,politics:3,competition:3,innovation:3,culture:3}};
+    const palettes={Users:[["B2C","Consumers"],["B2B","Companies"],["B2G","Public sector"],["C2C","Peer relation"],["IoT","Connected things"],["AI2C","AI to consumer"],["AI2B","AI to business"],["AI2AI","Agent to agent"],["Cohorts","Behavior groups"],["Leads","Potential clients"],["Fans","Audience"],["Clients","Customers"],["Promoters","High NPS users"],["Other","Custom user"]],Content:[["SEO","Organic demand"],["SEM","Search ads"],["Paid media","Paid content"],["Email","Direct message"],["Web / Search","Owned web"],["Social content","Network content"],["Keywords","Search intent"],["Product","Offer"],["Service","Service promise"],["Brand","Reputation"],["Marketplace","External offer"],["Other","Custom content"]],Infrastructure:[["Mobile","High fit"],["PC","Desktop access"],["Tablet","Secondary device"],["TV","Low personalization"],["Workflow AI","Automation layer"],["Generative AI","Content and decision"],["Agentic AI","Autonomous action"],["CRM","Client relation"],["ERP","Operations"],["Analytics","Measurement"],["Tag manager","Event capture"],["1st party cookie","Owned identity"],["UTM generator","Attribution"],["Web / CMS","Owned channel"],["Ecommerce","Transaction"],["Payment","Payment system"],["NPS","Satisfaction"],["Loyalty","Recurrence"],["Customer service","Support"],["Other","Custom infrastructure"]]};
+    const measures={Users:["Audience","Cookies","Cohorts","Leads","Followers","Fans","Clients","Promoters","IoT devices","AI agents","Other"],Content:["Keywords","Content units","Clicks","Views","CTR","Conversion rate","Consumption time","Campaigns","Offers","Other"],Infrastructure:["Downloads","Lighthouse score","Core Web Vitals","Channels","Systems","Automations","APIs","Transactions","Data events","Other"]};
+    const world=document.getElementById("world"),edgesSvg=document.getElementById("edges"),toast=document.getElementById("toast");
+    const id=p=>p+Math.random().toString(36).slice(2,8),clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),esc=s=>String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+    function showToast(t){toast.textContent=t;toast.classList.add("show");setTimeout(()=>toast.classList.remove("show"),1600)}
     function snapshot(){state.history.push(JSON.stringify({nodes:state.nodes,edges:state.edges,company:state.company,exo:state.exo}));state.future=[]}
-    function restore(json){const data=JSON.parse(json);state.nodes=data.nodes;state.edges=data.edges;state.company=data.company;state.exo=data.exo;render()}
-    function coreNode(name,x,y){return addNode({name,kind:name,core:true,x,y,w:178,h:92,qty:60,max:100,weight:1,ai:20,measure:name,desc:name+" core variable"})}
-    function addNode(d){const n={id:id("n"),name:d.name||"Node",kind:d.kind||"Users",core:!!d.core,x:d.x??120,y:d.y??120,w:d.w??150,h:d.h??76,qty:d.qty??50,max:d.max??100,weight:d.weight??1,ai:d.ai??0,measure:d.measure||"Audience",desc:d.desc||"",economics:d.economics||"revenue"};state.nodes.push(n);return n}
-    function addEdge(from,to,label=""){if(!from||!to||from===to)return;const e={id:id("e"),from,to,label:label||String(state.edges.length+1).padStart(2,"0"),name:"Communication relation"};state.edges.push(e);return e}
-    function getNode(nodeId){return state.nodes.find(n=>n.id===nodeId)}
-    function core(kind){return state.nodes.find(n=>n.core&&n.kind===kind)}
-
-    function init(){
-      coreNode("Users",210,210);coreNode("Content",500,360);coreNode("Infrastructure",790,210);
-      addEdge(core("Users").id,core("Content").id,"U↔C");addEdge(core("Content").id,core("Infrastructure").id,"C↔I");addEdge(core("Infrastructure").id,core("Users").id,"I↔U");
-      buildPalette();buildSliders();bind();loadExample(false);render();
-    }
-
-    function buildPalette(){
-      Object.entries(palettes).forEach(([group,items])=>{
-        const box=document.getElementById("tiles"+group);
-        box.innerHTML=items.map(([name,small])=>`<button class="tile" data-group="${group}" data-name="${name}">${name}<small>${small}</small></button>`).join("");
-      });
-      document.querySelectorAll(".tile").forEach(btn=>{
-        btn.addEventListener("dblclick",()=>createSubnode(btn.dataset.group,btn.dataset.name));
-        btn.addEventListener("click",()=>showToast("Double-click to add "+btn.dataset.name));
-      });
-    }
-
-    function buildSliders(){
-      const companyLabels={processes:"Processes",organization:"Organization",systems:"Systems",dataAI:"Data / AI"};
-      const exoLabels={legal:"Legal / GDPR",economy:"Economy",politics:"Politics",competition:"Competition",innovation:"Innovation",culture:"Digital culture"};
-      document.getElementById("companySliders").innerHTML=Object.keys(companyLabels).map(k=>sliderHtml(k,companyLabels[k],state.company[k],0,5,"company")).join("");
-      document.getElementById("exoSliders").innerHTML=Object.keys(exoLabels).map(k=>sliderHtml(k,exoLabels[k],state.exo[k],0,5,"exo")).join("");
-      document.querySelectorAll("[data-scope]").forEach(input=>input.addEventListener("input",e=>{state[e.target.dataset.scope][e.target.dataset.key]=Number(e.target.value);render()}));
-    }
-
-    function sliderHtml(key,label,value,min,max,scope){
-      return `<div class="range"><span><b>${label}</b><output>${value}</output></span><input data-scope="${scope}" data-key="${key}" type="range" min="${min}" max="${max}" step="1" value="${value}"></div>`;
-    }
-
-    function createSubnode(group,name){
-      snapshot();
-      const anchor=core(group);
-      const count=state.nodes.filter(n=>!n.core&&n.kind===group).length;
-      const n=addNode({
-        name,kind:group,x:anchor.x+(group==="Content"?-30:group==="Users"?-120:120),y:anchor.y+130+count*22,w:150,h:74,
-        qty:name.includes("AI")||name.includes("Workflow")||name.includes("Agentic")?70:50,
-        max:100,weight:name.includes("Marketplace")?.65:1,ai:name.includes("AI")||name.includes("Workflow")||name.includes("Agentic")?80:15,
-        measure:measures[group][0],economics:group==="Users"?"revenue":group==="Content"?"offer-cost":"infra-cost",
-        desc:name+" measure for the "+group+" variable."
-      });
-      addEdge(n.id,anchor.id,name);
-      select(n.id);render();
-    }
-
-    function render(){
-      world.style.transform=`scale(${state.zoom})`;
-      document.getElementById("zoomLabel").textContent=Math.round(state.zoom*100)+"%";
-      renderNodes();renderEdges();renderMetrics();renderInventory();renderEquation();
-    }
-
-    function renderNodes(){
-      world.querySelectorAll(".node").forEach(n=>n.remove());
-      state.nodes.forEach(n=>{
-        const el=document.createElement("div");
-        el.className="node"+(n.core?" core":"")+(n.kind==="Infrastructure"&&!n.core?" dark":"")+(state.selected===n.id?" selected":"");
-        el.style.left=n.x+"px";el.style.top=n.y+"px";el.style.width=n.w+"px";el.style.height=n.h+"px";
-        el.innerHTML=`<div class="node-title">${esc(n.name)}<span class="node-meta">${esc(n.measure)} · ${scoreNode(n).toFixed(0)}</span></div><i class="port l"></i><i class="port r"></i><i class="resize"></i>`;
-        world.appendChild(el);
-        el.addEventListener("pointerdown",ev=>{if(ev.target.classList.contains("resize"))resize(ev,n);else drag(ev,n)});
-        el.addEventListener("click",()=>select(n.id));
-        el.addEventListener("dblclick",()=>select(n.id,true));
-      });
-    }
-
-    function renderEdges(){
-      edgesSvg.innerHTML="";
-      state.edges.forEach((e,i)=>{
-        const a=getNode(e.from),b=getNode(e.to); if(!a||!b)return;
-        const x1=a.x+a.w/2,y1=a.y+a.h/2,x2=b.x+b.w/2,y2=b.y+b.h/2;
-        const bend=(i%2?-.16:.16)*Math.hypot(x2-x1,y2-y1);
-        const mx=(x1+x2)/2,my=(y1+y2)/2+bend;
-        const p=document.createElementNS("http://www.w3.org/2000/svg","path");
-        p.setAttribute("d",`M ${x1} ${y1} Q ${mx} ${my} ${x2} ${y2}`);
-        p.setAttribute("class","edge"+(state.selected===e.id?" selected":""));
-        edgesSvg.appendChild(p);
-        const t=document.createElementNS("http://www.w3.org/2000/svg","text");
-        t.setAttribute("x",mx);t.setAttribute("y",my-6);t.setAttribute("text-anchor","middle");t.setAttribute("fill","#0a4058");t.setAttribute("font-size","12");t.setAttribute("font-weight","700");t.textContent=e.label;edgesSvg.appendChild(t);
-      });
-    }
-
-    function drag(ev,n){
-      select(n.id);const sx=ev.clientX,sy=ev.clientY,ox=n.x,oy=n.y;
-      const move=e=>{n.x=ox+(e.clientX-sx)/state.zoom;n.y=oy+(e.clientY-sy)/state.zoom;render()};
-      const up=()=>{removeEventListener("pointermove",move);removeEventListener("pointerup",up)};
-      addEventListener("pointermove",move);addEventListener("pointerup",up);
-    }
-    function resize(ev,n){
-      ev.stopPropagation();select(n.id);const sx=ev.clientX,sy=ev.clientY,ow=n.w,oh=n.h;
-      const move=e=>{n.w=Math.max(110,ow+(e.clientX-sx)/state.zoom);n.h=Math.max(60,oh+(e.clientY-sy)/state.zoom);render()};
-      const up=()=>{removeEventListener("pointermove",move);removeEventListener("pointerup",up)};
-      addEventListener("pointermove",move);addEventListener("pointerup",up);
-    }
-
-    function select(nodeId,openPanel=false){state.selected=nodeId;syncConfig();if(openPanel)document.getElementById("configPanel").classList.remove("hidden");renderNodes()}
-    function syncConfig(){
-      const n=getNode(state.selected);
-      document.getElementById("emptyConfig").hidden=!!n;
-      document.getElementById("nodeConfig").hidden=!n;
-      if(!n)return;
-      cfgName.value=n.name;cfgDesc.value=n.desc;cfgQty.value=n.qty;cfgMax.value=n.max;cfgWeight.value=n.weight;cfgAi.value=n.ai;cfgEconomics.value=n.economics;
-      cfgWeightOut.value=Number(n.weight).toFixed(2);cfgAiOut.value=n.ai;
-      cfgMeasure.innerHTML=(measures[n.kind]||["Other"]).map(m=>`<option ${m===n.measure?"selected":""}>${m}</option>`).join("");
-    }
-
-    function scoreNode(n){return Math.min(100,(Number(n.qty||0)/Math.max(1,Number(n.max||1)))*100*Number(n.weight||1))}
-    function variableScore(kind){
-      const children=state.nodes.filter(n=>!n.core&&n.kind===kind);
-      if(!children.length)return scoreNode(core(kind));
-      return clamp(children.reduce((s,n)=>s+scoreNode(n),0)/children.length,0,100);
-    }
-    function aiScore(kind){
-      const list=state.nodes.filter(n=>!n.core&&n.kind===kind);
-      if(!list.length)return core(kind).ai;
-      return list.reduce((s,n)=>s+Number(n.ai||0),0)/list.length;
-    }
-    function gmean(arr){return Math.pow(arr.reduce((p,v)=>p*Math.max(1,v),1),1/arr.length)}
-    function clamp(v,min,max){return Math.max(min,Math.min(max,v))}
-    function calc(){
-      const U=variableScore("Users"),C=variableScore("Content"),I=variableScore("Infrastructure");
-      const synergy=gmean([U,C,I]);
-      const balance=(U+C+I)/3;
-      const company=(state.company.processes+state.company.organization+state.company.systems+state.company.dataAI)/20;
-      const exoRaw=(state.exo.legal+state.exo.economy+state.exo.politics+state.exo.innovation+state.exo.culture-state.exo.competition)/25;
-      const exo=clamp(1+exoRaw*.35,.72,1.35);
-      const ai=(aiScore("Users")+aiScore("Content")+aiScore("Infrastructure"))/3;
-      const aiFactor=1+ai/180;
-      const communication=clamp(.62*synergy+.38*balance,0,100);
-      const inet=clamp(communication*(.72+.28*company)*exo*aiFactor,0,100);
-      const arrival=100;
-      const economic=clamp((U*.55)-(C*.18)-(I*.16)+(inet*.38),0,100);
-      return {U,C,I,synergy,balance,company,exo,ai,aiFactor,communication,inet,arrival,gap:arrival-inet,economic};
-    }
-
-    function renderMetrics(){
-      const r=calc();
-      mInet.textContent=r.inet.toFixed(0);mComm.textContent=r.communication.toFixed(0);mGap.textContent=r.gap.toFixed(0);mMoney.textContent=r.economic.toFixed(0)+"%";
-      drawChart(r);
-    }
-    function drawChart(r){
-      const svg=projection,w=svg.clientWidth||760,h=320,p={l:46,r:20,t:20,b:38};svg.setAttribute("viewBox",`0 0 ${w} ${h}`);
-      const current=[],arrival=[];for(let m=0;m<=24;m++){current.push([m,clamp(r.inet+(100-r.inet)*(1-Math.exp(-m/28))*r.company,0,100)]);arrival.push([m,clamp(r.inet+(100-r.inet)*(1-Math.exp(-m/(9/r.aiFactor))),0,100)])}
-      const x=m=>p.l+m/24*(w-p.l-p.r),y=v=>p.t+(1-v/100)*(h-p.t-p.b),line=d=>d.map((q,i)=>(i?"L":"M")+" "+x(q[0]).toFixed(1)+" "+y(q[1]).toFixed(1)).join(" ");
-      svg.innerHTML=`<line x1="${p.l}" y1="${y(100)}" x2="${w-p.r}" y2="${y(100)}" stroke="#b7d1df"/><line x1="${p.l}" y1="${y(50)}" x2="${w-p.r}" y2="${y(50)}" stroke="#d8e8f0"/><line x1="${p.l}" y1="${p.t}" x2="${p.l}" y2="${h-p.b}" stroke="#6d8798"/><line x1="${p.l}" y1="${h-p.b}" x2="${w-p.r}" y2="${h-p.b}" stroke="#6d8798"/><path d="${line(current)}" fill="none" stroke="#0878bd" stroke-width="3"/><path d="${line(arrival)}" fill="none" stroke="#071d33" stroke-width="3" stroke-dasharray="8 6"/><text x="${p.l}" y="${y(100)-7}" font-size="12" fill="#637d91">AI arrival model · 100</text><text x="${w-190}" y="${y(arrival[24][1])-9}" font-size="12" fill="#071d33">AI optimized trajectory</text><text x="${w-165}" y="${y(current[24][1])+18}" font-size="12" fill="#0878bd">Current trajectory</text><text x="${p.l}" y="${h-9}" font-size="12" fill="#637d91">Time horizon · months</text>`;
-    }
-
-    function renderInventory(){
-      const rows=state.nodes.filter(n=>!n.core).map(n=>`<tr><td>${esc(n.kind)}</td><td>${esc(n.name)}</td><td>${esc(n.measure)}</td><td>${n.qty}</td><td>${n.max}</td><td>${n.weight}</td><td>${n.ai}</td><td>${scoreNode(n).toFixed(1)}</td></tr>`).join("");
-      inventory.innerHTML=`<thead><tr><th>Variable</th><th>Subnode</th><th>Measure</th><th>Observed</th><th>Arrival max</th><th>Weight</th><th>AI</th><th>Score</th></tr></thead><tbody>${rows||"<tr><td colspan='8'>No subnodes yet.</td></tr>"}</tbody>`;
-    }
-    function renderEquation(){
-      const r=calc();
-      equationLines.innerHTML=[
-        ["1. Normalize endogenous variables",`U=${r.U.toFixed(2)}, C=${r.C.toFixed(2)}, I=${r.I.toFixed(2)}`],
-        ["2. Calculate reinforcing loop synergy",`Φ(U,C,I) = (U · C · I)^(1/3) = ${r.synergy.toFixed(2)}`],
-        ["3. Calculate direct communication balance",`Ψ(U,C,I) = average(U,C,I) = ${r.balance.toFixed(2)}`],
-        ["4. Endogenous communication capacity",`CEnd = 0.62 · Φ + 0.38 · Ψ = ${r.communication.toFixed(2)}`],
-        ["5. Company management factor",`G = average(processes, organization, systems, data/AI) = ${r.company.toFixed(2)}`],
-        ["6. Exogenous factor",`E = PESTEL/legal/economic/innovation/culture adjusted by competition = ${r.exo.toFixed(2)}`],
-        ["7. AI acceleration factor",`F_AI = 1 + AI_average / 180 = ${r.aiFactor.toFixed(2)}`],
-        ["8. Internet Dynamics",`I_net = CEnd · (0.72 + 0.28G) · E · F_AI = ${r.inet.toFixed(2)}`],
-        ["9. Arrival gap",`Gap = 100 - I_net = ${r.gap.toFixed(2)}`]
-      ].map(([a,b])=>`<div class="eq-line"><b>${a}</b><br><code>${b}</code></div>`).join("");
-    }
-
-    function bind(){
-      document.addEventListener("click", event => {
-        const link = event.target.closest("a[href^='#']");
-        if (!link) return;
-        const target = document.getElementById(link.getAttribute("href").slice(1));
-        if (!target) return;
-        event.preventDefault();
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
-        history.pushState(null, "", link.getAttribute("href"));
-      });
-      menuBtn.onclick=()=>menu.classList.toggle("open");
-      document.querySelectorAll(".menu a").forEach(a=>a.onclick=()=>menu.classList.remove("open"));
-      zoomIn.onclick=()=>{state.zoom=clamp(state.zoom+.1,.25,2.5);render()};zoomOut.onclick=()=>{state.zoom=clamp(state.zoom-.1,.25,2.5);render()};fitBtn.onclick=()=>{state.zoom=1;render()};
-      paletteBtn.onclick=()=>{palette.classList.toggle("hidden");paletteBtn.setAttribute("aria-pressed",!palette.classList.contains("hidden"))};
-      closeConfig.onclick=()=>configPanel.classList.add("hidden");panelBtn.onclick=()=>{configPanel.classList.toggle("hidden");panelBtn.setAttribute("aria-pressed",!configPanel.classList.contains("hidden"))};
-      entityBtn.onclick=()=>createSubnode("Users","Other");relationBtn.onclick=()=>{state.relationMode=!state.relationMode;relationBtn.setAttribute("aria-pressed",state.relationMode);showToast("Relation mode placeholder")};
-      deleteBtn.onclick=()=>{if(!state.selected)return;snapshot();state.nodes=state.nodes.filter(n=>n.id!==state.selected||n.core);state.edges=state.edges.filter(e=>e.from!==state.selected&&e.to!==state.selected);state.selected=null;render();syncConfig()};
-      distributeBtn.onclick=()=>{snapshot();["Users","Content","Infrastructure"].forEach((k,i)=>{const c=core(k);c.x=[210,500,790][i];c.y=[210,360,210][i]});render()};
-      exampleBtn.onclick=()=>loadExample(true);clearBtn.onclick=()=>{state.nodes.filter(n=>!n.core).forEach(n=>{n.qty=0;n.ai=0});render();showToast("Data cleared")};
-      newBtn.onclick=()=>{snapshot();state.nodes=state.nodes.filter(n=>n.core);state.edges=state.edges.filter(e=>getNode(e.from)?.core&&getNode(e.to)?.core);render()};
-      printBtn.onclick=()=>print();fullBtn.onclick=()=>document.querySelector(".lab").requestFullscreen?.();saveBtn.onclick=save;openBtn.onclick=()=>fileInput.click();fileInput.onchange=e=>openFile(e.target.files[0]);
-      undoBtn.onclick=()=>{if(state.history.length){state.future.push(JSON.stringify({nodes:state.nodes,edges:state.edges,company:state.company,exo:state.exo}));restore(state.history.pop())}};redoBtn.onclick=()=>{if(state.future.length){snapshot();restore(state.future.pop())}};
-      canvasMode.onclick=()=>setMode("canvas");dashboardMode.onclick=()=>setMode("dashboard");equationMode.onclick=()=>setMode("equation");
-      ["cfgName","cfgMeasure","cfgDesc","cfgQty","cfgMax","cfgWeight","cfgAi","cfgEconomics"].forEach(id=>document.getElementById(id).addEventListener("input",updateConfig));
-    }
-
-    function setMode(mode){
-      canvasWrap.classList.toggle("hidden",mode!=="canvas");dashboard.classList.toggle("active",mode==="dashboard");equationPanel.classList.toggle("active",mode==="equation");
-      canvasMode.setAttribute("aria-pressed",mode==="canvas");dashboardMode.setAttribute("aria-pressed",mode==="dashboard");equationMode.setAttribute("aria-pressed",mode==="equation");
-      render();
-    }
-    function updateConfig(){
-      const n=getNode(state.selected);if(!n)return;snapshot();
-      n.name=cfgName.value;n.measure=cfgMeasure.value;n.desc=cfgDesc.value;n.qty=Number(cfgQty.value);n.max=Number(cfgMax.value)||1;n.weight=Number(cfgWeight.value);n.ai=Number(cfgAi.value);n.economics=cfgEconomics.value;
-      cfgWeightOut.value=n.weight.toFixed(2);cfgAiOut.value=n.ai;render();
-    }
-    function loadExample(record){
-      if(record)snapshot();
-      [["Users","B2C",25000,100000,1,25],["Users","Leads",2200,12000,1.2,30],["Users","AI2AI",150,1000,1.4,80],["Content","SEO",180,500,1.1,25],["Content","Email",48,120,1,35],["Content","Paid media",75,180,0.85,40],["Infrastructure","Workflow AI",55,100,1.4,85],["Infrastructure","CRM",70,100,1,35],["Infrastructure","Analytics",64,100,1.1,45]].forEach(([g,n,q,m,w,a])=>{const node=createNoRender(g,n,q,m,w,a);addEdge(node.id,core(g).id,n)});
-      render();showToast("Internet Dynamics example loaded");
-    }
-    function createNoRender(group,name,qty,max,weight,ai){const anchor=core(group);const count=state.nodes.filter(n=>!n.core&&n.kind===group).length;return addNode({name,kind:group,x:anchor.x+(group==="Content"?-30:group==="Users"?-120:120),y:anchor.y+130+count*22,qty,max,weight,ai,measure:measures[group][0],economics:group==="Users"?"revenue":group==="Content"?"offer-cost":"infra-cost",desc:name+" example measure."})}
-    function save(){const data={name:projectName.value,state};const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:"application/json"}));a.download="doc-roi-internet-dynamics-project.json";a.click();URL.revokeObjectURL(a.href);showToast("Editable project saved")}
-    function openFile(file){if(!file)return;const r=new FileReader();r.onload=()=>{const data=JSON.parse(r.result);Object.assign(state,data.state||data);projectName.value=data.name||projectName.value;render();showToast("Project opened")};r.readAsText(file)}
-    function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+    function addNode(d){const n={id:id("n"),name:d.name||"Node",kind:d.kind||"Users",core:!!d.core,x:d.x??120,y:d.y??120,w:d.w??148,h:d.h??72,qty:d.qty??50,max:d.max??100,weight:d.weight??1,ai:d.ai??0,measure:d.measure||measures[d.kind||"Users"][0],desc:d.desc||"",economics:d.economics||"revenue"};state.nodes.push(n);return n}
+    function addEdge(a,b,label){if(!a||!b||a===b)return;state.edges.push({id:id("e"),from:a,to:b,label:label||String(state.edges.length+1).padStart(2,"0")})}
+    function node(idv){return state.nodes.find(n=>n.id===idv)} function core(k){return state.nodes.find(n=>n.core&&n.kind===k)}
+    function init(){addNode({name:"Users",kind:"Users",core:true,x:210,y:170,w:164,h:86,qty:60,max:100,ai:20});addNode({name:"Content",kind:"Content",core:true,x:500,y:315,w:164,h:86,qty:55,max:100,ai:25,economics:"offer-cost"});addNode({name:"Infrastructure",kind:"Infrastructure",core:true,x:790,y:170,w:164,h:86,qty:58,max:100,ai:25,economics:"infra-cost"});addEdge(core("Users").id,core("Content").id,"U-C");addEdge(core("Content").id,core("Infrastructure").id,"C-I");addEdge(core("Infrastructure").id,core("Users").id,"I-U");buildPalettes();buildSliders();bind();loadExample(false);render()}
+    function buildPalettes(){[["Users","usersTiles"],["Content","contentTiles"],["Infrastructure","infraTiles"]].forEach(([k,el])=>{document.getElementById(el).innerHTML=palettes[k].map(([a,b])=>`<button class="tile" data-kind="${k}" data-name="${a}">${a}<small>${b}</small></button>`).join("")});document.querySelectorAll(".tile").forEach(t=>{t.onclick=()=>showToast("Double-click to add "+t.dataset.name);t.ondblclick=()=>createSubnode(t.dataset.kind,t.dataset.name)})}
+    function buildSliders(){const company={processes:"Processes",organization:"Organization",systems:"Systems",dataAI:"Data / AI"};const exo={legal:"Legal / GDPR",economy:"Economy",politics:"Politics",competition:"Competition",innovation:"Innovation",culture:"Digital culture"};companySliders.innerHTML=Object.keys(company).map(k=>slider("company",k,company[k],state.company[k])).join("");exoSliders.innerHTML=Object.keys(exo).map(k=>slider("exo",k,exo[k],state.exo[k])).join("");document.querySelectorAll("[data-scope]").forEach(i=>i.oninput=e=>{state[e.target.dataset.scope][e.target.dataset.key]=Number(e.target.value);e.target.previousElementSibling.querySelector("output").value=e.target.value;render()})}
+    function slider(scope,key,label,value){return `<div class="range"><label>${label}<output>${value}</output></label><input data-scope="${scope}" data-key="${key}" type="range" min="0" max="5" step="1" value="${value}"></div>`}
+    function createSubnode(kind,name){snapshot();const c=core(kind);const count=state.nodes.filter(n=>!n.core&&n.kind===kind).length;const n=addNode({name,kind,x:c.x+(kind==="Users"?-125:kind==="Content"?-25:125),y:c.y+125+count*20,qty:name.includes("AI")||name.includes("Workflow")?75:50,max:100,weight:name==="Marketplace"?.65:1,ai:name.includes("AI")||name.includes("Workflow")?85:15,economics:kind==="Users"?"revenue":kind==="Content"?"offer-cost":"infra-cost"});addEdge(n.id,c.id,name);select(n.id);render()}
+    function render(){world.style.transform=`scale(${state.zoom})`;zoomLabel.textContent=Math.round(state.zoom*100)+"%";renderNodes();renderEdges();renderCalc();renderTable();renderEquation()}
+    function renderNodes(){world.querySelectorAll(".node").forEach(e=>e.remove());state.nodes.forEach(n=>{const el=document.createElement("div");el.className=`node ${n.core?"core":""} ${n.kind==="Infrastructure"?"infrastructure":""} ${state.selected===n.id?"selected":""}`;el.style.left=n.x+"px";el.style.top=n.y+"px";el.style.width=n.w+"px";el.style.minHeight=n.h+"px";el.innerHTML=`<div class="node-title">${esc(n.name)}<span>${esc(n.measure)} · ${score(n).toFixed(0)}</span></div><i class="resize"></i>`;world.appendChild(el);el.onpointerdown=e=>e.target.classList.contains("resize")?resize(e,n):drag(e,n);el.onclick=()=>select(n.id);el.ondblclick=()=>select(n.id,true)})}
+    function renderEdges(){edgesSvg.innerHTML="";state.edges.forEach((e,i)=>{const a=node(e.from),b=node(e.to);if(!a||!b)return;const x1=a.x+a.w/2,y1=a.y+a.h/2,x2=b.x+b.w/2,y2=b.y+b.h/2,bend=(i%2?-.14:.14)*Math.hypot(x2-x1,y2-y1),mx=(x1+x2)/2,my=(y1+y2)/2+bend;const p=document.createElementNS("http://www.w3.org/2000/svg","path");p.setAttribute("d",`M ${x1} ${y1} Q ${mx} ${my} ${x2} ${y2}`);p.setAttribute("class","edge");edgesSvg.appendChild(p);const t=document.createElementNS("http://www.w3.org/2000/svg","text");t.setAttribute("x",mx);t.setAttribute("y",my-6);t.setAttribute("text-anchor","middle");t.setAttribute("font-size","11");t.setAttribute("font-weight","900");t.setAttribute("fill","#003b5c");t.textContent=e.label;edgesSvg.appendChild(t)})}
+    function drag(ev,n){select(n.id);const sx=ev.clientX,sy=ev.clientY,ox=n.x,oy=n.y;const mv=e=>{n.x=ox+(e.clientX-sx)/state.zoom;n.y=oy+(e.clientY-sy)/state.zoom;render()};const up=()=>{removeEventListener("pointermove",mv);removeEventListener("pointerup",up)};addEventListener("pointermove",mv);addEventListener("pointerup",up)}
+    function resize(ev,n){ev.stopPropagation();select(n.id);const sx=ev.clientX,sy=ev.clientY,ow=n.w,oh=n.h;const mv=e=>{n.w=Math.max(110,ow+(e.clientX-sx)/state.zoom);n.h=Math.max(60,oh+(e.clientY-sy)/state.zoom);render()};const up=()=>{removeEventListener("pointermove",mv);removeEventListener("pointerup",up)};addEventListener("pointermove",mv);addEventListener("pointerup",up)}
+    function select(idv,open=false){state.selected=idv;syncConfig();if(open)rightPanel.style.display="block";renderNodes()}
+    function syncConfig(){const n=node(state.selected);emptyConfig.hidden=!!n;nodeConfig.hidden=!n;if(!n)return;cfgName.value=n.name;cfgDesc.value=n.desc;cfgQty.value=n.qty;cfgMax.value=n.max;cfgWeight.value=n.weight;cfgAi.value=n.ai;cfgEconomics.value=n.economics;cfgWeightOut.value=Number(n.weight).toFixed(2);cfgAiOut.value=n.ai;cfgMeasure.innerHTML=(measures[n.kind]||["Other"]).map(m=>`<option ${m===n.measure?"selected":""}>${m}</option>`).join("")}
+    function score(n){return clamp((Number(n.qty||0)/Math.max(1,Number(n.max||1)))*100*Number(n.weight||1),0,100)}
+    function variable(k){const list=state.nodes.filter(n=>!n.core&&n.kind===k);return list.length?list.reduce((s,n)=>s+score(n),0)/list.length:score(core(k))}
+    function ai(k){const list=state.nodes.filter(n=>!n.core&&n.kind===k);return list.length?list.reduce((s,n)=>s+Number(n.ai||0),0)/list.length:core(k).ai}
+    function gmean(a){return Math.pow(a.reduce((p,v)=>p*Math.max(1,v),1),1/a.length)}
+    function calc(){const U=variable("Users"),C=variable("Content"),I=variable("Infrastructure"),synergy=gmean([U,C,I]),balance=(U+C+I)/3,management=(state.company.processes+state.company.organization+state.company.systems+state.company.dataAI)/20,exoRaw=(state.exo.legal+state.exo.economy+state.exo.politics+state.exo.innovation+state.exo.culture-state.exo.competition)/25,exo=clamp(1+exoRaw*.35,.72,1.35),aiAvg=(ai("Users")+ai("Content")+ai("Infrastructure"))/3,aiFactor=1+aiAvg/180,comm=clamp(.62*synergy+.38*balance,0,100),inet=clamp(comm*(.72+.28*management)*exo*aiFactor,0,100),economic=clamp(U*.55-C*.18-I*.16+inet*.38,0,100);return{U,C,I,synergy,balance,management,exo,aiAvg,aiFactor,comm,inet,gap:100-inet,economic}}
+    function renderCalc(){const r=calc();mInet.textContent=r.inet.toFixed(0);mComm.textContent=r.comm.toFixed(0);mGap.textContent=r.gap.toFixed(0);mMoney.textContent=r.economic.toFixed(0)+"%";draw(r)}
+    function draw(r){const svg=projection,w=svg.clientWidth||720,h=310,p={l:42,r:20,t:20,b:36};svg.setAttribute("viewBox",`0 0 ${w} ${h}`);const current=[],arrival=[];for(let m=0;m<=24;m++){current.push([m,clamp(r.inet+(100-r.inet)*(1-Math.exp(-m/28))*r.management,0,100)]);arrival.push([m,clamp(r.inet+(100-r.inet)*(1-Math.exp(-m/(9/r.aiFactor))),0,100)])}const x=m=>p.l+m/24*(w-p.l-p.r),y=v=>p.t+(1-v/100)*(h-p.t-p.b),line=d=>d.map((q,i)=>(i?"L":"M")+" "+x(q[0]).toFixed(1)+" "+y(q[1]).toFixed(1)).join(" ");svg.innerHTML=`<line x1="${p.l}" y1="${y(100)}" x2="${w-p.r}" y2="${y(100)}" stroke="#cbdde8"/><line x1="${p.l}" y1="${y(50)}" x2="${w-p.r}" y2="${y(50)}" stroke="#e4edf3"/><line x1="${p.l}" y1="${p.t}" x2="${p.l}" y2="${h-p.b}" stroke="#6b7b88"/><line x1="${p.l}" y1="${h-p.b}" x2="${w-p.r}" y2="${h-p.b}" stroke="#6b7b88"/><path d="${line(current)}" fill="none" stroke="#0073aa" stroke-width="3"/><path d="${line(arrival)}" fill="none" stroke="#05070b" stroke-width="3" stroke-dasharray="8 6"/><text x="${p.l}" y="${y(100)-7}" font-size="12" fill="#566273">AI arrival model · 100</text><text x="${w-180}" y="${y(arrival[24][1])-8}" font-size="12" fill="#05070b">AI optimized</text><text x="${w-160}" y="${y(current[24][1])+18}" font-size="12" fill="#0073aa">Current path</text><text x="${p.l}" y="${h-9}" font-size="12" fill="#566273">Time horizon · months</text>`}
+    function renderTable(){const rows=state.nodes.filter(n=>!n.core).map(n=>`<tr><td>${n.kind}</td><td>${esc(n.name)}</td><td>${esc(n.measure)}</td><td>${n.qty}</td><td>${n.max}</td><td>${n.weight}</td><td>${n.ai}</td><td>${score(n).toFixed(1)}</td></tr>`).join("");inventory.innerHTML=`<thead><tr><th>Variable</th><th>Node</th><th>Measure</th><th>Observed</th><th>Arrival max</th><th>Weight</th><th>AI</th><th>Score</th></tr></thead><tbody>${rows||"<tr><td colspan='8'>No nodes yet.</td></tr>"}</tbody>`}
+    function renderEquation(){const r=calc();equationLines.innerHTML=[["1. Normalize endogenous variables",`U=${r.U.toFixed(2)}, C=${r.C.toFixed(2)}, I=${r.I.toFixed(2)}`],["2. Reinforcing synergy",`Phi(U,C,I)=(U*C*I)^(1/3)=${r.synergy.toFixed(2)}`],["3. Communication balance",`Psi(U,C,I)=average(U,C,I)=${r.balance.toFixed(2)}`],["4. Endogenous communication",`CEnd=0.62*Phi+0.38*Psi=${r.comm.toFixed(2)}`],["5. Management factor",`G=average(processes, organization, systems, data/AI)=${r.management.toFixed(2)}`],["6. Exogenous ecosystem",`E=PESTEL adjusted by competition=${r.exo.toFixed(2)}`],["7. AI acceleration",`F_AI=1+AI_average/180=${r.aiFactor.toFixed(2)}`],["8. Internet Dynamics",`I_net=CEnd*(0.72+0.28G)*E*F_AI=${r.inet.toFixed(2)}`],["9. Arrival gap",`Gap=100-I_net=${r.gap.toFixed(2)}`]].map(([a,b])=>`<div class="eq-line"><b>${a}</b><br><code>${b}</code></div>`).join("")}
+    function setMode(m){canvas.classList.toggle("hidden",m!=="canvas");bottomDeck.classList.toggle("hidden",m!=="canvas");dashboard.classList.toggle("active",m==="dashboard");equationView.classList.toggle("active",m==="equation");canvasMode.setAttribute("aria-pressed",m==="canvas");dashboardMode.setAttribute("aria-pressed",m==="dashboard");equationMode.setAttribute("aria-pressed",m==="equation");render()}
+    function updateConfig(){const n=node(state.selected);if(!n)return;n.name=cfgName.value;n.measure=cfgMeasure.value;n.desc=cfgDesc.value;n.qty=Number(cfgQty.value);n.max=Number(cfgMax.value)||1;n.weight=Number(cfgWeight.value);n.ai=Number(cfgAi.value);n.economics=cfgEconomics.value;cfgWeightOut.value=n.weight.toFixed(2);cfgAiOut.value=n.ai;render()}
+    function createNoRender(kind,name,qty,max,weight,aiValue){const c=core(kind),count=state.nodes.filter(n=>!n.core&&n.kind===kind).length;return addNode({name,kind,x:c.x+(kind==="Users"?-125:kind==="Content"?-25:125),y:c.y+120+count*20,qty,max,weight,ai:aiValue,economics:kind==="Users"?"revenue":kind==="Content"?"offer-cost":"infra-cost"})}
+    function loadExample(record=true){if(record)snapshot();[["Users","B2C",25000,100000,1,25],["Users","Leads",2200,12000,1.2,30],["Users","AI2AI",150,1000,1.4,80],["Content","SEO",180,500,1.1,25],["Content","Email",48,120,1,35],["Content","Paid media",75,180,.85,40],["Infrastructure","Workflow AI",55,100,1.4,85],["Infrastructure","CRM",70,100,1,35],["Infrastructure","Analytics",64,100,1.1,45]].forEach(([k,n,q,m,w,a])=>{if(state.nodes.some(x=>x.name===n&&!x.core))return;const nd=createNoRender(k,n,q,m,w,a);addEdge(nd.id,core(k).id,n)});render();showToast("Example loaded")}
+    function save(){const data={name:projectName.value,state};const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:"application/json"}));a.download="doc-roi-internet-dynamics-project.json";a.click();URL.revokeObjectURL(a.href);showToast("Project saved")}
+    function openFile(file){if(!file)return;const r=new FileReader();r.onload=()=>{const d=JSON.parse(r.result);Object.assign(state,d.state||d);projectName.value=d.name||projectName.value;render();showToast("Project opened")};r.readAsText(file)}
+    function bind(){document.addEventListener("click",e=>{const link=e.target.closest("a[href^='#']");if(!link)return;const target=document.getElementById(link.getAttribute("href").slice(1));if(!target)return;e.preventDefault();target.scrollIntoView({behavior:"smooth",block:"start"});history.pushState(null,"",link.getAttribute("href"));mobileMenu.classList.remove("open")});menuBtn.onclick=()=>mobileMenu.classList.toggle("open");document.querySelectorAll(".palette-head").forEach(b=>b.onclick=()=>document.getElementById(b.dataset.toggle).hidden=!document.getElementById(b.dataset.toggle).hidden);zoomIn.onclick=()=>{state.zoom=clamp(state.zoom+.1,.25,2.5);render()};zoomOut.onclick=()=>{state.zoom=clamp(state.zoom-.1,.25,2.5);render()};fitBtn.onclick=()=>{state.zoom=1;render()};leftBtn.onclick=()=>{leftPanel.hidden=!leftPanel.hidden;leftBtn.setAttribute("aria-pressed",!leftPanel.hidden)};rightBtn.onclick=()=>{rightPanel.hidden=!rightPanel.hidden;rightBtn.setAttribute("aria-pressed",!rightPanel.hidden)};entityBtn.onclick=()=>createSubnode("Users","Other");deleteBtn.onclick=()=>{if(!state.selected)return;snapshot();state.nodes=state.nodes.filter(n=>n.core||n.id!==state.selected);state.edges=state.edges.filter(e=>e.from!==state.selected&&e.to!==state.selected);state.selected=null;render();syncConfig()};distributeBtn.onclick=()=>{core("Users").x=210;core("Users").y=170;core("Content").x=500;core("Content").y=315;core("Infrastructure").x=790;core("Infrastructure").y=170;render()};exampleBtn.onclick=()=>loadExample(true);clearBtn.onclick=()=>{state.nodes.filter(n=>!n.core).forEach(n=>{n.qty=0;n.ai=0});render();showToast("Data cleared")};newBtn.onclick=()=>{snapshot();state.nodes=state.nodes.filter(n=>n.core);state.edges=state.edges.filter(e=>node(e.from)?.core&&node(e.to)?.core);render()};fullBtn.onclick=()=>document.querySelector(".tool").requestFullscreen?.();printBtn.onclick=()=>print();saveBtn.onclick=save;openBtn.onclick=()=>fileInput.click();fileInput.onchange=e=>openFile(e.target.files[0]);canvasMode.onclick=()=>setMode("canvas");dashboardMode.onclick=()=>setMode("dashboard");equationMode.onclick=()=>setMode("equation");hideConfig.onclick=()=>rightPanel.hidden=true;["cfgName","cfgMeasure","cfgDesc","cfgQty","cfgMax","cfgWeight","cfgAi","cfgEconomics"].forEach(x=>document.getElementById(x).oninput=updateConfig)}
     init();
   </script>
 </body>
