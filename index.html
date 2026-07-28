@@ -25,8 +25,8 @@
     body{margin:0;font-family:Inter,Helvetica,Arial,sans-serif;background:#f7fafc;color:var(--ink)}
     a{color:inherit}
     h1,h2,h3,p{margin:0}
-    h1{font-size:clamp(38px,6vw,68px);line-height:.98;font-weight:900;letter-spacing:-.02em}
-    h2{font-size:clamp(28px,4vw,46px);line-height:1.05;font-weight:900;letter-spacing:-.01em}
+    h1{font-size:clamp(42px,6vw,76px);line-height:.98;font-weight:900;letter-spacing:0}
+    h2{font-size:clamp(28px,4vw,46px);line-height:1.05;font-weight:900;letter-spacing:0}
     h3{font-size:20px;line-height:1.2;font-weight:900}
     p{font-size:16px;line-height:1.65;color:#30475a}
     button,input,select,textarea{font:inherit}
@@ -43,7 +43,7 @@
     .mobile-menu.open{display:grid}
     .mobile-menu a{color:#fff;text-decoration:none;padding:10px 12px;border-radius:8px;font-size:14px;font-weight:800}
     .wrap{max-width:1180px;margin:0 auto;padding:0 22px}
-    .hero{min-height:calc(100svh - var(--header));display:grid;align-items:center;background:linear-gradient(90deg,rgba(247,250,252,.98) 0%,rgba(247,250,252,.88) 46%,rgba(216,236,248,.54) 100%),url("https://docroi.marketing/wp-content/uploads/2026/05/Imagen1.png") right center/auto 100% no-repeat;border-bottom:1px solid var(--line)}
+    .hero{min-height:calc(100svh - var(--header));display:grid;align-items:center;background:linear-gradient(116deg,rgba(247,250,252,.98) 0%,rgba(247,250,252,.94) 43%,rgba(0,59,92,.22) 68%,rgba(0,115,170,.34) 100%),linear-gradient(25deg,rgba(247,250,252,.9) 0%,rgba(216,236,248,.4) 54%,rgba(0,59,92,.58) 100%),url("https://docroi.marketing/wp-content/uploads/2026/07/ff23586f-ba20-4a5a-9586-701e31398e25.png") right center/auto 100% no-repeat;border-bottom:1px solid var(--line)}
     .hero .wrap{width:100%;display:grid;grid-template-columns:minmax(0,620px) 1fr;gap:34px;align-items:center}
     .eyebrow{display:inline-block;color:var(--blue-2);font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px}
     .hero p{max-width:620px;margin-top:18px}
@@ -75,6 +75,15 @@
     .flow-node{min-width:96px;border:1px solid #315d78;background:#fff;border-radius:8px;padding:8px 10px;text-align:center;font-size:12px;font-weight:900}
     .flow-arrow{color:#003b5c;font-weight:900}
     .small-loop{width:118px;margin:18px auto 0;border:1px dashed #0073aa;border-radius:8px;background:#fff;color:#003b5c;text-align:center;padding:10px;font-size:12px;font-weight:900}
+    .process-map{display:grid;gap:8px}
+    .process-map .flow-node{min-width:116px}
+    .data-map{position:relative;min-height:350px}
+    .data-map .map-node{position:absolute;border:1px solid #315d78;background:#fff;border-radius:8px;padding:9px 12px;font-size:12px;font-weight:900;text-align:center;box-shadow:0 8px 20px rgba(0,59,92,.08)}
+    .data-map .m-users{left:28%;top:16%}.data-map .m-content{left:18%;top:50%}.data-map .m-infra{right:16%;top:50%}.data-map .m-data{left:39%;bottom:8%;background:#003b5c;color:#fff}.data-map .m-eco{right:4%;top:12%}
+    .data-map svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+    .compare{display:grid;gap:10px;margin:18px 0}
+    .compare-row{display:grid;grid-template-columns:150px 1fr;gap:12px;border:1px solid #dbe7ef;border-radius:8px;padding:12px;background:#fbfdff}
+    .compare-row b{color:#003b5c}
     .section{padding:48px 0;border-top:1px solid var(--line)}
     .section-head{display:grid;grid-template-columns:minmax(0,.9fr) minmax(280px,.55fr);gap:28px;align-items:end;margin-bottom:20px}
     .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
@@ -115,7 +124,7 @@
     .node-title span{display:block;font-size:11px;font-weight:500;opacity:.72;margin-top:5px}
     .resize{position:absolute;right:0;bottom:0;width:18px;height:18px;cursor:nwse-resize}
     .resize:after{content:"";position:absolute;right:4px;bottom:4px;width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;opacity:.45}
-    .feedback-note{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:130px;border:1px dashed #0073aa;border-radius:8px;background:rgba(255,255,255,.92);padding:10px;text-align:center;color:#003b5c;font-size:12px;font-weight:900;pointer-events:none}
+    .feedback-note{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:150px;border:1px dashed #0073aa;border-radius:8px;background:rgba(255,255,255,.92);padding:10px;text-align:center;color:#003b5c;font-size:11px;font-weight:900;pointer-events:none}
     .bottom-deck{display:grid;grid-template-columns:1fr 1fr;gap:9px;border-top:1px solid var(--line);background:#f8fbfd;padding:9px}
     .slider-card{border:1px solid var(--line);background:#fff;border-radius:8px;padding:10px}
     .slider-card h4{margin:0 0 8px;color:#003b5c;font-size:12px}
@@ -170,7 +179,7 @@
     .toast{position:fixed;right:16px;bottom:16px;background:#05070b;color:#fff;border-radius:8px;padding:12px 14px;font-size:13px;font-weight:800;box-shadow:0 20px 50px rgba(0,0,0,.18);opacity:0;transform:translateY(10px);transition:.2s;pointer-events:none;z-index:80}
     .toast.show{opacity:1;transform:translateY(0)}
     @media(max-width:1040px){.hero .wrap,.training-grid,.lesson-card,.section-head,.tool-main,.bottom-deck{grid-template-columns:1fr}.lesson-nav{position:static}.right-panel,.left-panel{border:0;border-bottom:1px solid var(--line)}.metrics{grid-template-columns:repeat(2,1fr)}.cards{grid-template-columns:1fr}}
-    @media(max-width:720px){.docroi-nav{display:none}.menu-btn{display:block}.lesson-card{padding:16px}.sliders,.tiles,.metrics{grid-template-columns:1fr}.tool-top{grid-template-columns:1fr}.tool-actions{justify-content:flex-start}.hero{background:#f7fafc}.diiip-head h2{font-size:32px}.diiip-item{grid-template-columns:52px 1fr}}
+    @media(max-width:720px){.docroi-nav{display:none}.menu-btn{display:block}.lesson-card{padding:16px}.sliders,.tiles,.metrics,.compare-row{grid-template-columns:1fr}.tool-top{grid-template-columns:1fr}.tool-actions{justify-content:flex-start}.hero{background:#f7fafc}.diiip-head h2{font-size:32px}.diiip-item{grid-template-columns:52px 1fr}}
   </style>
 </head>
 <body>
@@ -195,9 +204,9 @@
     <section class="hero" id="top">
       <div class="wrap">
         <div>
-          <span class="eyebrow">DOC ROI · Internet Dynamics Vitamin</span>
+          <span class="eyebrow">DOC ROI CAPSULE &middot; INTERNET DYNAMICS</span>
           <h1>Internet is a dynamic communication system.</h1>
-          <p>This capsule explains and simulates how users, content and infrastructure create a self-reinforcing digital communication loop, and how AI can accelerate that loop when the organization has processes, systems and data aligned to communication.</p>
+          <p>This capsule explains and simulates how users, content and infrastructure create a self-reinforcing digital communication loop, and how AI can accelerate that loop when the organization has processes, systems and data aligned to the customer.</p>
           <div class="hero-actions">
             <a class="btn primary" href="#laboratory">Open the laboratory</a>
             <a class="btn" href="#consultation">Understand the theory</a>
@@ -210,24 +219,24 @@
       <div class="wrap training-grid">
         <aside class="lesson-nav">
           <span class="lesson-tag">FORMATIVE CONSULTATION</span>
-          <a class="active" href="#consultation">01 · Internet Dynamics</a>
-          <a href="#communication">02 · Communication</a>
-          <a href="#system">03 · System dynamics</a>
-          <a href="#model">04 · Variables</a>
-          <a href="#laboratory">05 · Laboratory</a>
+          <a class="active" href="#consultation">01 &middot; Internet Dynamics</a>
+          <a href="#communication">02 &middot; Communication</a>
+          <a href="#system">03 &middot; Data loop</a>
+          <a href="#model">04 &middot; System dynamics</a>
+          <a href="#laboratory">05 &middot; Laboratory</a>
         </aside>
         <article class="lesson-card">
           <div class="lesson-content">
             <span class="session">SESSION 1</span>
             <h2>The core idea: Internet automated the communication process.</h2>
             <h3>Learning objective</h3>
-            <p>Understand that Internet is not only a set of channels, campaigns or information systems. Internet Dynamics studies Internet as a communication system where users, content and infrastructure interact, generate feedback and change their behavior over time.</p>
+            <p>Many organizations see Internet as a set of channels, campaigns or information systems. Internet Dynamics proposes a different view: Internet can be studied as a living communication system where users, content and infrastructure generate feedback, acceleration, delay and measurable behavior over time.</p>
             <div class="method">
               <strong>Methodological rule</strong>
               <p>First identify the communication system. Then measure its endogenous variables, observe the external frictions, and only then simulate its evolution.</p>
             </div>
-            <p class="key"><strong>Key concepts:</strong> communication system · feedback loop · users · content · infrastructure · Forrester · data loop</p>
-            <p class="sources"><strong>Sources:</strong> Shannon and Weaver (1949), Wiener (1948), Forrester (1961), Sterman (2000).</p>
+            <p class="key"><strong>Key concepts:</strong> communication system &middot; feedback loop &middot; users &middot; content &middot; infrastructure &middot; Forrester &middot; AI arrival model.</p>
+            <p class="sources"><strong>Sources:</strong> Forrester, J. W. (1961). <em>Industrial Dynamics</em>. MIT Press. Shannon, C. E. and Weaver, W. (1949). <em>The Mathematical Theory of Communication</em>.</p>
             <div class="lesson-actions">
               <button class="btn" type="button" disabled>Previous</button>
               <a class="btn" href="#communication">Next</a>
@@ -235,16 +244,13 @@
             </div>
           </div>
           <aside class="visual-panel">
-            <h4>Communication Process</h4>
+            <h4>Three core nodes form the first map</h4>
             <div class="flow-stack">
-              <div class="flow-node">Emitter</div><div class="flow-arrow">↓</div>
-              <div class="flow-node">Code system</div><div class="flow-arrow">↓</div>
-              <div class="flow-node">Message</div><div class="flow-arrow">↓</div>
-              <div class="flow-node">Medium / Channel</div><div class="flow-arrow">↓</div>
-              <div class="flow-node">Receiver</div><div class="flow-arrow">↓</div>
-              <div class="flow-node">Feedback</div>
+              <div class="flow-node">Users</div><div class="flow-arrow">&darr;</div>
+              <div class="flow-node">Content</div><div class="flow-arrow">&darr;</div>
+              <div class="flow-node">Infrastructure</div>
             </div>
-            <div class="small-loop">Data loop<br>managed feedback</div>
+            <div class="small-loop">Forrester loop<br>managed by data</div>
           </aside>
         </article>
       </div>
@@ -252,42 +258,92 @@
 
     <section class="section" id="communication">
       <div class="wrap">
-        <div class="section-head">
-          <div><span class="eyebrow">02 · Communication</span><h2>Feedback is the point where information becomes communication.</h2></div>
-          <p>If a message is only emitted, the system remains informational. Communication appears when the receiver responds, the system captures that response, and the organization can use the data to improve the next interaction.</p>
-        </div>
-        <div class="cards">
-          <div class="card"><b>Users</b><h3>Emitter and receiver</h3><p>Users can be people, companies, public administrations, connected objects or AI agents. They send and receive signals.</p></div>
-          <div class="card"><b>Content</b><h3>Message and mode</h3><p>Content carries the offer, brand, service, keyword, copy, product or knowledge object that makes the message meaningful.</p></div>
-          <div class="card"><b>Infrastructure</b><h3>Medium and decoding</h3><p>Infrastructure includes systems, devices, channels, workflow AI, data capture and the technical conditions that make feedback possible.</p></div>
-        </div>
+        <article class="lesson-card">
+          <div class="lesson-content">
+            <span class="session">SESSION 2</span>
+            <h2>Let us understand communication before modelling Internet.</h2>
+            <h3>Learning objective</h3>
+            <p>Understand the communication process as a sequence of emitter, coding system, mode, message, medium or channel, decoding system, receiver and feedback. The critical point is feedback: without feedback, the system stays in information; with feedback, it becomes communication.</p>
+            <div class="method">
+              <strong>Methodological rule</strong>
+              <p>The model must not begin with tools or campaigns. It begins with the communication process and with the evidence that the receiver can answer, be measured and modify the next interaction.</p>
+            </div>
+            <p class="key"><strong>Key concepts:</strong> communication process &middot; feedback loop &middot; emitter &middot; receiver &middot; customer &middot; noise &middot; medium &middot; message.</p>
+            <p class="sources"><strong>Sources:</strong> Shannon and Weaver (1949), Jakobson (1960), Wiener (1948), Schramm (1954).</p>
+          </div>
+          <aside class="visual-panel">
+            <h4>Communication Process</h4>
+            <div class="process-map">
+              <div class="flow-node">Emitter</div><div class="flow-arrow">&darr;</div>
+              <div class="flow-node">Code system</div><div class="flow-arrow">&darr;</div>
+              <div class="flow-node">Mode</div><div class="flow-arrow">&darr;</div>
+              <div class="flow-node">Message</div><div class="flow-arrow">&darr;</div>
+              <div class="flow-node">Medium / Channel</div><div class="flow-arrow">&darr;</div>
+              <div class="flow-node">Decoding system</div><div class="flow-arrow">&darr;</div>
+              <div class="flow-node">Receiver</div><div class="flow-arrow">&darr;</div>
+              <div class="flow-node">Feedback</div>
+              <div class="small-loop">Noise affects every exchange</div>
+            </div>
+          </aside>
+        </article>
       </div>
     </section>
 
     <section class="section" id="system">
       <div class="wrap">
-        <div class="section-head">
-          <div><span class="eyebrow">03 · System dynamics</span><h2>Forrester gives the mathematical language for a changing communication system.</h2></div>
-          <p>System dynamics observes stocks, flows, feedback and delays. In this capsule, the stocks are users, content and infrastructure; the flows are growth, consumption, production, investment, obsolescence and friction.</p>
-        </div>
-        <div class="cards">
-          <div class="card dark"><b>Reinforcing loop</b><h3>U &lt;-&gt; C &lt;-&gt; I</h3><p>More users generate more content consumption. More content requires more infrastructure. Better infrastructure creates more access and feedback.</p></div>
-          <div class="card"><b>Forrester-inspired state</b><h3>Stocks and flows</h3><div class="equation">Stock(t+1) = Stock(t) + inflow(t) - outflow(t)</div></div>
-          <div class="card"><b>Management layer</b><h3>Processes, systems and data</h3><p>Management variables decide whether the loop becomes effective communication or only digital noise.</p></div>
-        </div>
+        <article class="lesson-card">
+          <div class="lesson-content">
+            <span class="session">SESSION 3</span>
+            <h2>Data is what allows the organization to manage communication.</h2>
+            <h3>Learning objective</h3>
+            <p>In Internet Dynamics, data closes the loop. If the organization cannot capture, interpret and use the response generated by users, content and infrastructure, it cannot create a reliable relationship. It has signals, but it cannot manage communication.</p>
+            <div class="method">
+              <strong>Methodological rule</strong>
+              <p>The data loop must be explicit: every user signal, content interaction and infrastructure event should return to the organization as a measurable input for the next decision.</p>
+            </div>
+            <p class="key"><strong>Key concepts:</strong> data loop &middot; relationship capacity &middot; signal capture &middot; interpretation &middot; next best interaction &middot; AI readiness.</p>
+            <p class="sources"><strong>Sources:</strong> Wiener (1948), Forrester (1961), Sterman (2000), Meadows (2008).</p>
+          </div>
+          <aside class="visual-panel">
+            <h4>Internet Dynamics data loop</h4>
+            <div class="data-map">
+              <svg viewBox="0 0 260 350" aria-hidden="true">
+                <path d="M90 72 C40 130 40 220 118 298" fill="none" stroke="#0073aa" stroke-width="2"/>
+                <path d="M164 298 C240 220 230 128 154 72" fill="none" stroke="#0073aa" stroke-width="2"/>
+                <path d="M82 202 C120 158 162 158 196 202" fill="none" stroke="#003b5c" stroke-width="2"/>
+              </svg>
+              <div class="map-node m-users">Users</div>
+              <div class="map-node m-content">Content</div>
+              <div class="map-node m-infra">Infrastructure</div>
+              <div class="map-node m-data">Data Loop</div>
+              <div class="map-node m-eco">Ecosystem</div>
+            </div>
+          </aside>
+        </article>
       </div>
     </section>
 
     <section class="section" id="model">
       <div class="wrap">
         <div class="section-head">
-          <div><span class="eyebrow">04 · Nodes and layers</span><h2>The model has three endogenous nodes and two management layers.</h2></div>
-          <p>The canvas is intentionally simple at the center. Complexity appears as subnodes and measurements connected to users, content and infrastructure.</p>
+          <div><span class="eyebrow">04 &middot; System dynamics</span><h2>Forrester gives us the language: stocks, flows, feedback, delays and reinforcing loops.</h2></div>
+          <p>Internet Dynamics applies system dynamics to a digital communication system. If users grow, content grows. If content grows, infrastructure must grow. If infrastructure improves, users can access, interact and generate more signals.</p>
         </div>
         <div class="cards">
-          <div class="card"><b>Users · U</b><h3>Market and relationship</h3><p>Audience, cookies, cohorts, leads, fans, clients, promoters, IoT and AI agents.</p></div>
-          <div class="card"><b>Content · C</b><h3>Offer and communication cost</h3><p>SEO, SEM, paid media, social, email, web, product, service, brand, keywords and consumption signals.</p></div>
-          <div class="card"><b>Infrastructure · I</b><h3>Medium and technical capacity</h3><p>Devices, workflow AI, CRM, ERP, analytics, tags, payment, ecommerce, cloud, performance and data capture.</p></div>
+          <div class="card dark"><b>Explosive positive loop</b><h3>U &harr; C &harr; I &harr; U</h3><p>Users, content and infrastructure form a reinforcing loop. Without good management, the loop accelerates until friction, cost, saturation or poor data quality slows it down.</p></div>
+          <div class="card"><b>Forrester-inspired state update</b><h3>Stocks and flows</h3><div class="equation">Stock(t+1) = Stock(t) + inflow(t) - outflow(t)</div><p>Users, content and infrastructure are stocks. Growth, production, investment, automation, churn, obsolescence and friction are flows.</p></div>
+          <div class="card"><b>Internet Dynamics equation</b><h3>I_net is the operating score</h3><div class="equation">I_net = C_End x M_g x E_x x F_AI</div><p>The score combines endogenous communication, organizational management, exogenous ecosystem pressure and AI acceleration.</p></div>
+        </div>
+        <div class="section-head" style="margin-top:38px">
+          <div><span class="eyebrow">05 &middot; Nodes &amp; Layers</span><h2>The model has three endogenous nodes and two management layers.</h2></div>
+          <p>The canvas is intentionally simple at the center: Users, Content and Infrastructure. Complexity appears as subnodes, measures and weights attached to those three core variables.</p>
+        </div>
+        <div class="cards">
+          <div class="card"><b>Users &middot; U</b><h3>Potential revenue and relationship</h3><p>Audience, cookies, cohorts, leads, fans, clients, promoters, IoT and AI agents. Users are the market side of communication.</p></div>
+          <div class="card"><b>Content &middot; C</b><h3>Offer, message and cost</h3><p>SEO, SEM, paid media, social, email, web, product, service, brand, keywords and consumption signals. Content is value proposal and communication cost.</p></div>
+          <div class="card"><b>Infrastructure &middot; I</b><h3>Medium, channel and technical capacity</h3><p>Devices, channels, workflow AI, CRM, ERP, analytics, tags, payment, ecommerce, cloud, performance and data capture. Infrastructure is also cost.</p></div>
+          <div class="card"><b>Company management</b><h3>Processes, organization, systems and data/AI</h3><p>These variables determine whether the organization can manage the communication system instead of merely operating disconnected tools.</p></div>
+          <div class="card"><b>Exogenous management</b><h3>Market and regulatory pressure</h3><p>PESTEL, legal/GDPR, competition, innovation, economic pressure and market culture accelerate or slow the system.</p></div>
         </div>
       </div>
     </section>
@@ -314,7 +370,7 @@
           </div>
           <div class="tool-main">
             <aside class="left-panel" id="leftPanel">
-              <div class="panel-title">Endogenous nodes <span>U · C · I</span></div>
+              <div class="panel-title">Endogenous nodes <span>U &middot; C &middot; I</span></div>
               <div class="palette-group"><button class="palette-head" data-toggle="usersTiles">Users</button><div class="tiles" id="usersTiles"></div></div>
               <div class="palette-group"><button class="palette-head" data-toggle="contentTiles">Content</button><div class="tiles" id="contentTiles"></div></div>
               <div class="palette-group"><button class="palette-head" data-toggle="infraTiles">Infrastructure</button><div class="tiles" id="infraTiles"></div></div>
@@ -345,7 +401,7 @@
                 <div class="chartbox"><svg class="chart" id="projection"></svg></div>
                 <div class="chartbox"><h3>Node inventory</h3><div class="table-wrap"><table id="inventory"></table></div></div>
               </div>
-              <div class="equation-view" id="equationView"><div class="chartbox"><h3>Internet Dynamics equation · step by step</h3><div class="eq-list" id="equationLines"></div></div></div>
+              <div class="equation-view" id="equationView"><div class="chartbox"><h3>Internet Dynamics equation - step by step</h3><div class="eq-list" id="equationLines"></div></div></div>
             </section>
             <aside class="right-panel" id="rightPanel">
               <div class="panel-title">Configuration <button class="btn" id="hideConfig">Hide</button></div>
@@ -383,7 +439,7 @@
 
     <section class="kai" id="kai-roi">
       <div class="kai-inner">
-        <div><span class="eyebrow" style="color:#d8ecf8">KAI ROI EQUATION · CUSTOMER EQUITY</span><h2>This connection is an entry point to the KAI ROI Equation</h2><p>The first connection does not end in automation. It ends when operational data can become information, intelligence, indicators, Customer Equity and economically defensible decisions.</p><p style="font-size:16px;color:#c9d6e2">The KAI ROI Equation document offers an executive introduction to connect ROI, data monetization, Customer Equity and strategic decision-making inside the Doc ROI ecosystem.</p></div>
+        <div><span class="eyebrow" style="color:#d8ecf8">KAI ROI EQUATION &middot; CUSTOMER EQUITY</span><h2>This connection is an entry point to the KAI ROI Equation</h2><p>The first connection does not end in automation. It ends when operational data can become information, intelligence, indicators, Customer Equity and economically defensible decisions.</p><p style="font-size:16px;color:#c9d6e2">The KAI ROI Equation document offers an executive introduction to connect ROI, data monetization, Customer Equity and strategic decision-making inside the Doc ROI ecosystem.</p></div>
         <div class="kai-card"><span class="eyebrow">Executive download</span><h3>The KAI ROI Equation Book</h3><p>A short and clear guide to understand how data, ROI, Customer Equity and strategic decisions can be connected through the KAI ROI framework.</p><div class="kai-box"><strong>Inside the document:</strong><ul><li>What the KAI ROI Equation is</li><li>Why Customer Equity matters</li><li>How ROI becomes a decision system</li><li>Why data must be monetized with purpose</li></ul></div><a class="btn primary" style="width:100%" href="https://docroi.marketing/kai-equation/" target="_blank">Access the KAI ROI Equation -></a></div>
       </div>
     </section>
@@ -416,7 +472,7 @@
     function slider(scope,key,label,value){return `<div class="range"><label>${label}<output>${value}</output></label><input data-scope="${scope}" data-key="${key}" type="range" min="0" max="5" step="1" value="${value}"></div>`}
     function createSubnode(kind,name){snapshot();const c=core(kind);const count=state.nodes.filter(n=>!n.core&&n.kind===kind).length;const n=addNode({name,kind,x:c.x+(kind==="Users"?-125:kind==="Content"?-25:125),y:c.y+125+count*20,qty:name.includes("AI")||name.includes("Workflow")?75:50,max:100,weight:name==="Marketplace"?.65:1,ai:name.includes("AI")||name.includes("Workflow")?85:15,economics:kind==="Users"?"revenue":kind==="Content"?"offer-cost":"infra-cost"});addEdge(n.id,c.id,name);select(n.id);render()}
     function render(){world.style.transform=`scale(${state.zoom})`;zoomLabel.textContent=Math.round(state.zoom*100)+"%";renderNodes();renderEdges();renderCalc();renderTable();renderEquation()}
-    function renderNodes(){world.querySelectorAll(".node").forEach(e=>e.remove());state.nodes.forEach(n=>{const el=document.createElement("div");el.className=`node ${n.core?"core":""} ${n.kind==="Infrastructure"?"infrastructure":""} ${state.selected===n.id?"selected":""}`;el.style.left=n.x+"px";el.style.top=n.y+"px";el.style.width=n.w+"px";el.style.minHeight=n.h+"px";el.innerHTML=`<div class="node-title">${esc(n.name)}<span>${esc(n.measure)} · ${score(n).toFixed(0)}</span></div><i class="resize"></i>`;world.appendChild(el);el.onpointerdown=e=>e.target.classList.contains("resize")?resize(e,n):drag(e,n);el.onclick=()=>select(n.id);el.ondblclick=()=>select(n.id,true)})}
+    function renderNodes(){world.querySelectorAll(".node").forEach(e=>e.remove());state.nodes.forEach(n=>{const el=document.createElement("div");el.className=`node ${n.core?"core":""} ${n.kind==="Infrastructure"?"infrastructure":""} ${state.selected===n.id?"selected":""}`;el.style.left=n.x+"px";el.style.top=n.y+"px";el.style.width=n.w+"px";el.style.minHeight=n.h+"px";el.innerHTML=`<div class="node-title">${esc(n.name)}<span>${esc(n.measure)} - ${score(n).toFixed(0)}</span></div><i class="resize"></i>`;world.appendChild(el);el.onpointerdown=e=>e.target.classList.contains("resize")?resize(e,n):drag(e,n);el.onclick=()=>select(n.id);el.ondblclick=()=>select(n.id,true)})}
     function renderEdges(){edgesSvg.innerHTML="";state.edges.forEach((e,i)=>{const a=node(e.from),b=node(e.to);if(!a||!b)return;const x1=a.x+a.w/2,y1=a.y+a.h/2,x2=b.x+b.w/2,y2=b.y+b.h/2,bend=(i%2?-.14:.14)*Math.hypot(x2-x1,y2-y1),mx=(x1+x2)/2,my=(y1+y2)/2+bend;const p=document.createElementNS("http://www.w3.org/2000/svg","path");p.setAttribute("d",`M ${x1} ${y1} Q ${mx} ${my} ${x2} ${y2}`);p.setAttribute("class","edge");edgesSvg.appendChild(p);const t=document.createElementNS("http://www.w3.org/2000/svg","text");t.setAttribute("x",mx);t.setAttribute("y",my-6);t.setAttribute("text-anchor","middle");t.setAttribute("font-size","11");t.setAttribute("font-weight","900");t.setAttribute("fill","#003b5c");t.textContent=e.label;edgesSvg.appendChild(t)})}
     function drag(ev,n){select(n.id);const sx=ev.clientX,sy=ev.clientY,ox=n.x,oy=n.y;const mv=e=>{n.x=ox+(e.clientX-sx)/state.zoom;n.y=oy+(e.clientY-sy)/state.zoom;render()};const up=()=>{removeEventListener("pointermove",mv);removeEventListener("pointerup",up)};addEventListener("pointermove",mv);addEventListener("pointerup",up)}
     function resize(ev,n){ev.stopPropagation();select(n.id);const sx=ev.clientX,sy=ev.clientY,ow=n.w,oh=n.h;const mv=e=>{n.w=Math.max(110,ow+(e.clientX-sx)/state.zoom);n.h=Math.max(60,oh+(e.clientY-sy)/state.zoom);render()};const up=()=>{removeEventListener("pointermove",mv);removeEventListener("pointerup",up)};addEventListener("pointermove",mv);addEventListener("pointerup",up)}
@@ -428,7 +484,7 @@
     function gmean(a){return Math.pow(a.reduce((p,v)=>p*Math.max(1,v),1),1/a.length)}
     function calc(){const U=variable("Users"),C=variable("Content"),I=variable("Infrastructure"),synergy=gmean([U,C,I]),balance=(U+C+I)/3,management=(state.company.processes+state.company.organization+state.company.systems+state.company.dataAI)/20,exoRaw=(state.exo.legal+state.exo.economy+state.exo.politics+state.exo.innovation+state.exo.culture-state.exo.competition)/25,exo=clamp(1+exoRaw*.35,.72,1.35),aiAvg=(ai("Users")+ai("Content")+ai("Infrastructure"))/3,aiFactor=1+aiAvg/180,comm=clamp(.62*synergy+.38*balance,0,100),inet=clamp(comm*(.72+.28*management)*exo*aiFactor,0,100),economic=clamp(U*.55-C*.18-I*.16+inet*.38,0,100);return{U,C,I,synergy,balance,management,exo,aiAvg,aiFactor,comm,inet,gap:100-inet,economic}}
     function renderCalc(){const r=calc();mInet.textContent=r.inet.toFixed(0);mComm.textContent=r.comm.toFixed(0);mGap.textContent=r.gap.toFixed(0);mMoney.textContent=r.economic.toFixed(0)+"%";draw(r)}
-    function draw(r){const svg=projection,w=svg.clientWidth||720,h=310,p={l:42,r:20,t:20,b:36};svg.setAttribute("viewBox",`0 0 ${w} ${h}`);const current=[],arrival=[];for(let m=0;m<=24;m++){current.push([m,clamp(r.inet+(100-r.inet)*(1-Math.exp(-m/28))*r.management,0,100)]);arrival.push([m,clamp(r.inet+(100-r.inet)*(1-Math.exp(-m/(9/r.aiFactor))),0,100)])}const x=m=>p.l+m/24*(w-p.l-p.r),y=v=>p.t+(1-v/100)*(h-p.t-p.b),line=d=>d.map((q,i)=>(i?"L":"M")+" "+x(q[0]).toFixed(1)+" "+y(q[1]).toFixed(1)).join(" ");svg.innerHTML=`<line x1="${p.l}" y1="${y(100)}" x2="${w-p.r}" y2="${y(100)}" stroke="#cbdde8"/><line x1="${p.l}" y1="${y(50)}" x2="${w-p.r}" y2="${y(50)}" stroke="#e4edf3"/><line x1="${p.l}" y1="${p.t}" x2="${p.l}" y2="${h-p.b}" stroke="#6b7b88"/><line x1="${p.l}" y1="${h-p.b}" x2="${w-p.r}" y2="${h-p.b}" stroke="#6b7b88"/><path d="${line(current)}" fill="none" stroke="#0073aa" stroke-width="3"/><path d="${line(arrival)}" fill="none" stroke="#05070b" stroke-width="3" stroke-dasharray="8 6"/><text x="${p.l}" y="${y(100)-7}" font-size="12" fill="#566273">AI arrival model · 100</text><text x="${w-180}" y="${y(arrival[24][1])-8}" font-size="12" fill="#05070b">AI optimized</text><text x="${w-160}" y="${y(current[24][1])+18}" font-size="12" fill="#0073aa">Current path</text><text x="${p.l}" y="${h-9}" font-size="12" fill="#566273">Time horizon · months</text>`}
+    function draw(r){const svg=projection,w=svg.clientWidth||720,h=310,p={l:42,r:20,t:20,b:36};svg.setAttribute("viewBox",`0 0 ${w} ${h}`);const current=[],arrival=[];for(let m=0;m<=24;m++){current.push([m,clamp(r.inet+(100-r.inet)*(1-Math.exp(-m/28))*r.management,0,100)]);arrival.push([m,clamp(r.inet+(100-r.inet)*(1-Math.exp(-m/(9/r.aiFactor))),0,100)])}const x=m=>p.l+m/24*(w-p.l-p.r),y=v=>p.t+(1-v/100)*(h-p.t-p.b),line=d=>d.map((q,i)=>(i?"L":"M")+" "+x(q[0]).toFixed(1)+" "+y(q[1]).toFixed(1)).join(" ");svg.innerHTML=`<line x1="${p.l}" y1="${y(100)}" x2="${w-p.r}" y2="${y(100)}" stroke="#cbdde8"/><line x1="${p.l}" y1="${y(50)}" x2="${w-p.r}" y2="${y(50)}" stroke="#e4edf3"/><line x1="${p.l}" y1="${p.t}" x2="${p.l}" y2="${h-p.b}" stroke="#6b7b88"/><line x1="${p.l}" y1="${h-p.b}" x2="${w-p.r}" y2="${h-p.b}" stroke="#6b7b88"/><path d="${line(current)}" fill="none" stroke="#0073aa" stroke-width="3"/><path d="${line(arrival)}" fill="none" stroke="#05070b" stroke-width="3" stroke-dasharray="8 6"/><text x="${p.l}" y="${y(100)-7}" font-size="12" fill="#566273">AI arrival model - 100</text><text x="${w-180}" y="${y(arrival[24][1])-8}" font-size="12" fill="#05070b">AI optimized</text><text x="${w-160}" y="${y(current[24][1])+18}" font-size="12" fill="#0073aa">Current path</text><text x="${p.l}" y="${h-9}" font-size="12" fill="#566273">Time horizon - months</text>`}
     function renderTable(){const rows=state.nodes.filter(n=>!n.core).map(n=>`<tr><td>${n.kind}</td><td>${esc(n.name)}</td><td>${esc(n.measure)}</td><td>${n.qty}</td><td>${n.max}</td><td>${n.weight}</td><td>${n.ai}</td><td>${score(n).toFixed(1)}</td></tr>`).join("");inventory.innerHTML=`<thead><tr><th>Variable</th><th>Node</th><th>Measure</th><th>Observed</th><th>Arrival max</th><th>Weight</th><th>AI</th><th>Score</th></tr></thead><tbody>${rows||"<tr><td colspan='8'>No nodes yet.</td></tr>"}</tbody>`}
     function renderEquation(){const r=calc();equationLines.innerHTML=[["1. Normalize endogenous variables",`U=${r.U.toFixed(2)}, C=${r.C.toFixed(2)}, I=${r.I.toFixed(2)}`],["2. Reinforcing synergy",`Phi(U,C,I)=(U*C*I)^(1/3)=${r.synergy.toFixed(2)}`],["3. Communication balance",`Psi(U,C,I)=average(U,C,I)=${r.balance.toFixed(2)}`],["4. Endogenous communication",`CEnd=0.62*Phi+0.38*Psi=${r.comm.toFixed(2)}`],["5. Management factor",`G=average(processes, organization, systems, data/AI)=${r.management.toFixed(2)}`],["6. Exogenous ecosystem",`E=PESTEL adjusted by competition=${r.exo.toFixed(2)}`],["7. AI acceleration",`F_AI=1+AI_average/180=${r.aiFactor.toFixed(2)}`],["8. Internet Dynamics",`I_net=CEnd*(0.72+0.28G)*E*F_AI=${r.inet.toFixed(2)}`],["9. Arrival gap",`Gap=100-I_net=${r.gap.toFixed(2)}`]].map(([a,b])=>`<div class="eq-line"><b>${a}</b><br><code>${b}</code></div>`).join("")}
     function setMode(m){canvas.classList.toggle("hidden",m!=="canvas");bottomDeck.classList.toggle("hidden",m!=="canvas");dashboard.classList.toggle("active",m==="dashboard");equationView.classList.toggle("active",m==="equation");canvasMode.setAttribute("aria-pressed",m==="canvas");dashboardMode.setAttribute("aria-pressed",m==="dashboard");equationMode.setAttribute("aria-pressed",m==="equation");render()}
