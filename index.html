@@ -178,6 +178,7 @@
     .palette-group:last-child{border-right:0}
     .palette-head{width:100%;border:0;background:#003b5c;color:#fff;text-align:left;padding:9px 10px;font-size:12px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:8px}
     .tiles{display:grid;grid-template-columns:1fr;gap:6px;padding:8px}
+    .tiles[hidden]{display:none}
     .tile{background:#fff;border:1px solid #cbdde8;border-radius:8px;min-height:34px;padding:7px 8px;text-align:left;font-size:11px;font-weight:900;cursor:pointer;display:grid;grid-template-columns:minmax(54px,.55fr) minmax(0,1fr);gap:6px;align-items:center}
     .tile small{display:block;font-weight:500;color:#637587;margin-top:0;font-size:10px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .tile:hover{border-color:#0073aa}
@@ -194,7 +195,7 @@
     .node.core{width:164px;min-height:86px;background:#eef8fe;border:2px solid #0073aa}
     .node.infrastructure:not(.core){background:#003b5c;color:#fff;border-color:#d8ecf8}
     .node.selected{outline:3px solid rgba(0,115,170,.25)}
-    .node-title{display:grid;place-items:center;min-height:inherit;text-align:center;padding:12px;font-weight:900;cursor:move}
+    .node-title{display:grid;place-items:center;min-height:inherit;text-align:center;padding:12px;font-weight:900;cursor:move;word-break:normal;overflow-wrap:normal;hyphens:none}
     .node-title span{display:block;font-size:11px;font-weight:500;opacity:.72;margin-top:5px}
     .resize{position:absolute;right:0;bottom:0;width:18px;height:18px;cursor:nwse-resize}
     .resize:after{content:"";position:absolute;right:4px;bottom:4px;width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;opacity:.45}
@@ -592,7 +593,7 @@
     function addNode(d){const n={id:id("n"),name:d.name||"Node",kind:d.kind||"Users",core:!!d.core,x:d.x??120,y:d.y??120,w:d.w??148,h:d.h??72,qty:d.qty??50,max:d.max??100,weight:d.weight??1,ai:d.ai??0,measure:d.measure||measures[d.kind||"Users"][0],desc:d.desc||"",economics:d.economics||"revenue"};state.nodes.push(n);return n}
     function addEdge(a,b,label){if(!a||!b||a===b)return;state.edges.push({id:id("e"),from:a,to:b,label:label||String(state.edges.length+1).padStart(2,"0")})}
     function node(idv){return state.nodes.find(n=>n.id===idv)} function core(k){return state.nodes.find(n=>n.core&&n.kind===k)}
-    function init(){addNode({name:"Users",kind:"Users",core:true,x:210,y:170,w:164,h:86,qty:0,max:100,ai:0});addNode({name:"Content",kind:"Content",core:true,x:500,y:315,w:164,h:86,qty:0,max:100,ai:0,economics:"offer-cost"});addNode({name:"Infrastructure",kind:"Infrastructure",core:true,x:790,y:170,w:164,h:86,qty:0,max:100,ai:0,economics:"infra-cost"});addEdge(core("Users").id,core("Content").id,"U-C");addEdge(core("Content").id,core("Infrastructure").id,"C-I");addEdge(core("Infrastructure").id,core("Users").id,"I-U");buildPalettes();buildSliders();bind();render()}
+    function init(){addNode({name:"Users",kind:"Users",core:true,x:210,y:170,w:164,h:86,qty:0,max:100,ai:0});addNode({name:"Content",kind:"Content",core:true,x:500,y:315,w:164,h:86,qty:0,max:100,ai:0,economics:"offer-cost"});addNode({name:"Infrastructure",kind:"Infrastructure",core:true,x:760,y:170,w:220,h:86,qty:0,max:100,ai:0,economics:"infra-cost"});addEdge(core("Users").id,core("Content").id,"U-C");addEdge(core("Content").id,core("Infrastructure").id,"C-I");addEdge(core("Infrastructure").id,core("Users").id,"I-U");buildPalettes();buildSliders();bind();render()}
     function buildPalettes(){[["Users","usersTiles"],["Content","contentTiles"],["Infrastructure","infraTiles"]].forEach(([k,el])=>{document.getElementById(el).innerHTML=palettes[k].map(([a,b])=>`<button class="tile" data-kind="${k}" data-name="${a}">${a}<small>${b}</small></button>`).join("")});document.querySelectorAll(".tile").forEach(t=>{t.onclick=()=>createSubnode(t.dataset.kind,t.dataset.name)})}
     function buildSliders(){const company={processes:"Processes",organization:"Organization",systems:"Systems",dataAI:"Data / AI"};const exo={legal:"Legal / GDPR",economy:"Economy",politics:"Politics",competition:"Competition",innovation:"Innovation",culture:"Digital culture"};companySliders.innerHTML=Object.keys(company).map(k=>slider("company",k,company[k],state.company[k])).join("");exoSliders.innerHTML=Object.keys(exo).map(k=>slider("exo",k,exo[k],state.exo[k])).join("");document.querySelectorAll("[data-scope]").forEach(i=>i.oninput=e=>{state[e.target.dataset.scope][e.target.dataset.key]=Number(e.target.value);e.target.previousElementSibling.querySelector("output").value=e.target.value;render()})}
     function slider(scope,key,label,value){return `<div class="range"><label>${label}<output>${value}</output></label><input data-scope="${scope}" data-key="${key}" type="range" min="0" max="5" step="1" value="${value}"></div>`}
@@ -643,16 +644,16 @@
       menuBtn.onclick=()=>mobileMenu.classList.toggle("open");
       endogenousHead.onclick=()=>{leftPanel.classList.toggle("folded");endogenousHead.classList.toggle("is-folded");render()};
       externalHead.onclick=()=>{bottomDeck.classList.toggle("folded");externalHead.classList.toggle("is-folded");render()};
-      configHead.onclick=()=>{rightPanel.classList.toggle("folded");configHead.classList.toggle("is-folded");render()};
+      configHead.onclick=()=>setPanel("right",false);
       document.querySelectorAll(".palette-head").forEach(b=>b.onclick=()=>{const target=document.getElementById(b.dataset.toggle);target.hidden=!target.hidden;b.classList.toggle("is-folded",target.hidden);render()});
       zoomIn.onclick=()=>{state.zoom=clamp(state.zoom+.1,.25,2.5);render()};
       zoomOut.onclick=()=>{state.zoom=clamp(state.zoom-.1,.25,2.5);render()};
       fitBtn.onclick=()=>{state.zoom=1;render()};
       showLeftTab.onclick=()=>setPanel("left",true);
-      showRightTab.onclick=()=>setPanel("right",true);
+      showRightTab.onclick=()=>{setPanel("right",true);rightPanel.classList.remove("folded");configHead.classList.remove("is-folded")};
       document.querySelectorAll("[data-fold-card]").forEach(b=>b.onclick=()=>{const card=document.getElementById(b.dataset.foldCard);card.classList.toggle("collapsed");b.classList.toggle("is-folded",card.classList.contains("collapsed"));render()});
       deleteBtn.onclick=()=>{if(!state.selected)return;snapshot();state.nodes=state.nodes.filter(n=>n.core||n.id!==state.selected);state.edges=state.edges.filter(e=>e.from!==state.selected&&e.to!==state.selected);state.selected=null;render();syncConfig()};
-      distributeBtn.onclick=()=>{core("Users").x=210;core("Users").y=170;core("Content").x=500;core("Content").y=315;core("Infrastructure").x=790;core("Infrastructure").y=170;render()};
+      distributeBtn.onclick=()=>{core("Users").x=210;core("Users").y=170;core("Content").x=500;core("Content").y=315;core("Infrastructure").x=760;core("Infrastructure").y=170;core("Infrastructure").w=Math.max(core("Infrastructure").w,220);render()};
       exampleBtn.onclick=()=>loadExample(true);
       clearBtn.onclick=()=>{state.nodes.forEach(n=>{n.qty=0;n.ai=0});render();showToast("Data cleared")};
       newBtn.onclick=()=>{snapshot();state.nodes=state.nodes.filter(n=>n.core);state.nodes.forEach(n=>{n.qty=0;n.ai=0});state.edges=state.edges.filter(e=>node(e.from)?.core&&node(e.to)?.core);render();showToast("Clean canvas ready")};
