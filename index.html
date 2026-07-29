@@ -160,6 +160,7 @@
     .tool-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
     .tool-actions .btn{padding:8px 10px;min-height:34px;font-size:12px}
     .tool-main{display:grid;grid-template-columns:minmax(340px,520px) minmax(420px,1fr) 280px;gap:10px;min-height:690px;padding:10px;background:#f3f8fb}
+    .tool.endogenous-folded .tool-main{grid-template-columns:190px minmax(420px,1fr) 280px}
     .tool.left-collapsed .tool-main{grid-template-columns:minmax(0,1fr) 280px}
     .tool.right-collapsed .tool-main{grid-template-columns:minmax(340px,520px) minmax(420px,1fr)}
     .tool.left-collapsed.right-collapsed .tool-main{grid-template-columns:1fr}
@@ -179,7 +180,7 @@
     .palette-head{width:100%;border:0;background:#003b5c;color:#fff;text-align:left;padding:9px 10px;font-size:12px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:8px}
     .tiles{display:grid;grid-template-columns:1fr;gap:6px;padding:8px}
     .tiles[hidden]{display:none}
-    .tile{background:#fff;border:1px solid #cbdde8;border-radius:8px;min-height:34px;padding:7px 8px;text-align:left;font-size:11px;font-weight:900;cursor:pointer;display:grid;grid-template-columns:minmax(54px,.55fr) minmax(0,1fr);gap:6px;align-items:center}
+    .tile{background:#fff;border:1px solid #cbdde8;border-radius:8px;min-height:34px;padding:7px 8px;text-align:left;font-size:11px;font-weight:900;cursor:pointer;display:grid;grid-template-columns:minmax(48px,.45fr) minmax(0,1fr) auto;gap:6px;align-items:center}
     .tile small{display:block;font-weight:500;color:#637587;margin-top:0;font-size:10px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .tile:hover{border-color:#0073aa}
     .work{display:grid;grid-template-rows:auto auto minmax(440px,1fr);background:#fbfdff;min-width:0;border:1px solid var(--line);border-radius:8px;overflow:hidden;box-shadow:0 12px 28px rgba(0,59,92,.05)}
@@ -220,11 +221,13 @@
     .config{padding:12px;display:grid;gap:10px}
     .config label{display:grid;gap:5px;font-size:12px;color:#40586b;font-weight:800}
     .field-title{display:flex;align-items:center;justify-content:space-between;gap:8px}
-    .learn{position:relative;display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;border:1px solid #003b5c;border-radius:999px;background:#fff;color:#003b5c;font-size:10px;font-weight:900;cursor:help;flex:0 0 auto}
+    .learn{position:relative;display:inline-flex;align-items:center;justify-content:center;width:auto;min-height:17px;border:1px solid #003b5c;border-radius:999px;background:#fff;color:#003b5c;padding:2px 7px;font-size:9px;font-weight:900;cursor:help;flex:0 0 auto;text-transform:uppercase;letter-spacing:.02em}
     .learn:focus{outline:2px solid rgba(0,59,92,.28);outline-offset:2px}
-    .learn:before{content:"i"}
+    .learn:before{content:"Learn more"}
     .learn:after{content:attr(data-tip);position:absolute;right:0;top:24px;z-index:30;width:min(260px,70vw);padding:10px 12px;border-radius:8px;background:#05070b;color:#fff;font-size:11px;font-weight:700;line-height:1.45;box-shadow:0 16px 40px rgba(0,0,0,.24);opacity:0;pointer-events:none;transform:translateY(-4px);transition:.16s ease;text-align:left}
     .learn:hover:after,.learn:focus:after{opacity:1;transform:translateY(0)}
+    .tile .learn{justify-self:end;padding:2px 6px;font-size:8px}
+    .equation-summary{margin-top:12px;border:1px solid #003b5c;border-left:4px solid #003b5c;border-radius:8px;background:#fff;padding:12px 14px;color:#183246;font-size:13px;line-height:1.55}
     .config input,.config select,.config textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:8px 9px;font-size:13px;background:#fff}
     .config textarea{min-height:72px;resize:vertical}
     .dashboard,.equation-view{display:none;padding:14px;overflow:auto;background:#f7fafc}
@@ -534,7 +537,7 @@
                 <div class="chartbox"><svg class="chart" id="projection"></svg></div>
                 <div class="chartbox"><h3>Node inventory</h3><div class="table-wrap"><table id="inventory"></table></div></div>
               </div>
-              <div class="equation-view" id="equationView"><div class="chartbox"><h3>Internet Dynamics equation - step by step</h3><div class="eq-list" id="equationLines"></div></div></div>
+              <div class="equation-view" id="equationView"><div class="chartbox"><h3>Internet Dynamics equation - step by step</h3><div class="eq-list" id="equationLines"></div><p class="equation-summary" id="equationSummary"></p></div></div>
             </section>
             <aside class="right-panel" id="rightPanel">
               <button class="panel-title" id="configHead" type="button">Configuration <span class="chev">▼</span></button>
@@ -600,7 +603,54 @@
     function addEdge(a,b,label){if(!a||!b||a===b)return;state.edges.push({id:id("e"),from:a,to:b,label:label||String(state.edges.length+1).padStart(2,"0")})}
     function node(idv){return state.nodes.find(n=>n.id===idv)} function core(k){return state.nodes.find(n=>n.core&&n.kind===k)}
     function init(){addNode({name:"Users",kind:"Users",core:true,x:210,y:170,w:164,h:86,qty:0,max:100,ai:0});addNode({name:"Content",kind:"Content",core:true,x:500,y:315,w:164,h:86,qty:0,max:100,ai:0,economics:"offer-cost"});addNode({name:"Infrastructure",kind:"Infrastructure",core:true,x:760,y:170,w:220,h:86,qty:0,max:100,ai:0,economics:"infra-cost"});addEdge(core("Users").id,core("Content").id,"U-C");addEdge(core("Content").id,core("Infrastructure").id,"C-I");addEdge(core("Infrastructure").id,core("Users").id,"I-U");buildPalettes();buildSliders();bind();render()}
-    function buildPalettes(){[["Users","usersTiles"],["Content","contentTiles"],["Infrastructure","infraTiles"]].forEach(([k,el])=>{document.getElementById(el).innerHTML=palettes[k].map(([a,b])=>`<button class="tile" data-kind="${k}" data-name="${a}" title="Add ${a} as a ${k} signal on the canvas.">${a}<small>${b}</small></button>`).join("")});document.querySelectorAll(".tile").forEach(t=>{t.onclick=()=>createSubnode(t.dataset.kind,t.dataset.name)})}
+    const paletteTips={
+      B2C:"Business to Consumer. Use it when the organization communicates directly with individual consumers. It is important because audience volume, behaviour and personalization capacity shape the relationship loop.",
+      B2B:"Business to Business. Use it when the organization communicates with companies, buyers, committees or professional accounts. It usually needs longer journeys, account signals and trust-building content.",
+      B2G:"Business to Government. Use it when the communication target is a public administration or public-sector body. It helps model formal procurement, compliance and institutional relationships.",
+      C2C:"Consumer to Consumer. Use it when users communicate with other users, such as communities, referrals, peer reviews or marketplace interactions.",
+      IoT:"Internet of Things. Use it for connected devices that act as users or signal generators. IoT matters because machines can create demand, feedback and operational data.",
+      AI2C:"AI to Consumer. Use it when AI agents or automated systems communicate with consumers, personalize answers or manage service interactions.",
+      AI2B:"AI to Business. Use it when AI systems communicate with business customers, sales teams, purchasing systems or enterprise workflows.",
+      AI2AI:"Agent to agent. Use it when one AI agent communicates with another AI agent or automated system. This is critical for future Internet Dynamics because communication can happen without direct human action.",
+      Cohorts:"Behaviour groups. Use cohorts to group users by shared behaviour, lifecycle stage, interest, source or value. Cohorts make communication more precise than treating everyone as one mass.",
+      Leads:"Potential clients. Use leads when the signal represents identifiable commercial opportunities before purchase.",
+      Fans:"Audience. Use fans when social following, community or brand attention is part of the communication system.",
+      Clients:"Customers. Use clients when the person or organization already buys, subscribes or receives value.",
+      Promoters:"High NPS users. Use promoters when users actively recommend the organization and amplify the communication loop.",
+      SEO:"Organic demand. Use SEO when search visibility, keywords and organic discovery create communication demand.",
+      SEM:"Search ads. Use SEM when paid search captures intent and directs users to the offer.",
+      "Paid media":"Paid content. Use it when budget is used to buy reach, clicks, impressions or traffic. It increases visibility but also adds communication cost.",
+      Email:"Direct message. Use email when the organization communicates through owned lists, newsletters, automation or direct relationship journeys.",
+      "Web / Search":"Owned web. Use this when the website, landing pages and search behaviour capture signals and communicate the offer.",
+      "Social content":"Network content. Use it when posts, video, comments or social distribution move the message through platforms.",
+      Keywords:"Search intent. Use keywords when you want to model the words and problems users use to express demand.",
+      Product:"Offer. Use product when the communicated object is the product, feature, plan, SKU or service package.",
+      Service:"Service promise. Use service when the offer is delivered as experience, support, delivery, advice or recurring care.",
+      Brand:"Reputation. Use brand when trust, memory, positioning and perceived value shape communication.",
+      Marketplace:"External offer. Use marketplace when the offer is mediated by a platform that may own part of the data and relationship.",
+      Other:"Custom signal. Use it when your case needs a category not already listed.",
+      Mobile:"High communication fit. Use mobile when the journey depends on smartphone access, app usage or mobile-first behaviour.",
+      PC:"Desktop access. Use PC when the interaction needs complex browsing, professional work or larger-screen decision contexts.",
+      Tablet:"Secondary device. Use tablet when the device matters but is not the dominant communication path.",
+      TV:"Low personalization. Use TV when the channel has reach but less direct data capture and personalization.",
+      "Workflow AI":"Automation layer. Use workflow AI when automation connects systems, triggers actions or coordinates tasks.",
+      "Generative AI":"Content and decision. Use generative AI when AI creates content, drafts responses, summarizes data or supports decisions.",
+      "Agentic AI":"Autonomous action. Use agentic AI when the system can act, decide or communicate with limited human intervention.",
+      CRM:"Client relation. Use CRM when contacts, opportunities, accounts, service history and relationship data are part of the loop.",
+      ERP:"Operations. Use ERP when inventory, orders, billing, logistics or operations affect the communication promise.",
+      Analytics:"Measurement. Use analytics when the system captures behaviour, performance and outcomes.",
+      "Tag manager":"Event capture. Use tag management when web and campaign events need structured measurement.",
+      "1st party cookie":"Owned identity. Use first-party identity when the organization can recognize users in its own environment.",
+      "UTM generator":"Attribution. Use UTM tagging when campaigns need source, medium and content tracking.",
+      "Web / CMS":"Owned channel. Use CMS when the organization manages web content, landing pages and publishing.",
+      Ecommerce:"Transaction. Use ecommerce when the digital channel includes purchase, cart, checkout or product catalogue.",
+      Payment:"Payment system. Use payment when the transaction infrastructure affects conversion and trust.",
+      NPS:"Satisfaction. Use NPS when recommendation, satisfaction or loyalty feedback is measured.",
+      Loyalty:"Recurrence. Use loyalty platforms when repeat purchase, retention and customer value are managed.",
+      "Customer service":"Support. Use customer service when post-sale interaction, requests, incidents or care become communication signals."
+    };
+    function tipFor(kind,name){return paletteTips[name]||`Use ${name} as a ${kind} signal. Add it when this element is relevant to how the organization communicates, measures feedback and improves the Internet Dynamics loop.`}
+    function buildPalettes(){[["Users","usersTiles"],["Content","contentTiles"],["Infrastructure","infraTiles"]].forEach(([k,el])=>{document.getElementById(el).innerHTML=palettes[k].map(([a,b])=>`<button class="tile" data-kind="${k}" data-name="${a}">${a}<small>${b}</small><span class="learn" tabindex="0" data-tip="${esc(tipFor(k,a))}"></span></button>`).join("")});document.querySelectorAll(".tile").forEach(t=>{t.onclick=e=>{if(e.target.classList.contains("learn"))return;createSubnode(t.dataset.kind,t.dataset.name)}})}
     function buildSliders(){const company={processes:"Processes",organization:"Organization",systems:"Systems",dataAI:"Data / AI"};const exo={legal:"Legal / GDPR",economy:"Economy",politics:"Politics",competition:"Competition",innovation:"Innovation",culture:"Digital culture"};companySliders.innerHTML=Object.keys(company).map(k=>slider("company",k,company[k],state.company[k])).join("");exoSliders.innerHTML=Object.keys(exo).map(k=>slider("exo",k,exo[k],state.exo[k])).join("");document.querySelectorAll("[data-scope]").forEach(i=>i.oninput=e=>{state[e.target.dataset.scope][e.target.dataset.key]=Number(e.target.value);e.target.previousElementSibling.querySelector("output").value=e.target.value;render()})}
     function slider(scope,key,label,value){const tip=scope==="company"?"Rate how mature this internal management capability is from 0 to 5. It affects how well the organization can act on feedback and improve communication.":"Rate how this external condition affects the digital communication system from 0 to 5. It can accelerate or slow the Internet Dynamics score.";return `<div class="range"><label><span class="field-title">${label}<span class="learn" tabindex="0" data-tip="${tip}"></span></span><output>${value}</output></label><input data-scope="${scope}" data-key="${key}" type="range" min="0" max="5" step="1" value="${value}"></div>`}
     function createSubnode(kind,name){snapshot();const c=core(kind);const count=state.nodes.filter(n=>!n.core&&n.kind===kind).length;const n=addNode({name,kind,x:c.x+(kind==="Users"?-125:kind==="Content"?-25:125),y:c.y+125+count*20,qty:name.includes("AI")||name.includes("Workflow")?75:50,max:100,weight:name==="Marketplace"?.65:1,ai:name.includes("AI")||name.includes("Workflow")?85:15,economics:kind==="Users"?"revenue":kind==="Content"?"offer-cost":"infra-cost"});addEdge(n.id,c.id,name);select(n.id);render()}
@@ -626,7 +676,7 @@
     function renderCalc(){const r=calc();mInet.textContent=r.inet.toFixed(0);mComm.textContent=r.comm.toFixed(0);mGap.textContent=r.gap.toFixed(0);mMoney.textContent=r.economic.toFixed(0)+"%";draw(r)}
     function draw(r){const svg=projection,w=svg.clientWidth||720,h=310,p={l:42,r:20,t:20,b:36};svg.setAttribute("viewBox",`0 0 ${w} ${h}`);const current=[],arrival=[];for(let m=0;m<=24;m++){current.push([m,clamp(r.inet+(100-r.inet)*(1-Math.exp(-m/28))*r.management,0,100)]);arrival.push([m,clamp(r.inet+(100-r.inet)*(1-Math.exp(-m/(9/r.aiFactor))),0,100)])}const x=m=>p.l+m/24*(w-p.l-p.r),y=v=>p.t+(1-v/100)*(h-p.t-p.b),line=d=>d.map((q,i)=>(i?"L":"M")+" "+x(q[0]).toFixed(1)+" "+y(q[1]).toFixed(1)).join(" ");svg.innerHTML=`<line x1="${p.l}" y1="${y(100)}" x2="${w-p.r}" y2="${y(100)}" stroke="#cbdde8"/><line x1="${p.l}" y1="${y(50)}" x2="${w-p.r}" y2="${y(50)}" stroke="#e4edf3"/><line x1="${p.l}" y1="${p.t}" x2="${p.l}" y2="${h-p.b}" stroke="#6b7b88"/><line x1="${p.l}" y1="${h-p.b}" x2="${w-p.r}" y2="${h-p.b}" stroke="#6b7b88"/><path d="${line(current)}" fill="none" stroke="#0073aa" stroke-width="3"/><path d="${line(arrival)}" fill="none" stroke="#05070b" stroke-width="3" stroke-dasharray="8 6"/><text x="${p.l}" y="${y(100)-7}" font-size="12" fill="#566273">AI arrival model - 100</text><text x="${w-180}" y="${y(arrival[24][1])-8}" font-size="12" fill="#05070b">AI optimized</text><text x="${w-160}" y="${y(current[24][1])+18}" font-size="12" fill="#0073aa">Current path</text><text x="${p.l}" y="${h-9}" font-size="12" fill="#566273">Time horizon - months</text>`}
     function renderTable(){const rows=state.nodes.filter(n=>!n.core).map(n=>`<tr><td>${n.kind}</td><td>${esc(n.name)}</td><td>${esc(n.measure)}</td><td>${n.qty}</td><td>${n.max}</td><td>${n.weight}</td><td>${n.ai}</td><td>${score(n).toFixed(1)}</td></tr>`).join("");inventory.innerHTML=`<thead><tr><th>Variable</th><th>Node</th><th>Measure</th><th>Observed</th><th>Arrival max</th><th>Weight</th><th>AI</th><th>Score</th></tr></thead><tbody>${rows||"<tr><td colspan='8'>No nodes yet.</td></tr>"}</tbody>`}
-    function renderEquation(){const r=calc();equationLines.innerHTML=[["1. Normalize endogenous variables",`U=${r.U.toFixed(2)}, C=${r.C.toFixed(2)}, I=${r.I.toFixed(2)}`],["2. Reinforcing synergy",`Phi(U,C,I)=(U*C*I)^(1/3)=${r.synergy.toFixed(2)}`],["3. Communication balance",`Psi(U,C,I)=average(U,C,I)=${r.balance.toFixed(2)}`],["4. Endogenous communication",`CEnd=0.62*Phi+0.38*Psi=${r.comm.toFixed(2)}`],["5. Management factor",`G=average(processes, organization, systems, data/AI)=${r.management.toFixed(2)}`],["6. Exogenous ecosystem",`E=PESTEL adjusted by competition=${r.exo.toFixed(2)}`],["7. AI acceleration",`F_AI=1+AI_average/180=${r.aiFactor.toFixed(2)}`],["8. Internet Dynamics",`I_net=CEnd*(0.72+0.28G)*E*F_AI=${r.inet.toFixed(2)}`],["9. Arrival gap",`Gap=100-I_net=${r.gap.toFixed(2)}`]].map(([a,b])=>`<div class="eq-line"><b>${a}</b><br><code>${b}</code></div>`).join("")}
+    function renderEquation(){const r=calc();equationLines.innerHTML=[["1. Normalize endogenous variables",`U=${r.U.toFixed(2)}, C=${r.C.toFixed(2)}, I=${r.I.toFixed(2)}`],["2. Reinforcing synergy",`Phi(U,C,I)=(U*C*I)^(1/3)=${r.synergy.toFixed(2)}`],["3. Communication balance",`Psi(U,C,I)=average(U,C,I)=${r.balance.toFixed(2)}`],["4. Endogenous communication",`CEnd=0.62*Phi+0.38*Psi=${r.comm.toFixed(2)}`],["5. Management factor",`G=average(processes, organization, systems, data/AI)=${r.management.toFixed(2)}`],["6. Exogenous ecosystem",`E=PESTEL adjusted by competition=${r.exo.toFixed(2)}`],["7. AI acceleration",`F_AI=1+AI_average/180=${r.aiFactor.toFixed(2)}`],["8. Internet Dynamics",`I_net=CEnd*(0.72+0.28G)*E*F_AI=${r.inet.toFixed(2)}`],["9. Arrival gap",`Gap=100-I_net=${r.gap.toFixed(2)}`]].map(([a,b])=>`<div class="eq-line"><b>${a}</b><br><code>${b}</code></div>`).join("");const level=r.inet<35?"a fragile digital communication system: the organization is still far from letting data, feedback and AI manage the buyer relationship end to end":r.inet<65?"a developing communication system: the loop exists, but management maturity, infrastructure, content or user signals still limit personalization and business capture":"a strong communication system: feedback, data and AI can increasingly coordinate communication, improve personalization and move the organization closer to the arrival model";equationSummary.textContent=`The final Forrester-inspired Internet Dynamics indicator is ${r.inet.toFixed(0)}%. In business terms, this means ${level}. The remaining gap is ${r.gap.toFixed(0)} percentage points to the AI-enabled arrival model.`}
     function setMode(m){canvas.classList.toggle("hidden",m!=="canvas");bottomDeck.classList.toggle("hidden",m!=="canvas");dashboard.classList.toggle("active",m==="dashboard");equationView.classList.toggle("active",m==="equation");canvasMode.setAttribute("aria-pressed",m==="canvas");dashboardMode.setAttribute("aria-pressed",m==="dashboard");equationMode.setAttribute("aria-pressed",m==="equation");render()}
     function updateConfig(){const n=node(state.selected);if(!n)return;n.name=cfgName.value;n.measure=cfgMeasure.value;n.desc=cfgDesc.value;n.qty=Number(cfgQty.value);n.max=Number(cfgMax.value)||1;n.weight=Number(cfgWeight.value);n.ai=Number(cfgAi.value);n.economics=cfgEconomics.value;cfgWeightOut.value=n.weight.toFixed(2);cfgAiOut.value=n.ai;render()}
     function createNoRender(kind,name,qty,max,weight,aiValue){const c=core(kind),count=state.nodes.filter(n=>!n.core&&n.kind===kind).length;return addNode({name,kind,x:c.x+(kind==="Users"?-125:kind==="Content"?-25:125),y:c.y+120+count*20,qty,max,weight,ai:aiValue,economics:kind==="Users"?"revenue":kind==="Content"?"offer-cost":"infra-cost"})}
@@ -648,7 +698,7 @@
         mobileMenu.classList.remove("open");
       });
       menuBtn.onclick=()=>mobileMenu.classList.toggle("open");
-      endogenousHead.onclick=()=>{leftPanel.classList.toggle("folded");endogenousHead.classList.toggle("is-folded");render()};
+      endogenousHead.onclick=()=>{leftPanel.classList.toggle("folded");endogenousHead.classList.toggle("is-folded");labTool.classList.toggle("endogenous-folded",leftPanel.classList.contains("folded"));render()};
       externalHead.onclick=()=>{bottomDeck.classList.toggle("folded");externalHead.classList.toggle("is-folded");render()};
       configHead.onclick=()=>setPanel("right",false);
       document.querySelectorAll(".palette-head").forEach(b=>b.onclick=()=>{const target=document.getElementById(b.dataset.toggle);target.hidden=!target.hidden;b.classList.toggle("is-folded",target.hidden);render()});
