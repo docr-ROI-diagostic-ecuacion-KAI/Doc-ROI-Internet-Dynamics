@@ -103,11 +103,11 @@
     .data-map .map-node{position:absolute;border:1px solid #315d78;background:#fff;border-radius:8px;padding:9px 12px;font-size:12px;font-weight:900;text-align:center;box-shadow:0 8px 20px rgba(0,59,92,.08)}
     .data-map .m-users{left:28%;top:16%}.data-map .m-content{left:18%;top:50%}.data-map .m-infra{right:16%;top:50%}.data-map .m-data{left:39%;bottom:8%;background:#003b5c;color:#fff}.data-map .m-eco{right:4%;top:12%}
     .data-map svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-    .system-map{position:relative;min-height:300px}
+    .system-map{position:relative;min-height:360px}
     .system-map svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
     .system-node{position:absolute;z-index:2;border:2px solid #9ca3af;background:#fff;border-radius:8px;padding:9px 12px;text-align:center;font-size:11px;font-weight:900;line-height:1.12;box-shadow:0 8px 22px rgba(0,59,92,.08);word-break:keep-all;overflow-wrap:normal;hyphens:none}
     .system-node em{display:block;font-size:11px;font-weight:600;color:#475569;margin-top:4px;white-space:nowrap}
-    .system-user{left:50%;top:0;width:142px;transform:translateX(-50%)}.system-message{left:0;top:88px;width:118px}.system-eco{right:0;top:98px;width:112px;background:#050b5f;border-color:#050b5f;color:#fff}.system-eco em{color:#fff}.system-infra{left:50%;top:218px;width:128px;transform:translateX(-50%)}.system-feedback{right:0;bottom:0;width:70px;border:0;background:transparent;box-shadow:none;color:#05070b;padding:0;text-align:left;font-size:10px}
+    .system-user{left:50%;top:0;width:142px;transform:translateX(-50%)}.system-message{left:0;top:104px;width:118px}.system-infra{right:0;top:100px;width:124px}.system-eco{right:0;top:268px;width:92px;background:#050b5f;border-color:#050b5f;color:#fff}.system-eco em{color:#fff}.system-feedback{left:44px;top:274px;width:78px;border:0;background:transparent;box-shadow:none;color:#05070b;padding:0;text-align:left;font-size:10px}
     .formula-card{border:1px solid #dbe7ef;background:#fff;border-radius:8px;padding:14px;margin-top:14px}
     .formula-card b{display:block;color:#0073aa;font-size:12px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
     .formula-card code{display:block;background:#071d33;color:#eaf6fb;border-radius:8px;padding:12px;font-size:15px;white-space:nowrap;overflow:auto}
@@ -423,23 +423,22 @@
             <h4>Communication System</h4>
             <p style="font-size:11px;line-height:1.35;margin-bottom:8px;color:#334155">A system is a set of related elements that produce a common purpose. System dynamics studies how that purpose behaves over time.</p>
             <div class="system-map">
-              <svg viewBox="0 0 260 300" aria-hidden="true">
+              <svg viewBox="0 0 260 360" aria-hidden="true">
                 <defs>
                   <marker id="sysArrowGrey" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#9ca3af"/></marker>
                   <marker id="sysArrowBlue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#0073aa"/></marker>
                 </defs>
-                <path d="M130 42 C68 48 20 78 20 106" fill="none" stroke="#9ca3af" stroke-width="2.4" marker-end="url(#sysArrowGrey)"/>
-                <path d="M22 128 C30 182 64 222 128 232" fill="none" stroke="#9ca3af" stroke-width="2.4" marker-end="url(#sysArrowGrey)"/>
-                <path d="M132 232 C214 210 246 148 230 42" fill="none" stroke="#9ca3af" stroke-width="2.4" marker-end="url(#sysArrowGrey)"/>
-                <path d="M230 42 C206 22 180 18 150 26" fill="none" stroke="#9ca3af" stroke-width="2.4" marker-end="url(#sysArrowGrey)"/>
-                <path d="M160 45 L226 96" fill="none" stroke="#0073aa" stroke-width="2" marker-end="url(#sysArrowBlue)"/>
-                <path d="M222 118 L112 112" fill="none" stroke="#0073aa" stroke-width="2" marker-end="url(#sysArrowBlue)"/>
-                <path d="M224 142 L136 222" fill="none" stroke="#0073aa" stroke-width="2" marker-end="url(#sysArrowBlue)"/>
+                <path d="M120 40 C64 46 24 78 22 112" fill="none" stroke="#9ca3af" stroke-width="2.4" marker-end="url(#sysArrowGrey)"/>
+                <path d="M34 146 C60 190 132 204 214 142" fill="none" stroke="#9ca3af" stroke-width="2.4" marker-end="url(#sysArrowGrey)"/>
+                <path d="M228 106 C222 58 184 42 150 40" fill="none" stroke="#9ca3af" stroke-width="2.4" marker-end="url(#sysArrowGrey)"/>
+                <path d="M220 276 L138 52" fill="none" stroke="#0073aa" stroke-width="2" marker-end="url(#sysArrowBlue)"/>
+                <path d="M214 280 L102 134" fill="none" stroke="#0073aa" stroke-width="2" marker-end="url(#sysArrowBlue)"/>
+                <path d="M228 268 L204 140" fill="none" stroke="#0073aa" stroke-width="2" marker-end="url(#sysArrowBlue)"/>
               </svg>
               <div class="system-node system-user">Emitter / Receiver<em>User</em></div>
               <div class="system-node system-message">Message / Mode<em>Content</em></div>
-              <div class="system-node system-eco">Noise<em>System</em></div>
               <div class="system-node system-infra">Code / Decoding<em>Infrastructure</em><em>Medium / Channel</em></div>
+              <div class="system-node system-eco">Noise<em>System</em></div>
               <div class="system-node system-feedback">Data<br><em>Feedback</em></div>
             </div>
           </aside>
