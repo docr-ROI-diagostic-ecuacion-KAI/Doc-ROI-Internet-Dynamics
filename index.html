@@ -197,8 +197,12 @@
     .resize:after{content:"";position:absolute;right:4px;bottom:4px;width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;opacity:.45}
     .bottom-deck{display:grid;grid-template-columns:1fr 1fr;gap:9px;border-top:1px solid var(--line);background:#f8fbfd;padding:9px}
     .slider-card{border:1px solid var(--line);background:#fff;border-radius:8px;padding:10px;box-shadow:0 10px 22px rgba(0,59,92,.05)}
-    .slider-card h4{margin:0 0 8px;color:#003b5c;font-size:12px}
+    .slider-card h4{margin:0;color:#003b5c;font-size:12px}
+    .slider-head{width:100%;border:0;background:transparent;padding:0 0 8px;color:#003b5c;font-size:12px;font-weight:900;text-align:left;display:flex;justify-content:space-between;gap:10px;cursor:pointer}
+    .slider-head span{color:#566273;font-size:11px;font-weight:800}
     .sliders{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .slider-card.collapsed .sliders{display:none}
+    .slider-card.collapsed .slider-head{padding-bottom:0}
     .range{display:grid;gap:4px}
     .range label{display:flex;justify-content:space-between;align-items:center;gap:8px;color:#40586b;font-size:12px}
     .range output{min-width:42px;text-align:center;border:1px solid #cbdde8;background:#fff;border-radius:999px;padding:2px 7px;color:#003b5c;font-weight:900}
@@ -524,6 +528,7 @@
               <button class="btn" id="fullBtn">Fullscreen</button>
               <button class="btn" id="printBtn">Print PDF</button>
               <button class="btn" id="leftBtn" aria-pressed="true">Endogenous panel</button>
+              <button class="btn" id="bottomBtn" aria-pressed="true">External variables</button>
               <button class="btn" id="rightBtn" aria-pressed="true">Configuration</button>
               <button class="btn" id="entityBtn">Entity</button>
               <button class="btn" id="deleteBtn">Delete</button>
@@ -553,8 +558,8 @@
                 <div class="world" id="world"><svg class="edges" id="edges"></svg></div>
               </div>
               <div class="bottom-deck" id="bottomDeck">
-                <div class="slider-card"><h4>Company management</h4><div class="sliders" id="companySliders"></div></div>
-                <div class="slider-card"><h4>Exogenous ecosystem</h4><div class="sliders" id="exoSliders"></div></div>
+                <div class="slider-card" id="companyCard"><button class="slider-head" type="button" data-fold-card="companyCard">Company management <span>Fold</span></button><div class="sliders" id="companySliders"></div></div>
+                <div class="slider-card" id="exoCard"><button class="slider-head" type="button" data-fold-card="exoCard">Exogenous ecosystem <span>Fold</span></button><div class="sliders" id="exoSliders"></div></div>
               </div>
               <div class="dashboard" id="dashboard">
                 <div class="metrics">
@@ -631,7 +636,7 @@
     function addNode(d){const n={id:id("n"),name:d.name||"Node",kind:d.kind||"Users",core:!!d.core,x:d.x??120,y:d.y??120,w:d.w??148,h:d.h??72,qty:d.qty??50,max:d.max??100,weight:d.weight??1,ai:d.ai??0,measure:d.measure||measures[d.kind||"Users"][0],desc:d.desc||"",economics:d.economics||"revenue"};state.nodes.push(n);return n}
     function addEdge(a,b,label){if(!a||!b||a===b)return;state.edges.push({id:id("e"),from:a,to:b,label:label||String(state.edges.length+1).padStart(2,"0")})}
     function node(idv){return state.nodes.find(n=>n.id===idv)} function core(k){return state.nodes.find(n=>n.core&&n.kind===k)}
-    function init(){addNode({name:"Users",kind:"Users",core:true,x:210,y:170,w:164,h:86,qty:60,max:100,ai:20});addNode({name:"Content",kind:"Content",core:true,x:500,y:315,w:164,h:86,qty:55,max:100,ai:25,economics:"offer-cost"});addNode({name:"Infrastructure",kind:"Infrastructure",core:true,x:790,y:170,w:164,h:86,qty:58,max:100,ai:25,economics:"infra-cost"});addEdge(core("Users").id,core("Content").id,"U-C");addEdge(core("Content").id,core("Infrastructure").id,"C-I");addEdge(core("Infrastructure").id,core("Users").id,"I-U");buildPalettes();buildSliders();bind();loadExample(false);render()}
+    function init(){addNode({name:"Users",kind:"Users",core:true,x:210,y:170,w:164,h:86,qty:0,max:100,ai:0});addNode({name:"Content",kind:"Content",core:true,x:500,y:315,w:164,h:86,qty:0,max:100,ai:0,economics:"offer-cost"});addNode({name:"Infrastructure",kind:"Infrastructure",core:true,x:790,y:170,w:164,h:86,qty:0,max:100,ai:0,economics:"infra-cost"});addEdge(core("Users").id,core("Content").id,"U-C");addEdge(core("Content").id,core("Infrastructure").id,"C-I");addEdge(core("Infrastructure").id,core("Users").id,"I-U");buildPalettes();buildSliders();bind();render()}
     function buildPalettes(){[["Users","usersTiles"],["Content","contentTiles"],["Infrastructure","infraTiles"]].forEach(([k,el])=>{document.getElementById(el).innerHTML=palettes[k].map(([a,b])=>`<button class="tile" data-kind="${k}" data-name="${a}">${a}<small>${b}</small></button>`).join("")});document.querySelectorAll(".tile").forEach(t=>{t.onclick=()=>showToast("Double-click to add "+t.dataset.name);t.ondblclick=()=>createSubnode(t.dataset.kind,t.dataset.name)})}
     function buildSliders(){const company={processes:"Processes",organization:"Organization",systems:"Systems",dataAI:"Data / AI"};const exo={legal:"Legal / GDPR",economy:"Economy",politics:"Politics",competition:"Competition",innovation:"Innovation",culture:"Digital culture"};companySliders.innerHTML=Object.keys(company).map(k=>slider("company",k,company[k],state.company[k])).join("");exoSliders.innerHTML=Object.keys(exo).map(k=>slider("exo",k,exo[k],state.exo[k])).join("");document.querySelectorAll("[data-scope]").forEach(i=>i.oninput=e=>{state[e.target.dataset.scope][e.target.dataset.key]=Number(e.target.value);e.target.previousElementSibling.querySelector("output").value=e.target.value;render()})}
     function slider(scope,key,label,value){return `<div class="range"><label>${label}<output>${value}</output></label><input data-scope="${scope}" data-key="${key}" type="range" min="0" max="5" step="1" value="${value}"></div>`}
@@ -686,15 +691,17 @@
       zoomOut.onclick=()=>{state.zoom=clamp(state.zoom-.1,.25,2.5);render()};
       fitBtn.onclick=()=>{state.zoom=1;render()};
       leftBtn.onclick=()=>setPanel("left",leftPanel.hidden);
+      bottomBtn.onclick=()=>{bottomDeck.hidden=!bottomDeck.hidden;bottomBtn.setAttribute("aria-pressed",!bottomDeck.hidden);render()};
       rightBtn.onclick=()=>setPanel("right",rightPanel.hidden);
       showLeftTab.onclick=()=>setPanel("left",true);
       showRightTab.onclick=()=>setPanel("right",true);
+      document.querySelectorAll("[data-fold-card]").forEach(b=>b.onclick=()=>{const card=document.getElementById(b.dataset.foldCard);card.classList.toggle("collapsed");b.querySelector("span").textContent=card.classList.contains("collapsed")?"Open":"Fold";render()});
       entityBtn.onclick=()=>createSubnode("Users","Other");
       deleteBtn.onclick=()=>{if(!state.selected)return;snapshot();state.nodes=state.nodes.filter(n=>n.core||n.id!==state.selected);state.edges=state.edges.filter(e=>e.from!==state.selected&&e.to!==state.selected);state.selected=null;render();syncConfig()};
       distributeBtn.onclick=()=>{core("Users").x=210;core("Users").y=170;core("Content").x=500;core("Content").y=315;core("Infrastructure").x=790;core("Infrastructure").y=170;render()};
       exampleBtn.onclick=()=>loadExample(true);
-      clearBtn.onclick=()=>{state.nodes.filter(n=>!n.core).forEach(n=>{n.qty=0;n.ai=0});render();showToast("Data cleared")};
-      newBtn.onclick=()=>{snapshot();state.nodes=state.nodes.filter(n=>n.core);state.edges=state.edges.filter(e=>node(e.from)?.core&&node(e.to)?.core);render()};
+      clearBtn.onclick=()=>{state.nodes.forEach(n=>{n.qty=0;n.ai=0});render();showToast("Data cleared")};
+      newBtn.onclick=()=>{snapshot();state.nodes=state.nodes.filter(n=>n.core);state.nodes.forEach(n=>{n.qty=0;n.ai=0});state.edges=state.edges.filter(e=>node(e.from)?.core&&node(e.to)?.core);render();showToast("Clean canvas ready")};
       fullBtn.onclick=()=>labTool.requestFullscreen?.();
       printBtn.onclick=()=>print();
       saveBtn.onclick=save;
