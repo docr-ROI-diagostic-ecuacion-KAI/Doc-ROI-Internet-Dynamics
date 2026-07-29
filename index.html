@@ -99,6 +99,16 @@
     .data-map .map-node{position:absolute;border:1px solid #315d78;background:#fff;border-radius:8px;padding:9px 12px;font-size:12px;font-weight:900;text-align:center;box-shadow:0 8px 20px rgba(0,59,92,.08)}
     .data-map .m-users{left:28%;top:16%}.data-map .m-content{left:18%;top:50%}.data-map .m-infra{right:16%;top:50%}.data-map .m-data{left:39%;bottom:8%;background:#003b5c;color:#fff}.data-map .m-eco{right:4%;top:12%}
     .data-map svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+    .system-map{position:relative;min-height:430px}
+    .system-map svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+    .system-node{position:absolute;border:2px solid #9ca3af;background:#fff;border-radius:8px;padding:10px 12px;text-align:center;font-size:12px;font-weight:900;line-height:1.12;box-shadow:0 8px 22px rgba(0,59,92,.08)}
+    .system-node em{display:block;font-size:11px;font-weight:600;color:#475569;margin-top:3px}
+    .system-user{left:42%;top:28%;width:86px}.system-message{left:5%;top:47%;width:92px}.system-eco{right:4%;top:47%;width:92px}.system-infra{right:6%;top:68%;width:96px}.system-data{left:12%;top:82%;width:82px}
+    .system-caption{position:absolute;color:#334155;font-size:11px;font-weight:900}
+    .cap-emitter{left:34%;top:22%}.cap-receiver{right:24%;top:22%}.cap-noise{right:8%;top:43%}.cap-code{right:0;top:80%}.cap-medium{right:0;bottom:12px}.cap-feedback{left:14%;bottom:8px}
+    .formula-card{border:1px solid #dbe7ef;background:#fff;border-radius:8px;padding:14px;margin-top:14px}
+    .formula-card b{display:block;color:#0073aa;font-size:12px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+    .formula-card code{display:block;background:#071d33;color:#eaf6fb;border-radius:8px;padding:12px;font-size:15px;white-space:nowrap;overflow:auto}
     .compare{display:grid;gap:10px;margin:18px 0}
     .compare-row{display:grid;grid-template-columns:150px 1fr;gap:12px;border:1px solid #dbe7ef;border-radius:8px;padding:12px;background:#fbfdff}
     .compare-row b{color:#003b5c}
@@ -239,7 +249,7 @@
           <span class="lesson-tag">FORMATIVE CONSULTATION</span>
           <button class="active" type="button" data-lesson="internet">01 &middot; Internet Dynamics</button>
           <button type="button" data-lesson="communication">02 &middot; Communication</button>
-          <a href="#system">03 &middot; Data loop</a>
+          <button type="button" data-lesson="dynamics">03 &middot; System dynamics</button>
           <a href="#model">04 &middot; System dynamics</a>
           <a href="#laboratory">05 &middot; Laboratory</a>
         </aside>
@@ -310,7 +320,7 @@
             <p class="sources"><strong>Sources:</strong> Wiener (1948), Shannon and Weaver (1949), Forrester (1961), Luhmann (1995), Sterman (2000), Meadows (2008).</p>
             <div class="lesson-actions">
               <button class="btn" type="button" data-lesson="internet">Previous</button>
-              <a class="btn" href="#system">Next</a>
+              <button class="btn" type="button" data-lesson="dynamics">Next</button>
               <a class="btn primary" href="#laboratory">Go to laboratory</a>
             </div>
           </div>
@@ -334,6 +344,64 @@
               <span class="side-label infra-2">Infrastructure</span>
               <span class="side-label data">Data Loop</span>
               <div class="user-label bottom">USER</div>
+            </div>
+          </aside>
+        </article>
+        <article class="lesson-card lesson-panel" data-panel="dynamics" hidden>
+          <div class="lesson-content">
+            <span class="session">SESSION 3</span>
+            <h2>Forrester gives us the language: stocks, flows, feedback, delays and reinforcing loops.</h2>
+            <h3>Learning objective</h3>
+            <p>Understand Internet as a dynamic system, not as a list of digital channels. A system is a set of related elements that interact to produce a common purpose. A dynamic system is studied through its behaviour over time: what accumulates, what grows, what is consumed, what creates delay, and what returns as feedback.</p>
+            <div class="learning-note">In Internet Dynamics, the communication process is transferred into system entities. Users are the emitter and receiver side of the relationship. Content is the message, offer and mode. Infrastructure is the medium, coding and decoding capacity. Data is the feedback memory of the system. The ecosystem introduces noise, friction and acceleration.</div>
+            <div class="method">
+              <strong>Methodological rule</strong>
+              <p>Forrester's system dynamics allows the communication system to be represented with stocks, flows, feedback loops and delays. The objective is not to draw a diagram; the objective is to simulate how the communication capacity changes when users, content, infrastructure, data and external conditions change.</p>
+            </div>
+            <div class="concept-panel">
+              <p><strong>Transfer from communication to system dynamics:</strong> the emitter/receiver relation becomes the user stock; the message becomes the content stock; the medium and coding/decoding capacity become infrastructure; feedback becomes data; noise becomes exogenous pressure; AI becomes an acceleration factor when the organization can act on the feedback.</p>
+              <div class="concept-grid">
+                <div class="concept-chip"><b>Stocks</b>Users, content and infrastructure accumulate and define the current state of the system.</div>
+                <div class="concept-chip"><b>Flows</b>Acquisition, production, investment, consumption, churn, obsolescence and friction change the stocks.</div>
+                <div class="concept-chip"><b>Feedback</b>Data returns from the receiver and modifies the following content, channel or relationship decision.</div>
+                <div class="concept-chip"><b>Delay</b>The effect of a campaign, platform, process, system or AI automation rarely appears instantly.</div>
+              </div>
+            </div>
+            <div class="formula-card">
+              <b>Forrester-inspired state update</b>
+              <code>Stock(t+1) = Stock(t) + inflow(t) - outflow(t)</code>
+            </div>
+            <p class="key"><strong>Key concepts:</strong> dynamic system &middot; stock &middot; flow &middot; reinforcing loop &middot; delay &middot; feedback &middot; exogenous friction &middot; AI acceleration.</p>
+            <p class="sources"><strong>Sources:</strong> Forrester (1961), Bertalanffy (1968), Sterman (2000), Meadows (2008), Wiener (1948), Shannon and Weaver (1949).</p>
+            <div class="lesson-actions">
+              <button class="btn" type="button" data-lesson="communication">Previous</button>
+              <a class="btn" href="#model">Next</a>
+              <a class="btn primary" href="#laboratory">Go to laboratory</a>
+            </div>
+          </div>
+          <aside class="visual-panel">
+            <h4>Communication System</h4>
+            <p style="font-size:11px;line-height:1.35;margin-bottom:8px;color:#334155">A system is a set of related elements that produce a common purpose. System dynamics studies how that purpose behaves over time.</p>
+            <div class="system-map">
+              <svg viewBox="0 0 260 430" aria-hidden="true">
+                <path d="M112 96 C72 118 56 160 48 208 C43 250 52 310 80 354" fill="none" stroke="#9ca3af" stroke-width="3"/>
+                <path d="M174 96 C230 118 248 170 238 234 C230 294 190 332 122 362" fill="none" stroke="#9ca3af" stroke-width="3"/>
+                <path d="M50 220 L148 222 L202 220" fill="none" stroke="#0073aa" stroke-width="3"/>
+                <path d="M148 112 L148 222 L196 300 L86 362 L50 220" fill="none" stroke="#9ca3af" stroke-width="3"/>
+                <path d="M202 220 L200 300 L86 362 L148 112" fill="none" stroke="#9ca3af" stroke-width="3"/>
+                <path d="M86 362 C118 318 132 244 148 112" fill="none" stroke="#0073aa" stroke-width="3"/>
+              </svg>
+              <span class="system-caption cap-emitter">Emitter</span>
+              <span class="system-caption cap-receiver">Receiver</span>
+              <span class="system-caption cap-noise">Noise</span>
+              <span class="system-caption cap-code">Code system<br>Decoding</span>
+              <span class="system-caption cap-medium">Medium<br>/ Channel</span>
+              <span class="system-caption cap-feedback">Feedback</span>
+              <div class="system-node system-user">User</div>
+              <div class="system-node system-message">Message<em>Content / mode</em></div>
+              <div class="system-node system-eco">Eco<em>System</em></div>
+              <div class="system-node system-infra">Infrastructure</div>
+              <div class="system-node system-data">Data</div>
             </div>
           </aside>
         </article>
