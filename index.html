@@ -90,15 +90,15 @@
     .process-loop .flow-node{width:86px;min-width:86px;padding:7px 8px;font-size:11px;line-height:1.1}
     .process-loop .flow-arrow{width:86px;text-align:center;line-height:1;color:#0d648c}
     .noise-node{position:absolute;left:-60px;top:210px;width:92px;border:2px solid #9ca3af;background:#fff;border-radius:8px;padding:10px 8px;text-align:center;font-size:11px;font-weight:900;box-shadow:0 8px 18px rgba(15,23,42,.08)}
-    .internet-process{width:190px;padding-left:0;padding-right:0}
-    .internet-process:before{left:8px;top:46px;bottom:38px;width:94px}
-    .internet-process:after{left:98px;top:40px}
-    .internet-process .flow-node{width:82px;min-width:82px}
-    .internet-process .flow-arrow{width:82px}
-    .user-label{position:absolute;right:2px;color:#003b5c;font-size:21px;line-height:1;font-weight:900}
-    .user-label.top{top:42px}.user-label.bottom{bottom:18px}
-    .side-label{position:absolute;left:0;color:#003b5c;font-size:10px;font-weight:900;line-height:1.05;text-align:left;background:rgba(251,253,255,.78);padding:1px 2px;border-radius:3px}
-    .side-label.infra-1{top:126px}.side-label.content-1{top:188px}.side-label.content-2{top:250px}.side-label.eco{top:310px}.side-label.infra-2{top:356px}.side-label.data{bottom:58px}
+    .internet-process{width:184px;padding-left:0;padding-right:0;gap:7px}
+    .internet-process:before{left:0;top:34px;bottom:33px;width:84px}
+    .internet-process:after{left:80px;top:28px}
+    .internet-process .flow-node{width:100px;min-width:100px;border-color:#9ca3af;border-width:2px;box-shadow:3px 4px 0 rgba(15,23,42,.18);font-size:10px;font-weight:500;color:#334155}
+    .internet-process .flow-node b{display:block;color:#0b0f19;font-size:10px;font-weight:500;line-height:1.05}
+    .internet-process .flow-node strong{display:block;color:#003b5c;font-size:10px;font-weight:900;line-height:1.05;margin-top:2px}
+    .internet-process .flow-arrow{width:100px}
+    .internet-process .noise-node{left:-82px;top:212px;width:92px;border-color:#9ca3af;border-width:2px;box-shadow:3px 4px 0 rgba(15,23,42,.18);font-size:11px}
+    .internet-process .noise-node strong{display:block;color:#003b5c;font-size:10px;margin-top:2px}
     .data-map{position:relative;min-height:350px}
     .data-map .map-node{position:absolute;border:1px solid #315d78;background:#fff;border-radius:8px;padding:9px 12px;font-size:12px;font-weight:900;text-align:center;box-shadow:0 8px 20px rgba(0,59,92,.08)}
     .data-map .m-users{left:28%;top:16%}.data-map .m-content{left:18%;top:50%}.data-map .m-infra{right:16%;top:50%}.data-map .m-data{left:39%;bottom:8%;background:#003b5c;color:#fff}.data-map .m-eco{right:4%;top:12%}
@@ -350,23 +350,15 @@
           <aside class="visual-panel">
             <h4>Communication Process</h4>
             <div class="process-loop internet-process">
-              <div class="user-label top">USER</div>
-              <div class="flow-node">Emitter</div><div class="flow-arrow">&darr;</div>
-              <div class="flow-node">Code system</div><div class="flow-arrow">&darr;</div>
-              <div class="flow-node">Mode</div><div class="flow-arrow">&darr;</div>
-              <div class="flow-node">Message</div><div class="flow-arrow">&darr;</div>
-              <div class="flow-node">Medium / Channel</div><div class="flow-arrow">&darr;</div>
-              <div class="flow-node">Decoding system</div><div class="flow-arrow">&darr;</div>
-              <div class="flow-node">Receiver</div><div class="flow-arrow">&darr;</div>
-              <div class="flow-node">Feedback</div>
-              <div class="noise-node">Noise</div>
-              <span class="side-label infra-1">Infrastructure</span>
-              <span class="side-label content-1">Content</span>
-              <span class="side-label content-2">Content</span>
-              <span class="side-label eco">Ecosystem</span>
-              <span class="side-label infra-2">Infrastructure</span>
-              <span class="side-label data">Data Loop</span>
-              <div class="user-label bottom">USER</div>
+              <div class="flow-node"><b>Emitter</b><strong>User</strong></div><div class="flow-arrow">&darr;</div>
+              <div class="flow-node"><b>Code<br>System</b><strong>Infrastructure</strong></div><div class="flow-arrow">&darr;</div>
+              <div class="flow-node"><b>Mode</b><strong>Content</strong></div><div class="flow-arrow">&darr;</div>
+              <div class="flow-node"><b>Message</b><strong>Content</strong></div><div class="flow-arrow">&darr;</div>
+              <div class="flow-node"><b>Medium<br>/ Channel</b><strong>Infrastructure</strong></div><div class="flow-arrow">&darr;</div>
+              <div class="flow-node"><b>Decoding<br>System</b><strong>Infrastructure</strong></div><div class="flow-arrow">&darr;</div>
+              <div class="flow-node"><b>Receiver</b><strong>User</strong></div><div class="flow-arrow">&darr;</div>
+              <div class="flow-node"><b>Feedback</b><strong>Data Loop</strong></div>
+              <div class="noise-node">Noise<strong>Ecosystem</strong></div>
             </div>
           </aside>
         </article>
