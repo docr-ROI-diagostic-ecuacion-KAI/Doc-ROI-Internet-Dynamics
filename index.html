@@ -66,6 +66,12 @@
     .lesson-content h3{font-size:17px;margin-top:26px;margin-bottom:10px}
     .method{border-left:3px solid #0073aa;background:#eef5f9;padding:15px 18px;margin:18px 0}
     .method strong{display:block;margin-bottom:6px}
+    .learning-note{background:#f3f7fa;border-left:3px solid #003b5c;padding:16px 18px;margin:18px 0;color:#182b3a;font-size:17px;line-height:1.55}
+    .concept-panel{background:#f7fafc;border:1px solid #e1e9ef;border-radius:8px;padding:14px 16px;margin-top:14px}
+    .concept-panel p{font-size:14px;line-height:1.55}
+    .concept-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px}
+    .concept-chip{border:1px solid #cbdde8;background:#fff;border-radius:8px;padding:9px 10px;font-size:12px;line-height:1.35;color:#2f4858}
+    .concept-chip b{display:block;color:#003b5c;margin-bottom:3px}
     .key{font-size:15px;line-height:1.7;color:#254053;margin-top:10px}
     .sources{border-top:1px solid #e1e9ef;margin-top:18px;padding-top:10px;color:#50677a;font-size:11px;line-height:1.45}
     .lesson-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
@@ -77,6 +83,10 @@
     .small-loop{width:118px;margin:18px auto 0;border:1px dashed #0073aa;border-radius:8px;background:#fff;color:#003b5c;text-align:center;padding:10px;font-size:12px;font-weight:900}
     .process-map{display:grid;gap:8px}
     .process-map .flow-node{min-width:116px}
+    .process-loop{position:relative;display:grid;gap:8px;justify-items:end;padding:12px 0 0 36px}
+    .process-loop:before{content:"";position:absolute;left:12px;top:70px;bottom:44px;width:44px;border:4px solid #0d648c;border-right:0}
+    .process-loop .flow-node{width:86px;min-width:86px;padding:7px 8px;font-size:11px;line-height:1.1}
+    .noise-node{position:absolute;left:0;top:210px;width:80px;border:2px solid #9ca3af;background:#fff;border-radius:8px;padding:10px 8px;text-align:center;font-size:11px;font-weight:900}
     .data-map{position:relative;min-height:350px}
     .data-map .map-node{position:absolute;border:1px solid #315d78;background:#fff;border-radius:8px;padding:9px 12px;font-size:12px;font-weight:900;text-align:center;box-shadow:0 8px 20px rgba(0,59,92,.08)}
     .data-map .m-users{left:28%;top:16%}.data-map .m-content{left:18%;top:50%}.data-map .m-infra{right:16%;top:50%}.data-map .m-data{left:39%;bottom:8%;background:#003b5c;color:#fff}.data-map .m-eco{right:4%;top:12%}
@@ -179,7 +189,7 @@
     .toast{position:fixed;right:16px;bottom:16px;background:#05070b;color:#fff;border-radius:8px;padding:12px 14px;font-size:13px;font-weight:800;box-shadow:0 20px 50px rgba(0,0,0,.18);opacity:0;transform:translateY(10px);transition:.2s;pointer-events:none;z-index:80}
     .toast.show{opacity:1;transform:translateY(0)}
     @media(max-width:1040px){.hero .wrap,.training-grid,.lesson-card,.section-head,.tool-main,.bottom-deck{grid-template-columns:1fr}.lesson-nav{position:static}.right-panel,.left-panel{border:0;border-bottom:1px solid var(--line)}.metrics{grid-template-columns:repeat(2,1fr)}.cards{grid-template-columns:1fr}}
-    @media(max-width:720px){.docroi-nav{display:none}.menu-btn{display:block}.lesson-card{padding:16px}.sliders,.tiles,.metrics,.compare-row{grid-template-columns:1fr}.tool-top{grid-template-columns:1fr}.tool-actions{justify-content:flex-start}.hero{background:#f7fafc}.diiip-head h2{font-size:32px}.diiip-item{grid-template-columns:52px 1fr}}
+    @media(max-width:720px){.docroi-nav{display:none}.menu-btn{display:block}.lesson-card{padding:16px}.sliders,.tiles,.metrics,.compare-row,.concept-grid{grid-template-columns:1fr}.tool-top{grid-template-columns:1fr}.tool-actions{justify-content:flex-start}.hero{background:#f7fafc}.diiip-head h2{font-size:32px}.diiip-item{grid-template-columns:52px 1fr}}
   </style>
 </head>
 <body>
@@ -228,15 +238,25 @@
         <article class="lesson-card">
           <div class="lesson-content">
             <span class="session">SESSION 1</span>
-            <h2>The core idea: Internet automated the communication process.</h2>
+            <h2>Understanding communication: the process behind Internet Dynamics.</h2>
             <h3>Learning objective</h3>
-            <p>Many organizations see Internet as a set of channels, campaigns or information systems. Internet Dynamics proposes a different view: Internet can be studied as a living communication system where users, content and infrastructure generate feedback, acceleration, delay and measurable behavior over time.</p>
+            <p>Before modelling Internet, we must understand communication. A communication process is not simply the transmission of a message. It is a structured exchange in which an emitter encodes meaning, selects a mode and a medium, sends a message, reaches a receiver, and receives feedback that changes the next interaction.</p>
+            <div class="learning-note">The decisive point is feedback. Without feedback, the process remains information. With feedback, the system becomes communication, because the receiver is no longer passive: the receiver answers, reacts, accepts, rejects, delays, shares, buys, complains, subscribes, leaves a trace or creates a new signal.</div>
             <div class="method">
               <strong>Methodological rule</strong>
-              <p>First identify the communication system. Then measure its endogenous variables, observe the external frictions, and only then simulate its evolution.</p>
+              <p>First map the communication process. Then identify which element of the process has been digitalized, measured or automated. Only after that can Internet Dynamics be modelled as a system of users, content and infrastructure.</p>
             </div>
-            <p class="key"><strong>Key concepts:</strong> communication system &middot; feedback loop &middot; users &middot; content &middot; infrastructure &middot; Forrester &middot; AI arrival model.</p>
-            <p class="sources"><strong>Sources:</strong> Forrester, J. W. (1961). <em>Industrial Dynamics</em>. MIT Press. Shannon, C. E. and Weaver, W. (1949). <em>The Mathematical Theory of Communication</em>.</p>
+            <div class="concept-panel">
+              <p><strong>Translation into Internet Dynamics:</strong> users act as emitters and receivers; content carries the message, offer and meaning; infrastructure provides the channel, encoding, decoding, measurement and data capture. Feedback becomes data, and data allows the organization to manage the next communication decision.</p>
+              <div class="concept-grid">
+                <div class="concept-chip"><b>Emitter</b>Who starts the signal: company, customer, platform, device or AI agent.</div>
+                <div class="concept-chip"><b>Message</b>The offer, content, brand promise, service, product or response being exchanged.</div>
+                <div class="concept-chip"><b>Medium / Channel</b>The technical and relational path: web, email, search, app, marketplace, workflow AI or agent protocol.</div>
+                <div class="concept-chip"><b>Feedback</b>The measurable answer: click, lead, conversion, churn, review, ticket, purchase, delay or satisfaction signal.</div>
+              </div>
+            </div>
+            <p class="key"><strong>Key concepts:</strong> communication process &middot; feedback loop &middot; emitter &middot; receiver &middot; customer &middot; noise &middot; message &middot; medium &middot; data trace.</p>
+            <p class="sources"><strong>Sources:</strong> Shannon and Weaver (1949), Wiener (1948), Schramm (1954), Jakobson (1960), Watzlawick, Beavin and Jackson (1967), Forrester (1961).</p>
             <div class="lesson-actions">
               <button class="btn" type="button" disabled>Previous</button>
               <a class="btn" href="#communication">Next</a>
@@ -244,13 +264,18 @@
             </div>
           </div>
           <aside class="visual-panel">
-            <h4>Three core nodes form the first map</h4>
-            <div class="flow-stack">
-              <div class="flow-node">Users</div><div class="flow-arrow">&darr;</div>
-              <div class="flow-node">Content</div><div class="flow-arrow">&darr;</div>
-              <div class="flow-node">Infrastructure</div>
+            <h4>Communication Process</h4>
+            <div class="process-loop">
+              <div class="flow-node">Emitter</div><div class="flow-arrow">&darr;</div>
+              <div class="flow-node">Code system</div><div class="flow-arrow">&darr;</div>
+              <div class="flow-node">Mode</div><div class="flow-arrow">&darr;</div>
+              <div class="flow-node">Message</div><div class="flow-arrow">&darr;</div>
+              <div class="flow-node">Medium / Channel</div><div class="flow-arrow">&darr;</div>
+              <div class="flow-node">Decoding system</div><div class="flow-arrow">&darr;</div>
+              <div class="flow-node">Receiver</div><div class="flow-arrow">&darr;</div>
+              <div class="flow-node">Feedback</div>
+              <div class="noise-node">Noise</div>
             </div>
-            <div class="small-loop">Forrester loop<br>managed by data</div>
           </aside>
         </article>
       </div>
