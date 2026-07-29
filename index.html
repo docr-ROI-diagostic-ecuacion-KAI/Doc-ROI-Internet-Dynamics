@@ -57,8 +57,9 @@
     .training-grid{display:grid;grid-template-columns:210px 1fr;gap:24px;align-items:start}
     .lesson-nav{display:grid;gap:8px;position:sticky;top:80px}
     .lesson-tag{display:inline-block;background:#003b5c;color:#fff;border-radius:999px;padding:8px 10px;font-size:11px;font-weight:900;width:max-content}
-    .lesson-nav a{display:block;text-decoration:none;border:1px solid #cad9e5;background:#edf3f7;color:#05070b;border-radius:5px;padding:11px 12px;font-size:14px;font-weight:900}
-    .lesson-nav a.active{background:#05070b;color:#fff;border-color:#05070b}
+    .lesson-nav a,.lesson-nav button{display:block;width:100%;text-align:left;text-decoration:none;border:1px solid #cad9e5;background:#edf3f7;color:#05070b;border-radius:5px;padding:11px 12px;font-size:14px;font-weight:900;cursor:pointer}
+    .lesson-nav a.active,.lesson-nav button.active{background:#05070b;color:#fff;border-color:#05070b}
+    .lesson-panel[hidden]{display:none}
     .lesson-card{border:1px solid #cbdde8;border-radius:8px;background:#fff;box-shadow:var(--shadow);padding:26px;display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:24px;min-height:560px}
     .lesson-content{display:grid;align-content:start}
     .session{display:inline-flex;width:max-content;background:#003b5c;color:#fff;border-radius:999px;padding:8px 11px;font-size:11px;font-weight:900;letter-spacing:.04em;margin-bottom:14px}
@@ -87,6 +88,13 @@
     .process-loop:before{content:"";position:absolute;left:12px;top:70px;bottom:44px;width:44px;border:4px solid #0d648c;border-right:0}
     .process-loop .flow-node{width:86px;min-width:86px;padding:7px 8px;font-size:11px;line-height:1.1}
     .noise-node{position:absolute;left:0;top:210px;width:80px;border:2px solid #9ca3af;background:#fff;border-radius:8px;padding:10px 8px;text-align:center;font-size:11px;font-weight:900}
+    .internet-process{padding-left:58px;padding-right:0}
+    .internet-process:before{left:20px;top:84px;bottom:52px}
+    .internet-process .flow-node{width:82px;min-width:82px}
+    .user-label{position:absolute;right:2px;color:#003b5c;font-size:21px;line-height:1;font-weight:900}
+    .user-label.top{top:42px}.user-label.bottom{bottom:18px}
+    .side-label{position:absolute;left:0;color:#003b5c;font-size:10px;font-weight:900;line-height:1.05;text-align:left}
+    .side-label.infra-1{top:126px}.side-label.content-1{top:188px}.side-label.content-2{top:250px}.side-label.eco{top:310px}.side-label.infra-2{top:356px}.side-label.data{bottom:58px}
     .data-map{position:relative;min-height:350px}
     .data-map .map-node{position:absolute;border:1px solid #315d78;background:#fff;border-radius:8px;padding:9px 12px;font-size:12px;font-weight:900;text-align:center;box-shadow:0 8px 20px rgba(0,59,92,.08)}
     .data-map .m-users{left:28%;top:16%}.data-map .m-content{left:18%;top:50%}.data-map .m-infra{right:16%;top:50%}.data-map .m-data{left:39%;bottom:8%;background:#003b5c;color:#fff}.data-map .m-eco{right:4%;top:12%}
@@ -229,13 +237,13 @@
       <div class="wrap training-grid">
         <aside class="lesson-nav">
           <span class="lesson-tag">FORMATIVE CONSULTATION</span>
-          <a class="active" href="#consultation">01 &middot; Internet Dynamics</a>
-          <a href="#communication">02 &middot; Communication</a>
+          <button class="active" type="button" data-lesson="internet">01 &middot; Internet Dynamics</button>
+          <button type="button" data-lesson="communication">02 &middot; Communication</button>
           <a href="#system">03 &middot; Data loop</a>
           <a href="#model">04 &middot; System dynamics</a>
           <a href="#laboratory">05 &middot; Laboratory</a>
         </aside>
-        <article class="lesson-card">
+        <article class="lesson-card lesson-panel" data-panel="internet">
           <div class="lesson-content">
             <span class="session">SESSION 1</span>
             <h2>Understanding communication: the process behind Internet Dynamics.</h2>
@@ -259,7 +267,7 @@
             <p class="sources"><strong>Sources:</strong> Shannon and Weaver (1949), Wiener (1948), Schramm (1954), Jakobson (1960), Watzlawick, Beavin and Jackson (1967), Forrester (1961).</p>
             <div class="lesson-actions">
               <button class="btn" type="button" disabled>Previous</button>
-              <a class="btn" href="#communication">Next</a>
+              <button class="btn" type="button" data-lesson="communication">Next</button>
               <a class="btn primary" href="#laboratory">Go to laboratory</a>
             </div>
           </div>
@@ -275,6 +283,57 @@
               <div class="flow-node">Receiver</div><div class="flow-arrow">&darr;</div>
               <div class="flow-node">Feedback</div>
               <div class="noise-node">Noise</div>
+            </div>
+          </aside>
+        </article>
+        <article class="lesson-card lesson-panel" data-panel="communication" hidden>
+          <div class="lesson-content">
+            <span class="session">SESSION 2</span>
+            <h2>Data gives access to information and turns feedback into relationship capacity.</h2>
+            <h3>Learning objective</h3>
+            <p>Understand the second layer of Internet Dynamics: once the communication process exists, the organization needs access to the information generated by that process. Data is not an accessory. Data is the operational evidence that allows the organization to know whether the message arrived, whether the receiver understood it, whether the channel worked, and whether the next interaction should change.</p>
+            <div class="learning-note">If there is no data, there is no managed communication. Without data, the organization cannot interpret the receiver, cannot personalize the message, cannot learn from feedback and cannot build a stable relationship. The process may emit content, but it cannot govern the relationship created by Internet.</div>
+            <div class="method">
+              <strong>Methodological rule</strong>
+              <p>Every element of the communication process must be translated into a measurable digital trace: user signal, content interaction, infrastructure event, ecosystem condition and feedback response. That trace is the bridge between communication theory and system dynamics.</p>
+            </div>
+            <div class="concept-panel">
+              <p><strong>How the second layer works:</strong> users create and receive signals; content expresses the message and the offer; infrastructure encodes, delivers, measures and decodes the interaction; the ecosystem introduces noise, friction and opportunities; the data loop returns the result to management so the next message can be more accurate.</p>
+              <div class="concept-grid">
+                <div class="concept-chip"><b>User signal</b>Audience, customer, lead, cohort, connected object or AI agent response.</div>
+                <div class="concept-chip"><b>Content signal</b>Search intent, keyword, click, view, conversion, rejection, review or consumption pattern.</div>
+                <div class="concept-chip"><b>Infrastructure signal</b>Channel, device, CRM, ERP, analytics, tag, workflow AI, performance or transaction event.</div>
+                <div class="concept-chip"><b>Data loop</b>The feedback that returns to the organization as information, intelligence and next action.</div>
+              </div>
+            </div>
+            <p class="key"><strong>Key concepts:</strong> data access &middot; signal capture &middot; feedback evidence &middot; relationship capacity &middot; content interaction &middot; infrastructure event &middot; ecosystem noise &middot; managed communication.</p>
+            <p class="sources"><strong>Sources:</strong> Wiener (1948), Shannon and Weaver (1949), Forrester (1961), Luhmann (1995), Sterman (2000), Meadows (2008).</p>
+            <div class="lesson-actions">
+              <button class="btn" type="button" data-lesson="internet">Previous</button>
+              <a class="btn" href="#system">Next</a>
+              <a class="btn primary" href="#laboratory">Go to laboratory</a>
+            </div>
+          </div>
+          <aside class="visual-panel">
+            <h4>Communication Process</h4>
+            <div class="process-loop internet-process">
+              <div class="user-label top">USER</div>
+              <div class="flow-node">Emitter</div><div class="flow-arrow">&darr;</div>
+              <div class="flow-node">Code system</div><div class="flow-arrow">&darr;</div>
+              <div class="flow-node">Mode</div><div class="flow-arrow">&darr;</div>
+              <div class="flow-node">Message</div><div class="flow-arrow">&darr;</div>
+              <div class="flow-node">Medium / Channel</div><div class="flow-arrow">&darr;</div>
+              <div class="flow-node">Decoding system</div><div class="flow-arrow">&darr;</div>
+              <div class="flow-node">Receiver</div><div class="flow-arrow">&darr;</div>
+              <div class="flow-node">Feedback</div>
+              <div class="noise-node">Noise</div>
+              <span class="side-label infra-1">Infrastructure</span>
+              <span class="side-label content-1">Content</span>
+              <span class="side-label content-2">Content</span>
+              <span class="side-label eco">Ecosystem</span>
+              <span class="side-label infra-2">Infrastructure</span>
+              <span class="side-label data">Data Loop</span>
+              <div class="user-label bottom">USER</div>
             </div>
           </aside>
         </article>
@@ -518,7 +577,8 @@
     function loadExample(record=true){if(record)snapshot();[["Users","B2C",25000,100000,1,25],["Users","Leads",2200,12000,1.2,30],["Users","AI2AI",150,1000,1.4,80],["Content","SEO",180,500,1.1,25],["Content","Email",48,120,1,35],["Content","Paid media",75,180,.85,40],["Infrastructure","Workflow AI",55,100,1.4,85],["Infrastructure","CRM",70,100,1,35],["Infrastructure","Analytics",64,100,1.1,45]].forEach(([k,n,q,m,w,a])=>{if(state.nodes.some(x=>x.name===n&&!x.core))return;const nd=createNoRender(k,n,q,m,w,a);addEdge(nd.id,core(k).id,n)});render();showToast("Example loaded")}
     function save(){const data={name:projectName.value,state};const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:"application/json"}));a.download="doc-roi-internet-dynamics-project.json";a.click();URL.revokeObjectURL(a.href);showToast("Project saved")}
     function openFile(file){if(!file)return;const r=new FileReader();r.onload=()=>{const d=JSON.parse(r.result);Object.assign(state,d.state||d);projectName.value=d.name||projectName.value;render();showToast("Project opened")};r.readAsText(file)}
-    function bind(){document.addEventListener("click",e=>{const link=e.target.closest("a[href^='#']");if(!link)return;const target=document.getElementById(link.getAttribute("href").slice(1));if(!target)return;e.preventDefault();target.scrollIntoView({behavior:"smooth",block:"start"});history.pushState(null,"",link.getAttribute("href"));mobileMenu.classList.remove("open")});menuBtn.onclick=()=>mobileMenu.classList.toggle("open");document.querySelectorAll(".palette-head").forEach(b=>b.onclick=()=>document.getElementById(b.dataset.toggle).hidden=!document.getElementById(b.dataset.toggle).hidden);zoomIn.onclick=()=>{state.zoom=clamp(state.zoom+.1,.25,2.5);render()};zoomOut.onclick=()=>{state.zoom=clamp(state.zoom-.1,.25,2.5);render()};fitBtn.onclick=()=>{state.zoom=1;render()};leftBtn.onclick=()=>{leftPanel.hidden=!leftPanel.hidden;leftBtn.setAttribute("aria-pressed",!leftPanel.hidden)};rightBtn.onclick=()=>{rightPanel.hidden=!rightPanel.hidden;rightBtn.setAttribute("aria-pressed",!rightPanel.hidden)};entityBtn.onclick=()=>createSubnode("Users","Other");deleteBtn.onclick=()=>{if(!state.selected)return;snapshot();state.nodes=state.nodes.filter(n=>n.core||n.id!==state.selected);state.edges=state.edges.filter(e=>e.from!==state.selected&&e.to!==state.selected);state.selected=null;render();syncConfig()};distributeBtn.onclick=()=>{core("Users").x=210;core("Users").y=170;core("Content").x=500;core("Content").y=315;core("Infrastructure").x=790;core("Infrastructure").y=170;render()};exampleBtn.onclick=()=>loadExample(true);clearBtn.onclick=()=>{state.nodes.filter(n=>!n.core).forEach(n=>{n.qty=0;n.ai=0});render();showToast("Data cleared")};newBtn.onclick=()=>{snapshot();state.nodes=state.nodes.filter(n=>n.core);state.edges=state.edges.filter(e=>node(e.from)?.core&&node(e.to)?.core);render()};fullBtn.onclick=()=>document.querySelector(".tool").requestFullscreen?.();printBtn.onclick=()=>print();saveBtn.onclick=save;openBtn.onclick=()=>fileInput.click();fileInput.onchange=e=>openFile(e.target.files[0]);canvasMode.onclick=()=>setMode("canvas");dashboardMode.onclick=()=>setMode("dashboard");equationMode.onclick=()=>setMode("equation");hideConfig.onclick=()=>rightPanel.hidden=true;["cfgName","cfgMeasure","cfgDesc","cfgQty","cfgMax","cfgWeight","cfgAi","cfgEconomics"].forEach(x=>document.getElementById(x).oninput=updateConfig)}
+    function setLesson(name){document.querySelectorAll("[data-panel]").forEach(p=>p.hidden=p.dataset.panel!==name);document.querySelectorAll("[data-lesson]").forEach(b=>b.classList.toggle("active",b.dataset.lesson===name));document.getElementById("consultation").scrollIntoView({behavior:"smooth",block:"start"})}
+    function bind(){document.addEventListener("click",e=>{const lesson=e.target.closest("[data-lesson]");if(lesson){e.preventDefault();setLesson(lesson.dataset.lesson);return}const link=e.target.closest("a[href^='#']");if(!link)return;const target=document.getElementById(link.getAttribute("href").slice(1));if(!target)return;e.preventDefault();target.scrollIntoView({behavior:"smooth",block:"start"});history.pushState(null,"",link.getAttribute("href"));mobileMenu.classList.remove("open")});menuBtn.onclick=()=>mobileMenu.classList.toggle("open");document.querySelectorAll(".palette-head").forEach(b=>b.onclick=()=>document.getElementById(b.dataset.toggle).hidden=!document.getElementById(b.dataset.toggle).hidden);zoomIn.onclick=()=>{state.zoom=clamp(state.zoom+.1,.25,2.5);render()};zoomOut.onclick=()=>{state.zoom=clamp(state.zoom-.1,.25,2.5);render()};fitBtn.onclick=()=>{state.zoom=1;render()};leftBtn.onclick=()=>{leftPanel.hidden=!leftPanel.hidden;leftBtn.setAttribute("aria-pressed",!leftPanel.hidden)};rightBtn.onclick=()=>{rightPanel.hidden=!rightPanel.hidden;rightBtn.setAttribute("aria-pressed",!rightPanel.hidden)};entityBtn.onclick=()=>createSubnode("Users","Other");deleteBtn.onclick=()=>{if(!state.selected)return;snapshot();state.nodes=state.nodes.filter(n=>n.core||n.id!==state.selected);state.edges=state.edges.filter(e=>e.from!==state.selected&&e.to!==state.selected);state.selected=null;render();syncConfig()};distributeBtn.onclick=()=>{core("Users").x=210;core("Users").y=170;core("Content").x=500;core("Content").y=315;core("Infrastructure").x=790;core("Infrastructure").y=170;render()};exampleBtn.onclick=()=>loadExample(true);clearBtn.onclick=()=>{state.nodes.filter(n=>!n.core).forEach(n=>{n.qty=0;n.ai=0});render();showToast("Data cleared")};newBtn.onclick=()=>{snapshot();state.nodes=state.nodes.filter(n=>n.core);state.edges=state.edges.filter(e=>node(e.from)?.core&&node(e.to)?.core);render()};fullBtn.onclick=()=>document.querySelector(".tool").requestFullscreen?.();printBtn.onclick=()=>print();saveBtn.onclick=save;openBtn.onclick=()=>fileInput.click();fileInput.onchange=e=>openFile(e.target.files[0]);canvasMode.onclick=()=>setMode("canvas");dashboardMode.onclick=()=>setMode("dashboard");equationMode.onclick=()=>setMode("equation");hideConfig.onclick=()=>rightPanel.hidden=true;["cfgName","cfgMeasure","cfgDesc","cfgQty","cfgMax","cfgWeight","cfgAi","cfgEconomics"].forEach(x=>document.getElementById(x).oninput=updateConfig)}
     init();
   </script>
 </body>
