@@ -182,7 +182,7 @@
     .tile{background:#fff;border:1px solid #cbdde8;border-radius:8px;min-height:34px;padding:7px 8px;text-align:left;font-size:11px;font-weight:900;cursor:pointer;display:grid;grid-template-columns:minmax(54px,.55fr) minmax(0,1fr);gap:6px;align-items:center}
     .tile small{display:block;font-weight:500;color:#637587;margin-top:0;font-size:10px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .tile:hover{border-color:#0073aa}
-    .work{display:grid;grid-template-rows:auto minmax(440px,1fr) auto;background:#fbfdff;min-width:0;border:1px solid var(--line);border-radius:8px;overflow:hidden;box-shadow:0 12px 28px rgba(0,59,92,.05)}
+    .work{display:grid;grid-template-rows:auto auto minmax(440px,1fr);background:#fbfdff;min-width:0;border:1px solid var(--line);border-radius:8px;overflow:hidden;box-shadow:0 12px 28px rgba(0,59,92,.05)}
     .viewbar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px;background:#fff;border-bottom:1px solid var(--line)}
     .views,.zoom{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
     .viewbar .btn,.zoom .btn{padding:6px 9px;min-height:30px;font-size:12px}
@@ -199,7 +199,7 @@
     .node-title span{display:block;font-size:11px;font-weight:500;opacity:.72;margin-top:5px}
     .resize{position:absolute;right:0;bottom:0;width:18px;height:18px;cursor:nwse-resize}
     .resize:after{content:"";position:absolute;right:4px;bottom:4px;width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;opacity:.45}
-    .bottom-deck{display:grid;grid-template-columns:1fr 1fr;gap:9px;border-top:1px solid var(--line);background:#f8fbfd;padding:9px}
+    .bottom-deck{display:grid;grid-template-columns:1fr 1fr;gap:9px;border-bottom:1px solid var(--line);background:#f8fbfd;padding:9px}
     .bottom-deck .panel-title{grid-column:1/-1;border-radius:8px}
     .bottom-deck.folded .slider-card{display:none}
     .slider-card{border:1px solid var(--line);background:#fff;border-radius:8px;padding:10px;box-shadow:0 10px 22px rgba(0,59,92,.05)}
@@ -219,6 +219,12 @@
     .btn.danger{background:rgba(185,28,28,.08);border-color:rgba(185,28,28,.26);color:#991b1b}
     .config{padding:12px;display:grid;gap:10px}
     .config label{display:grid;gap:5px;font-size:12px;color:#40586b;font-weight:800}
+    .field-title{display:flex;align-items:center;justify-content:space-between;gap:8px}
+    .learn{position:relative;display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;border:1px solid #003b5c;border-radius:999px;background:#fff;color:#003b5c;font-size:10px;font-weight:900;cursor:help;flex:0 0 auto}
+    .learn:focus{outline:2px solid rgba(0,59,92,.28);outline-offset:2px}
+    .learn:before{content:"i"}
+    .learn:after{content:attr(data-tip);position:absolute;right:0;top:24px;z-index:30;width:min(260px,70vw);padding:10px 12px;border-radius:8px;background:#05070b;color:#fff;font-size:11px;font-weight:700;line-height:1.45;box-shadow:0 16px 40px rgba(0,0,0,.24);opacity:0;pointer-events:none;transform:translateY(-4px);transition:.16s ease;text-align:left}
+    .learn:hover:after,.learn:focus:after{opacity:1;transform:translateY(0)}
     .config input,.config select,.config textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:8px 9px;font-size:13px;background:#fff}
     .config textarea{min-height:72px;resize:vertical}
     .dashboard,.equation-view{display:none;padding:14px;overflow:auto;background:#f7fafc}
@@ -510,13 +516,13 @@
                 </div>
                 <div class="zoom"><button class="btn" id="zoomOut">-</button><span id="zoomLabel">100%</span><button class="btn" id="zoomIn">+</button><button class="btn" id="fitBtn">Fit</button></div>
               </div>
-              <div class="canvas" id="canvas">
-                <div class="world" id="world"><svg class="edges" id="edges"></svg></div>
-              </div>
               <div class="bottom-deck" id="bottomDeck">
                 <button class="panel-title" id="externalHead" type="button">External variables <span>Management &middot; ecosystem <span class="chev">▼</span></span></button>
                 <div class="slider-card" id="companyCard"><button class="slider-head" type="button" data-fold-card="companyCard">Company management <span class="chev">▼</span></button><div class="sliders" id="companySliders"></div></div>
                 <div class="slider-card" id="exoCard"><button class="slider-head" type="button" data-fold-card="exoCard">Exogenous ecosystem <span class="chev">▼</span></button><div class="sliders" id="exoSliders"></div></div>
+              </div>
+              <div class="canvas" id="canvas">
+                <div class="world" id="world"><svg class="edges" id="edges"></svg></div>
               </div>
               <div class="dashboard" id="dashboard">
                 <div class="metrics">
@@ -535,14 +541,14 @@
               <div class="config">
                 <p id="emptyConfig">Double-click a node or select it on the canvas to edit its measure, quantity, expected maximum, weight and AI level.</p>
                 <div id="nodeConfig" hidden class="config">
-                  <label>Name <input id="cfgName"></label>
-                  <label>Measure <select id="cfgMeasure"></select></label>
-                  <label>Description <textarea id="cfgDesc"></textarea></label>
-                  <label>Observed quantity <input id="cfgQty" type="number" min="0"></label>
-                  <label>Arrival maximum <input id="cfgMax" type="number" min="1"></label>
-                  <div class="range"><label>Communication weight <output id="cfgWeightOut">1.00</output></label><input id="cfgWeight" type="range" min="0" max="2" step=".05"></div>
-                  <div class="range"><label>AI enablement <output id="cfgAiOut">0</output></label><input id="cfgAi" type="range" min="0" max="100"></div>
-                  <label>Economic role <select id="cfgEconomics"><option value="revenue">Revenue potential</option><option value="offer-cost">Offer and communication cost</option><option value="infra-cost">Infrastructure and channel cost</option></select></label>
+                  <label><span class="field-title">Name <span class="learn" tabindex="0" data-tip="Name the node in plain language. This is the label that will appear on the canvas and in the inventory."></span></span><input id="cfgName"></label>
+                  <label><span class="field-title">Measure <span class="learn" tabindex="0" data-tip="Choose what this node represents: audience, leads, SEO demand, CRM, analytics, channels or any other signal. The measure explains the nature of the value you are entering."></span></span><select id="cfgMeasure"></select></label>
+                  <label><span class="field-title">Description <span class="learn" tabindex="0" data-tip="Use this field to explain the business meaning of the node. Write what the signal is, where it comes from, and why it matters for digital communication."></span></span><textarea id="cfgDesc"></textarea></label>
+                  <label><span class="field-title">Observed quantity <span class="learn" tabindex="0" data-tip="Enter the current observed value: users, visits, followers, leads, pieces of content, active channels, systems, downloads or any measurable quantity."></span></span><input id="cfgQty" type="number" min="0"></label>
+                  <label><span class="field-title">Arrival maximum <span class="learn" tabindex="0" data-tip="Enter the reasonable target or maximum reachable value for this node. The model compares the observed quantity with this arrival value to estimate progress."></span></span><input id="cfgMax" type="number" min="1"></label>
+                  <div class="range"><label><span class="field-title">Communication weight <span class="learn" tabindex="0" data-tip="Set how important this node is for effective communication. A higher weight means this signal influences the Internet Dynamics score more strongly."></span></span><output id="cfgWeightOut">1.00</output></label><input id="cfgWeight" type="range" min="0" max="2" step=".05"></div>
+                  <div class="range"><label><span class="field-title">AI enablement <span class="learn" tabindex="0" data-tip="Estimate how much AI already helps this node: automation, personalization, agentic execution, content generation, decision support or system orchestration."></span></span><output id="cfgAiOut">0</output></label><input id="cfgAi" type="range" min="0" max="100"></div>
+                  <label><span class="field-title">Economic role <span class="learn" tabindex="0" data-tip="Choose how the node behaves economically. Users usually represent revenue potential. Content and infrastructure usually represent investment, effort or communication cost."></span></span><select id="cfgEconomics"><option value="revenue">Revenue potential</option><option value="offer-cost">Offer and communication cost</option><option value="infra-cost">Infrastructure and channel cost</option></select></label>
                 </div>
               </div>
             </aside>
@@ -594,9 +600,9 @@
     function addEdge(a,b,label){if(!a||!b||a===b)return;state.edges.push({id:id("e"),from:a,to:b,label:label||String(state.edges.length+1).padStart(2,"0")})}
     function node(idv){return state.nodes.find(n=>n.id===idv)} function core(k){return state.nodes.find(n=>n.core&&n.kind===k)}
     function init(){addNode({name:"Users",kind:"Users",core:true,x:210,y:170,w:164,h:86,qty:0,max:100,ai:0});addNode({name:"Content",kind:"Content",core:true,x:500,y:315,w:164,h:86,qty:0,max:100,ai:0,economics:"offer-cost"});addNode({name:"Infrastructure",kind:"Infrastructure",core:true,x:760,y:170,w:220,h:86,qty:0,max:100,ai:0,economics:"infra-cost"});addEdge(core("Users").id,core("Content").id,"U-C");addEdge(core("Content").id,core("Infrastructure").id,"C-I");addEdge(core("Infrastructure").id,core("Users").id,"I-U");buildPalettes();buildSliders();bind();render()}
-    function buildPalettes(){[["Users","usersTiles"],["Content","contentTiles"],["Infrastructure","infraTiles"]].forEach(([k,el])=>{document.getElementById(el).innerHTML=palettes[k].map(([a,b])=>`<button class="tile" data-kind="${k}" data-name="${a}">${a}<small>${b}</small></button>`).join("")});document.querySelectorAll(".tile").forEach(t=>{t.onclick=()=>createSubnode(t.dataset.kind,t.dataset.name)})}
+    function buildPalettes(){[["Users","usersTiles"],["Content","contentTiles"],["Infrastructure","infraTiles"]].forEach(([k,el])=>{document.getElementById(el).innerHTML=palettes[k].map(([a,b])=>`<button class="tile" data-kind="${k}" data-name="${a}" title="Add ${a} as a ${k} signal on the canvas.">${a}<small>${b}</small></button>`).join("")});document.querySelectorAll(".tile").forEach(t=>{t.onclick=()=>createSubnode(t.dataset.kind,t.dataset.name)})}
     function buildSliders(){const company={processes:"Processes",organization:"Organization",systems:"Systems",dataAI:"Data / AI"};const exo={legal:"Legal / GDPR",economy:"Economy",politics:"Politics",competition:"Competition",innovation:"Innovation",culture:"Digital culture"};companySliders.innerHTML=Object.keys(company).map(k=>slider("company",k,company[k],state.company[k])).join("");exoSliders.innerHTML=Object.keys(exo).map(k=>slider("exo",k,exo[k],state.exo[k])).join("");document.querySelectorAll("[data-scope]").forEach(i=>i.oninput=e=>{state[e.target.dataset.scope][e.target.dataset.key]=Number(e.target.value);e.target.previousElementSibling.querySelector("output").value=e.target.value;render()})}
-    function slider(scope,key,label,value){return `<div class="range"><label>${label}<output>${value}</output></label><input data-scope="${scope}" data-key="${key}" type="range" min="0" max="5" step="1" value="${value}"></div>`}
+    function slider(scope,key,label,value){const tip=scope==="company"?"Rate how mature this internal management capability is from 0 to 5. It affects how well the organization can act on feedback and improve communication.":"Rate how this external condition affects the digital communication system from 0 to 5. It can accelerate or slow the Internet Dynamics score.";return `<div class="range"><label><span class="field-title">${label}<span class="learn" tabindex="0" data-tip="${tip}"></span></span><output>${value}</output></label><input data-scope="${scope}" data-key="${key}" type="range" min="0" max="5" step="1" value="${value}"></div>`}
     function createSubnode(kind,name){snapshot();const c=core(kind);const count=state.nodes.filter(n=>!n.core&&n.kind===kind).length;const n=addNode({name,kind,x:c.x+(kind==="Users"?-125:kind==="Content"?-25:125),y:c.y+125+count*20,qty:name.includes("AI")||name.includes("Workflow")?75:50,max:100,weight:name==="Marketplace"?.65:1,ai:name.includes("AI")||name.includes("Workflow")?85:15,economics:kind==="Users"?"revenue":kind==="Content"?"offer-cost":"infra-cost"});addEdge(n.id,c.id,name);select(n.id);render()}
     function render(){world.style.transform=`scale(${state.zoom})`;zoomLabel.textContent=Math.round(state.zoom*100)+"%";renderNodes();renderEdges();renderCalc();renderTable();renderEquation()}
     function renderNodes(){world.querySelectorAll(".node").forEach(e=>e.remove());state.nodes.forEach(n=>{const el=document.createElement("div");el.className=`node ${n.core?"core":""} ${n.kind==="Infrastructure"?"infrastructure":""} ${state.selected===n.id?"selected":""}`;el.style.left=n.x+"px";el.style.top=n.y+"px";el.style.width=n.w+"px";el.style.minHeight=n.h+"px";el.innerHTML=`<div class="node-title">${esc(n.name)}<span>${esc(n.measure)} - ${score(n).toFixed(0)}</span></div><i class="resize"></i>`;world.appendChild(el);el.onpointerdown=e=>e.target.classList.contains("resize")?resize(e,n):drag(e,n);el.onclick=()=>select(n.id);el.ondblclick=()=>select(n.id,true)})}
