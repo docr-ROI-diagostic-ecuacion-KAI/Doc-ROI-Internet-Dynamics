@@ -150,7 +150,7 @@
     .equation{font-family:"SFMono-Regular",Consolas,monospace;background:#071d33;color:#eaf6fb;border-radius:8px;padding:14px;overflow:auto;white-space:nowrap;font-size:13px;margin-top:12px}
     .lab-section{padding:18px 0 40px;background:#fff;border-top:1px solid var(--line)}
     .lab-section .wrap{max-width:none;padding:0 12px}
-    .tool{position:relative;border:1px solid var(--line);background:#fff;border-radius:8px;overflow:hidden;box-shadow:var(--shadow)}
+    .tool{position:relative;border:1px solid var(--line);background:#fff;border-radius:8px;overflow:visible;box-shadow:var(--shadow)}
     .tool:fullscreen{width:100vw;height:100vh;border-radius:0;display:flex;flex-direction:column;background:#f7fafc}
     .tool:fullscreen .tool-main{flex:1;min-height:0}
     .tool:fullscreen .work{min-height:0}
@@ -164,7 +164,7 @@
     .tool.left-collapsed .tool-main{grid-template-columns:minmax(0,1fr) 280px}
     .tool.right-collapsed .tool-main{grid-template-columns:minmax(340px,520px) minmax(420px,1fr)}
     .tool.left-collapsed.right-collapsed .tool-main{grid-template-columns:1fr}
-    .left-panel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-content:start;border:1px solid var(--line);border-radius:8px;background:#f8fbfd;overflow:auto;box-shadow:0 12px 28px rgba(0,59,92,.07)}
+    .left-panel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-content:start;border:1px solid var(--line);border-radius:8px;background:#f8fbfd;overflow:visible;box-shadow:0 12px 28px rgba(0,59,92,.07)}
     .left-panel[hidden],.right-panel[hidden]{display:none}
     .panel-tab{position:absolute;z-index:12;border:1px solid #cbdde8;border-radius:8px;background:#fff;color:#003b5c;box-shadow:0 14px 30px rgba(0,59,92,.14);padding:10px 12px;font-size:12px;font-weight:900;cursor:pointer}
     .panel-tab.left-tab{left:12px;top:118px;writing-mode:vertical-rl;transform:rotate(180deg)}
@@ -183,7 +183,7 @@
     .tile{background:#fff;border:1px solid #cbdde8;border-radius:8px;min-height:34px;padding:7px 8px;text-align:left;font-size:11px;font-weight:900;cursor:pointer;display:grid;grid-template-columns:minmax(48px,.45fr) minmax(0,1fr) auto;gap:6px;align-items:center}
     .tile small{display:block;font-weight:500;color:#637587;margin-top:0;font-size:10px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .tile:hover{border-color:#0073aa}
-    .work{display:grid;grid-template-rows:auto auto minmax(440px,1fr);background:#fbfdff;min-width:0;border:1px solid var(--line);border-radius:8px;overflow:hidden;box-shadow:0 12px 28px rgba(0,59,92,.05)}
+    .work{display:grid;grid-template-rows:auto auto minmax(440px,1fr);background:#fbfdff;min-width:0;border:1px solid var(--line);border-radius:8px;overflow:visible;box-shadow:0 12px 28px rgba(0,59,92,.05)}
     .viewbar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px;background:#fff;border-bottom:1px solid var(--line)}
     .views,.zoom{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
     .viewbar .btn,.zoom .btn{padding:6px 9px;min-height:30px;font-size:12px}
@@ -214,7 +214,7 @@
     .range label{display:flex;justify-content:space-between;align-items:center;gap:8px;color:#40586b;font-size:12px}
     .range output{min-width:42px;text-align:center;border:1px solid #cbdde8;background:#fff;border-radius:999px;padding:2px 7px;color:#003b5c;font-weight:900}
     .range input{width:100%;accent-color:#003b5c}
-    .right-panel{border:1px solid var(--line);border-radius:8px;background:#f8fbfd;overflow:auto;box-shadow:0 12px 28px rgba(0,59,92,.07)}
+    .right-panel{border:1px solid var(--line);border-radius:8px;background:#f8fbfd;overflow:visible;box-shadow:0 12px 28px rgba(0,59,92,.07)}
     .right-panel .panel-title{background:#05070b;color:#fff}
     .right-panel.folded .panel-title{background:#fff;color:#05070b}
     .btn.danger{background:rgba(185,28,28,.08);border-color:rgba(185,28,28,.26);color:#991b1b}
@@ -224,7 +224,7 @@
     .learn{position:relative;display:inline-flex;align-items:center;justify-content:center;width:auto;min-height:17px;border:1px solid #003b5c;border-radius:999px;background:#fff;color:#003b5c;padding:2px 7px;font-size:9px;font-weight:900;cursor:help;flex:0 0 auto;text-transform:uppercase;letter-spacing:.02em}
     .learn:focus{outline:2px solid rgba(0,59,92,.28);outline-offset:2px}
     .learn:before{content:"Learn more"}
-    .learn:after{content:attr(data-tip);position:absolute;right:0;top:24px;z-index:30;width:min(260px,70vw);padding:10px 12px;border-radius:8px;background:#05070b;color:#fff;font-size:11px;font-weight:700;line-height:1.45;box-shadow:0 16px 40px rgba(0,0,0,.24);opacity:0;pointer-events:none;transform:translateY(-4px);transition:.16s ease;text-align:left}
+    .learn:after{content:attr(data-tip);position:absolute;right:0;top:24px;z-index:9999;width:min(300px,70vw);padding:10px 12px;border-radius:8px;background:#05070b;color:#fff;font-size:11px;font-weight:700;line-height:1.45;box-shadow:0 16px 40px rgba(0,0,0,.24);opacity:0;pointer-events:none;transform:translateY(-4px);transition:.16s ease;text-align:left}
     .learn:hover:after,.learn:focus:after{opacity:1;transform:translateY(0)}
     .tile .learn{justify-self:end;padding:2px 6px;font-size:8px}
     .equation-summary{margin-top:12px;border:1px solid #003b5c;border-left:4px solid #003b5c;border-radius:8px;background:#fff;padding:12px 14px;color:#183246;font-size:13px;line-height:1.55}
@@ -685,6 +685,7 @@
     function openFile(file){if(!file)return;const r=new FileReader();r.onload=()=>{const d=JSON.parse(r.result);Object.assign(state,d.state||d);projectName.value=d.name||projectName.value;render();showToast("Project opened")};r.readAsText(file)}
     function setLesson(name){document.querySelectorAll("[data-panel]").forEach(p=>p.hidden=p.dataset.panel!==name);document.querySelectorAll("[data-lesson]").forEach(b=>b.classList.toggle("active",b.dataset.lesson===name));document.getElementById("consultation").scrollIntoView({behavior:"smooth",block:"start"})}
     function bind(){
+      window.addEventListener("load",()=>{if(location.hash){history.replaceState(null,"",location.pathname+location.search);setTimeout(()=>scrollTo({top:0,left:0,behavior:"instant"}),0)}});
       document.addEventListener("click",e=>{
         const lesson=e.target.closest("[data-lesson]");
         if(lesson){e.preventDefault();setLesson(lesson.dataset.lesson);return}
