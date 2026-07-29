@@ -109,6 +109,18 @@
     .formula-card{border:1px solid #dbe7ef;background:#fff;border-radius:8px;padding:14px;margin-top:14px}
     .formula-card b{display:block;color:#0073aa;font-size:12px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
     .formula-card code{display:block;background:#071d33;color:#eaf6fb;border-radius:8px;padding:12px;font-size:15px;white-space:nowrap;overflow:auto}
+    .node-model-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:16px}
+    .node-model-card{background:#fff;border:1px solid #dbe7ef;border-radius:8px;padding:14px;box-shadow:0 10px 24px rgba(0,59,92,.06)}
+    .node-model-card b{display:block;color:#0073aa;font-size:11px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px}
+    .node-model-card strong{display:block;font-size:14px;color:#0b0f19;margin-bottom:5px}
+    .node-model-card p{font-size:13px;line-height:1.55;color:#40586b}
+    .node-model-card.wide{grid-column:span 3}
+    .feedback-banner{margin-top:14px;background:#16637f;color:#fff;border:3px solid #082f49;border-radius:0;padding:18px 20px;text-align:center;font-size:13px;line-height:1.5;font-weight:700}
+    .feedback-banner strong{display:block;font-size:15px;margin-bottom:4px}
+    .core-triangle{position:relative;min-height:360px}
+    .core-triangle svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+    .core-pill{position:absolute;border:2px solid #0073aa;background:#fff;border-radius:8px;padding:11px 12px;text-align:center;font-size:12px;font-weight:900;box-shadow:0 10px 24px rgba(0,59,92,.08)}
+    .core-users{left:32%;top:12%}.core-content{left:12%;top:56%}.core-infra{right:10%;top:56%}.core-data{left:34%;bottom:4%;background:#003b5c;color:#fff;border-color:#003b5c}
     .compare{display:grid;gap:10px;margin:18px 0}
     .compare-row{display:grid;grid-template-columns:150px 1fr;gap:12px;border:1px solid #dbe7ef;border-radius:8px;padding:12px;background:#fbfdff}
     .compare-row b{color:#003b5c}
@@ -207,7 +219,7 @@
     .toast{position:fixed;right:16px;bottom:16px;background:#05070b;color:#fff;border-radius:8px;padding:12px 14px;font-size:13px;font-weight:800;box-shadow:0 20px 50px rgba(0,0,0,.18);opacity:0;transform:translateY(10px);transition:.2s;pointer-events:none;z-index:80}
     .toast.show{opacity:1;transform:translateY(0)}
     @media(max-width:1040px){.hero .wrap,.training-grid,.lesson-card,.section-head,.tool-main,.bottom-deck{grid-template-columns:1fr}.lesson-nav{position:static}.right-panel,.left-panel{border:0;border-bottom:1px solid var(--line)}.metrics{grid-template-columns:repeat(2,1fr)}.cards{grid-template-columns:1fr}}
-    @media(max-width:720px){.docroi-nav{display:none}.menu-btn{display:block}.lesson-card{padding:16px}.sliders,.tiles,.metrics,.compare-row,.concept-grid{grid-template-columns:1fr}.tool-top{grid-template-columns:1fr}.tool-actions{justify-content:flex-start}.hero{background:#f7fafc}.diiip-head h2{font-size:32px}.diiip-item{grid-template-columns:52px 1fr}}
+    @media(max-width:720px){.docroi-nav{display:none}.menu-btn{display:block}.lesson-card{padding:16px}.sliders,.tiles,.metrics,.compare-row,.concept-grid,.node-model-grid{grid-template-columns:1fr}.node-model-card.wide{grid-column:auto}.tool-top{grid-template-columns:1fr}.tool-actions{justify-content:flex-start}.hero{background:#f7fafc}.diiip-head h2{font-size:32px}.diiip-item{grid-template-columns:52px 1fr}}
   </style>
 </head>
 <body>
@@ -250,7 +262,7 @@
           <button class="active" type="button" data-lesson="internet">01 &middot; Internet Dynamics</button>
           <button type="button" data-lesson="communication">02 &middot; Communication</button>
           <button type="button" data-lesson="dynamics">03 &middot; System dynamics</button>
-          <a href="#model">04 &middot; System dynamics</a>
+          <button type="button" data-lesson="nodes">04 &middot; Nodes &amp; Layers</button>
           <a href="#laboratory">05 &middot; Laboratory</a>
         </aside>
         <article class="lesson-card lesson-panel" data-panel="internet">
@@ -375,7 +387,7 @@
             <p class="sources"><strong>Sources:</strong> Forrester (1961), Bertalanffy (1968), Sterman (2000), Meadows (2008), Wiener (1948), Shannon and Weaver (1949).</p>
             <div class="lesson-actions">
               <button class="btn" type="button" data-lesson="communication">Previous</button>
-              <a class="btn" href="#model">Next</a>
+              <button class="btn" type="button" data-lesson="nodes">Next</button>
               <a class="btn primary" href="#laboratory">Go to laboratory</a>
             </div>
           </div>
@@ -403,6 +415,47 @@
               <div class="system-node system-infra">Infrastructure</div>
               <div class="system-node system-data">Data</div>
             </div>
+          </aside>
+        </article>
+        <article class="lesson-card lesson-panel" data-panel="nodes" hidden>
+          <div class="lesson-content">
+            <span class="session">SESSION 4</span>
+            <h2>The model has three endogenous nodes and two management layers.</h2>
+            <h3>Learning objective</h3>
+            <p>Understand the operating architecture of Internet Dynamics. The model is deliberately simple at the centre: Users, Content and Infrastructure. Everything else is connected as a subnode, measure, weight, friction or acceleration factor. This keeps the system teachable, measurable and usable inside the laboratory.</p>
+            <div class="learning-note">Methodological language matters. In this capsule we use <strong>management</strong>. A digital communication system is not a closed machine; it is a living relationship system that can be influenced, accelerated, slowed down, measured and improved through processes, organization, systems, data, AI and exogenous conditions.</div>
+            <div class="node-model-grid">
+              <div class="node-model-card"><b>Users - U</b><strong>Potential revenue and relationship</strong><p>Audience, cookies, cohorts, leads, fans, clients, promoters, IoT devices and AI agents. Users represent the market side of communication.</p></div>
+              <div class="node-model-card"><b>Content - C</b><strong>Offer, message and cost</strong><p>SEO, SEM, paid media, social content, email, web, product, service, brand, keywords and consumption signals. Content carries value and also creates communication cost.</p></div>
+              <div class="node-model-card"><b>Infrastructure - I</b><strong>Medium, channel and technical capacity</strong><p>Devices, channels, workflow AI, CRM, ERP, analytics, tags, payment, ecommerce, cloud, performance and data capture. Infrastructure enables the loop and also consumes resources.</p></div>
+              <div class="node-model-card"><b>Company management</b><strong>Processes, organization, systems and data/AI</strong><p>This layer determines whether the organization can manage the communication system, personalize interactions and act on feedback.</p></div>
+              <div class="node-model-card"><b>Exogenous management</b><strong>Legal, market and cultural pressure</strong><p>PESTEL, GDPR, competition, innovation, economic pressure and market culture can accelerate or slow the system.</p></div>
+              <div class="node-model-card"><b>AI acceleration</b><strong>Agents, automation and personalization</strong><p>AI increases system speed when data, workflows and business rules allow the organization to respond at the right time, through the right channel, with the right content.</p></div>
+            </div>
+            <div class="feedback-banner"><strong>Feedback Loop</strong>The final element for digital communication to emerge and remain alive. Feedback is produced through clicks, access, usage, data, responses, satisfaction, transactions and relationship signals. It is the evidence that connects users, content and infrastructure back to management.</div>
+            <p class="key"><strong>Key concepts:</strong> endogenous variables &middot; management layers &middot; subnodes &middot; weights &middot; feedback loop &middot; relationship signals &middot; AI acceleration &middot; measurable communication.</p>
+            <p class="sources"><strong>Sources:</strong> Forrester (1961), Sterman (2000), Meadows (2008), Porter (1985), Kotler, Kartajaya and Setiawan (2021), Davenport and Ronanki (2018).</p>
+            <div class="lesson-actions">
+              <button class="btn" type="button" data-lesson="dynamics">Previous</button>
+              <a class="btn primary" href="#laboratory">Go to laboratory</a>
+            </div>
+          </div>
+          <aside class="visual-panel">
+            <h4>Core Internet Dynamics map</h4>
+            <div class="core-triangle">
+              <svg viewBox="0 0 260 360" aria-hidden="true">
+                <path d="M130 72 C82 116 56 184 64 234 C74 298 126 326 190 270" fill="none" stroke="#9ca3af" stroke-width="3"/>
+                <path d="M130 72 C184 118 214 184 198 240 C180 298 120 326 64 238" fill="none" stroke="#9ca3af" stroke-width="3"/>
+                <path d="M72 220 C118 250 156 250 198 220" fill="none" stroke="#0073aa" stroke-width="3"/>
+                <path d="M130 86 L78 212 L190 212 Z" fill="none" stroke="#0073aa" stroke-width="3"/>
+                <path d="M78 212 L130 316 L190 212" fill="none" stroke="#9ca3af" stroke-width="3"/>
+              </svg>
+              <div class="core-pill core-users">Users<br><small>U</small></div>
+              <div class="core-pill core-content">Content<br><small>C</small></div>
+              <div class="core-pill core-infra">Infrastructure<br><small>I</small></div>
+              <div class="core-pill core-data">Data Loop</div>
+            </div>
+            <div class="small-loop">Management layers<br>shape the loop</div>
           </aside>
         </article>
       </div>
