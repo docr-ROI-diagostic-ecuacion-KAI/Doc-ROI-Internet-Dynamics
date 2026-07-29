@@ -169,13 +169,17 @@
     .panel-tab.left-tab{left:12px;top:118px;writing-mode:vertical-rl;transform:rotate(180deg)}
     .panel-tab.right-tab{right:12px;top:118px}
     .panel-tab[hidden]{display:none}
-    .panel-title{grid-column:1/-1;padding:11px 12px;border-bottom:1px solid var(--line);font-size:12px;font-weight:900;color:#003b5c;display:flex;justify-content:space-between;align-items:center}
+    .panel-title{grid-column:1/-1;padding:11px 12px;border:0;border-bottom:1px solid var(--line);font-size:12px;font-weight:900;color:#fff;background:#003b5c;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+    .panel-title .chev,.palette-head .chev,.slider-head .chev{font-size:11px;line-height:1;transition:transform .18s ease}
+    .panel-title.is-folded,.palette-head.is-folded,.slider-head.is-folded{background:#d8ecf8;color:#003b5c}
+    .panel-title.is-folded .chev,.palette-head.is-folded .chev,.slider-head.is-folded .chev{transform:rotate(-90deg)}
+    .left-panel.folded .palette-group,.right-panel.folded .config{display:none}
     .palette-group{border-bottom:0;border-right:1px solid var(--line)}
     .palette-group:last-child{border-right:0}
-    .palette-head{width:100%;border:0;background:#edf4f8;color:#0b0f19;text-align:left;padding:10px 12px;font-weight:900;cursor:pointer}
-    .tiles{display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:9px}
-    .tile{background:#fff;border:1px solid #cbdde8;border-radius:8px;min-height:48px;padding:8px;text-align:left;font-size:12px;font-weight:900;cursor:pointer}
-    .tile small{display:block;font-weight:500;color:#637587;margin-top:3px}
+    .palette-head{width:100%;border:0;background:#003b5c;color:#fff;text-align:left;padding:9px 10px;font-size:12px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:8px}
+    .tiles{display:grid;grid-template-columns:1fr;gap:6px;padding:8px}
+    .tile{background:#fff;border:1px solid #cbdde8;border-radius:8px;min-height:34px;padding:7px 8px;text-align:left;font-size:11px;font-weight:900;cursor:pointer;display:grid;grid-template-columns:minmax(54px,.55fr) minmax(0,1fr);gap:6px;align-items:center}
+    .tile small{display:block;font-weight:500;color:#637587;margin-top:0;font-size:10px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .tile:hover{border-color:#0073aa}
     .work{display:grid;grid-template-rows:auto minmax(440px,1fr) auto;background:#fbfdff;min-width:0;border:1px solid var(--line);border-radius:8px;overflow:hidden;box-shadow:0 12px 28px rgba(0,59,92,.05)}
     .viewbar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px;background:#fff;border-bottom:1px solid var(--line)}
@@ -195,10 +199,12 @@
     .resize{position:absolute;right:0;bottom:0;width:18px;height:18px;cursor:nwse-resize}
     .resize:after{content:"";position:absolute;right:4px;bottom:4px;width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;opacity:.45}
     .bottom-deck{display:grid;grid-template-columns:1fr 1fr;gap:9px;border-top:1px solid var(--line);background:#f8fbfd;padding:9px}
+    .bottom-deck .panel-title{grid-column:1/-1;border-radius:8px}
+    .bottom-deck.folded .slider-card{display:none}
     .slider-card{border:1px solid var(--line);background:#fff;border-radius:8px;padding:10px;box-shadow:0 10px 22px rgba(0,59,92,.05)}
     .slider-card h4{margin:0;color:#003b5c;font-size:12px}
-    .slider-head{width:100%;border:0;background:transparent;padding:0 0 8px;color:#003b5c;font-size:12px;font-weight:900;text-align:left;display:flex;justify-content:space-between;gap:10px;cursor:pointer}
-    .slider-head span{color:#566273;font-size:11px;font-weight:800}
+    .slider-head{width:100%;border:0;border-radius:6px;background:#003b5c;padding:9px 10px;color:#fff;font-size:12px;font-weight:900;text-align:left;display:flex;justify-content:space-between;gap:10px;cursor:pointer}
+    .slider-head span{color:inherit;font-size:11px;font-weight:800}
     .sliders{display:grid;grid-template-columns:1fr 1fr;gap:8px}
     .slider-card.collapsed .sliders{display:none}
     .slider-card.collapsed .slider-head{padding-bottom:0}
@@ -207,6 +213,9 @@
     .range output{min-width:42px;text-align:center;border:1px solid #cbdde8;background:#fff;border-radius:999px;padding:2px 7px;color:#003b5c;font-weight:900}
     .range input{width:100%;accent-color:#003b5c}
     .right-panel{border:1px solid var(--line);border-radius:8px;background:#f8fbfd;overflow:auto;box-shadow:0 12px 28px rgba(0,59,92,.07)}
+    .right-panel .panel-title{background:#05070b;color:#fff}
+    .right-panel.folded .panel-title{background:#fff;color:#05070b}
+    .btn.danger{background:rgba(185,28,28,.08);border-color:rgba(185,28,28,.26);color:#991b1b}
     .config{padding:12px;display:grid;gap:10px}
     .config label{display:grid;gap:5px;font-size:12px;color:#40586b;font-weight:800}
     .config input,.config select,.config textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:8px 9px;font-size:13px;background:#fff}
@@ -477,11 +486,7 @@
               <button class="btn" id="newBtn">New canvas</button>
               <button class="btn" id="fullBtn">Fullscreen</button>
               <button class="btn" id="printBtn">Print PDF</button>
-              <button class="btn" id="leftBtn" aria-pressed="true">Endogenous panel</button>
-              <button class="btn" id="bottomBtn" aria-pressed="true">External variables</button>
-              <button class="btn" id="rightBtn" aria-pressed="true">Configuration</button>
-              <button class="btn" id="entityBtn">Entity</button>
-              <button class="btn" id="deleteBtn">Delete</button>
+              <button class="btn danger" id="deleteBtn">Delete</button>
               <button class="btn" id="distributeBtn">Distribute</button>
               <button class="btn primary" id="exampleBtn">Example</button>
             </div>
@@ -490,10 +495,10 @@
           <button class="panel-tab right-tab" id="showRightTab" type="button" hidden>Show configuration</button>
           <div class="tool-main">
             <aside class="left-panel" id="leftPanel">
-              <div class="panel-title">Endogenous nodes <span>U &middot; C &middot; I</span></div>
-              <div class="palette-group"><button class="palette-head" data-toggle="usersTiles">Users</button><div class="tiles" id="usersTiles"></div></div>
-              <div class="palette-group"><button class="palette-head" data-toggle="contentTiles">Content</button><div class="tiles" id="contentTiles"></div></div>
-              <div class="palette-group"><button class="palette-head" data-toggle="infraTiles">Infrastructure</button><div class="tiles" id="infraTiles"></div></div>
+              <button class="panel-title" id="endogenousHead" type="button">Endogenous nodes <span>U &middot; C &middot; I <span class="chev">▼</span></span></button>
+              <div class="palette-group"><button class="palette-head" data-toggle="usersTiles">Users <span class="chev">▼</span></button><div class="tiles" id="usersTiles"></div></div>
+              <div class="palette-group"><button class="palette-head" data-toggle="contentTiles">Content <span class="chev">▼</span></button><div class="tiles" id="contentTiles"></div></div>
+              <div class="palette-group"><button class="palette-head" data-toggle="infraTiles">Infrastructure <span class="chev">▼</span></button><div class="tiles" id="infraTiles"></div></div>
             </aside>
             <section class="work">
               <div class="viewbar">
@@ -508,8 +513,9 @@
                 <div class="world" id="world"><svg class="edges" id="edges"></svg></div>
               </div>
               <div class="bottom-deck" id="bottomDeck">
-                <div class="slider-card" id="companyCard"><button class="slider-head" type="button" data-fold-card="companyCard">Company management <span>Fold</span></button><div class="sliders" id="companySliders"></div></div>
-                <div class="slider-card" id="exoCard"><button class="slider-head" type="button" data-fold-card="exoCard">Exogenous ecosystem <span>Fold</span></button><div class="sliders" id="exoSliders"></div></div>
+                <button class="panel-title" id="externalHead" type="button">External variables <span>Management &middot; ecosystem <span class="chev">▼</span></span></button>
+                <div class="slider-card" id="companyCard"><button class="slider-head" type="button" data-fold-card="companyCard">Company management <span class="chev">▼</span></button><div class="sliders" id="companySliders"></div></div>
+                <div class="slider-card" id="exoCard"><button class="slider-head" type="button" data-fold-card="exoCard">Exogenous ecosystem <span class="chev">▼</span></button><div class="sliders" id="exoSliders"></div></div>
               </div>
               <div class="dashboard" id="dashboard">
                 <div class="metrics">
@@ -524,7 +530,7 @@
               <div class="equation-view" id="equationView"><div class="chartbox"><h3>Internet Dynamics equation - step by step</h3><div class="eq-list" id="equationLines"></div></div></div>
             </section>
             <aside class="right-panel" id="rightPanel">
-              <div class="panel-title">Configuration <button class="btn" id="hideConfig">Hide</button></div>
+              <button class="panel-title" id="configHead" type="button">Configuration <span class="chev">▼</span></button>
               <div class="config">
                 <p id="emptyConfig">Double-click a node or select it on the canvas to edit its measure, quantity, expected maximum, weight and AI level.</p>
                 <div id="nodeConfig" hidden class="config">
@@ -587,7 +593,7 @@
     function addEdge(a,b,label){if(!a||!b||a===b)return;state.edges.push({id:id("e"),from:a,to:b,label:label||String(state.edges.length+1).padStart(2,"0")})}
     function node(idv){return state.nodes.find(n=>n.id===idv)} function core(k){return state.nodes.find(n=>n.core&&n.kind===k)}
     function init(){addNode({name:"Users",kind:"Users",core:true,x:210,y:170,w:164,h:86,qty:0,max:100,ai:0});addNode({name:"Content",kind:"Content",core:true,x:500,y:315,w:164,h:86,qty:0,max:100,ai:0,economics:"offer-cost"});addNode({name:"Infrastructure",kind:"Infrastructure",core:true,x:790,y:170,w:164,h:86,qty:0,max:100,ai:0,economics:"infra-cost"});addEdge(core("Users").id,core("Content").id,"U-C");addEdge(core("Content").id,core("Infrastructure").id,"C-I");addEdge(core("Infrastructure").id,core("Users").id,"I-U");buildPalettes();buildSliders();bind();render()}
-    function buildPalettes(){[["Users","usersTiles"],["Content","contentTiles"],["Infrastructure","infraTiles"]].forEach(([k,el])=>{document.getElementById(el).innerHTML=palettes[k].map(([a,b])=>`<button class="tile" data-kind="${k}" data-name="${a}">${a}<small>${b}</small></button>`).join("")});document.querySelectorAll(".tile").forEach(t=>{t.onclick=()=>showToast("Double-click to add "+t.dataset.name);t.ondblclick=()=>createSubnode(t.dataset.kind,t.dataset.name)})}
+    function buildPalettes(){[["Users","usersTiles"],["Content","contentTiles"],["Infrastructure","infraTiles"]].forEach(([k,el])=>{document.getElementById(el).innerHTML=palettes[k].map(([a,b])=>`<button class="tile" data-kind="${k}" data-name="${a}">${a}<small>${b}</small></button>`).join("")});document.querySelectorAll(".tile").forEach(t=>{t.onclick=()=>createSubnode(t.dataset.kind,t.dataset.name)})}
     function buildSliders(){const company={processes:"Processes",organization:"Organization",systems:"Systems",dataAI:"Data / AI"};const exo={legal:"Legal / GDPR",economy:"Economy",politics:"Politics",competition:"Competition",innovation:"Innovation",culture:"Digital culture"};companySliders.innerHTML=Object.keys(company).map(k=>slider("company",k,company[k],state.company[k])).join("");exoSliders.innerHTML=Object.keys(exo).map(k=>slider("exo",k,exo[k],state.exo[k])).join("");document.querySelectorAll("[data-scope]").forEach(i=>i.oninput=e=>{state[e.target.dataset.scope][e.target.dataset.key]=Number(e.target.value);e.target.previousElementSibling.querySelector("output").value=e.target.value;render()})}
     function slider(scope,key,label,value){return `<div class="range"><label>${label}<output>${value}</output></label><input data-scope="${scope}" data-key="${key}" type="range" min="0" max="5" step="1" value="${value}"></div>`}
     function createSubnode(kind,name){snapshot();const c=core(kind);const count=state.nodes.filter(n=>!n.core&&n.kind===kind).length;const n=addNode({name,kind,x:c.x+(kind==="Users"?-125:kind==="Content"?-25:125),y:c.y+125+count*20,qty:name.includes("AI")||name.includes("Workflow")?75:50,max:100,weight:name==="Marketplace"?.65:1,ai:name.includes("AI")||name.includes("Workflow")?85:15,economics:kind==="Users"?"revenue":kind==="Content"?"offer-cost":"infra-cost"});addEdge(n.id,c.id,name);select(n.id);render()}
@@ -597,14 +603,13 @@
     function drag(ev,n){select(n.id);const sx=ev.clientX,sy=ev.clientY,ox=n.x,oy=n.y;const mv=e=>{n.x=ox+(e.clientX-sx)/state.zoom;n.y=oy+(e.clientY-sy)/state.zoom;render()};const up=()=>{removeEventListener("pointermove",mv);removeEventListener("pointerup",up)};addEventListener("pointermove",mv);addEventListener("pointerup",up)}
     function resize(ev,n){ev.stopPropagation();select(n.id);const sx=ev.clientX,sy=ev.clientY,ow=n.w,oh=n.h;const mv=e=>{n.w=Math.max(110,ow+(e.clientX-sx)/state.zoom);n.h=Math.max(60,oh+(e.clientY-sy)/state.zoom);render()};const up=()=>{removeEventListener("pointermove",mv);removeEventListener("pointerup",up)};addEventListener("pointermove",mv);addEventListener("pointerup",up)}
     function setPanel(side,open){
-      const isLeft=side==="left",panel=isLeft?leftPanel:rightPanel,button=isLeft?leftBtn:rightBtn,tab=isLeft?showLeftTab:showRightTab,klass=isLeft?"left-collapsed":"right-collapsed";
+      const isLeft=side==="left",panel=isLeft?leftPanel:rightPanel,tab=isLeft?showLeftTab:showRightTab,klass=isLeft?"left-collapsed":"right-collapsed";
       panel.hidden=!open;
       tab.hidden=open;
-      button.setAttribute("aria-pressed",open);
       labTool.classList.toggle(klass,!open);
       render();
     }
-    function select(idv,open=false){state.selected=idv;syncConfig();if(open)setPanel("right",true);renderNodes()}
+    function select(idv,open=false){state.selected=idv;syncConfig();if(open){setPanel("right",true);rightPanel.classList.remove("folded");configHead.classList.remove("is-folded")}renderNodes()}
     function syncConfig(){const n=node(state.selected);emptyConfig.hidden=!!n;nodeConfig.hidden=!n;if(!n)return;cfgName.value=n.name;cfgDesc.value=n.desc;cfgQty.value=n.qty;cfgMax.value=n.max;cfgWeight.value=n.weight;cfgAi.value=n.ai;cfgEconomics.value=n.economics;cfgWeightOut.value=Number(n.weight).toFixed(2);cfgAiOut.value=n.ai;cfgMeasure.innerHTML=(measures[n.kind]||["Other"]).map(m=>`<option ${m===n.measure?"selected":""}>${m}</option>`).join("")}
     function score(n){return clamp((Number(n.qty||0)/Math.max(1,Number(n.max||1)))*100*Number(n.weight||1),0,100)}
     function variable(k){const list=state.nodes.filter(n=>!n.core&&n.kind===k);return list.length?list.reduce((s,n)=>s+score(n),0)/list.length:score(core(k))}
@@ -636,17 +641,16 @@
         mobileMenu.classList.remove("open");
       });
       menuBtn.onclick=()=>mobileMenu.classList.toggle("open");
-      document.querySelectorAll(".palette-head").forEach(b=>b.onclick=()=>document.getElementById(b.dataset.toggle).hidden=!document.getElementById(b.dataset.toggle).hidden);
+      endogenousHead.onclick=()=>{leftPanel.classList.toggle("folded");endogenousHead.classList.toggle("is-folded");render()};
+      externalHead.onclick=()=>{bottomDeck.classList.toggle("folded");externalHead.classList.toggle("is-folded");render()};
+      configHead.onclick=()=>{rightPanel.classList.toggle("folded");configHead.classList.toggle("is-folded");render()};
+      document.querySelectorAll(".palette-head").forEach(b=>b.onclick=()=>{const target=document.getElementById(b.dataset.toggle);target.hidden=!target.hidden;b.classList.toggle("is-folded",target.hidden);render()});
       zoomIn.onclick=()=>{state.zoom=clamp(state.zoom+.1,.25,2.5);render()};
       zoomOut.onclick=()=>{state.zoom=clamp(state.zoom-.1,.25,2.5);render()};
       fitBtn.onclick=()=>{state.zoom=1;render()};
-      leftBtn.onclick=()=>setPanel("left",leftPanel.hidden);
-      bottomBtn.onclick=()=>{bottomDeck.hidden=!bottomDeck.hidden;bottomBtn.setAttribute("aria-pressed",!bottomDeck.hidden);render()};
-      rightBtn.onclick=()=>setPanel("right",rightPanel.hidden);
       showLeftTab.onclick=()=>setPanel("left",true);
       showRightTab.onclick=()=>setPanel("right",true);
-      document.querySelectorAll("[data-fold-card]").forEach(b=>b.onclick=()=>{const card=document.getElementById(b.dataset.foldCard);card.classList.toggle("collapsed");b.querySelector("span").textContent=card.classList.contains("collapsed")?"Open":"Fold";render()});
-      entityBtn.onclick=()=>createSubnode("Users","Other");
+      document.querySelectorAll("[data-fold-card]").forEach(b=>b.onclick=()=>{const card=document.getElementById(b.dataset.foldCard);card.classList.toggle("collapsed");b.classList.toggle("is-folded",card.classList.contains("collapsed"));render()});
       deleteBtn.onclick=()=>{if(!state.selected)return;snapshot();state.nodes=state.nodes.filter(n=>n.core||n.id!==state.selected);state.edges=state.edges.filter(e=>e.from!==state.selected&&e.to!==state.selected);state.selected=null;render();syncConfig()};
       distributeBtn.onclick=()=>{core("Users").x=210;core("Users").y=170;core("Content").x=500;core("Content").y=315;core("Infrastructure").x=790;core("Infrastructure").y=170;render()};
       exampleBtn.onclick=()=>loadExample(true);
@@ -660,7 +664,6 @@
       canvasMode.onclick=()=>setMode("canvas");
       dashboardMode.onclick=()=>setMode("dashboard");
       equationMode.onclick=()=>setMode("equation");
-      hideConfig.onclick=()=>setPanel("right",false);
       ["cfgName","cfgMeasure","cfgDesc","cfgQty","cfgMax","cfgWeight","cfgAi","cfgEconomics"].forEach(x=>document.getElementById(x).oninput=updateConfig);
     }
     init();
