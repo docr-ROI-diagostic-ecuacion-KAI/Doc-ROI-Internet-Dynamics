@@ -84,16 +84,18 @@
     .small-loop{width:118px;margin:18px auto 0;border:1px dashed #0073aa;border-radius:8px;background:#fff;color:#003b5c;text-align:center;padding:10px;font-size:12px;font-weight:900}
     .process-map{display:grid;gap:8px}
     .process-map .flow-node{min-width:116px}
-    .process-loop{position:relative;display:grid;gap:8px;justify-items:end;padding:12px 0 0 36px}
-    .process-loop:before{content:"";position:absolute;left:12px;top:70px;bottom:44px;width:44px;border:4px solid #0d648c;border-right:0}
+    .process-loop{position:relative;display:grid;gap:8px;justify-items:end;padding:12px 0 0 32px}
+    .process-loop:before{content:"";position:absolute;left:20px;top:76px;bottom:50px;width:36px;border:4px solid #0d648c;border-right:0}
     .process-loop .flow-node{width:86px;min-width:86px;padding:7px 8px;font-size:11px;line-height:1.1}
-    .noise-node{position:absolute;left:0;top:210px;width:80px;border:2px solid #9ca3af;background:#fff;border-radius:8px;padding:10px 8px;text-align:center;font-size:11px;font-weight:900}
-    .internet-process{padding-left:58px;padding-right:0}
-    .internet-process:before{left:20px;top:84px;bottom:52px}
+    .process-loop .flow-arrow{width:86px;text-align:center;line-height:1;color:#0d648c}
+    .noise-node{position:absolute;left:6px;top:210px;width:80px;border:2px solid #9ca3af;background:#fff;border-radius:8px;padding:10px 8px;text-align:center;font-size:11px;font-weight:900}
+    .internet-process{padding-left:54px;padding-right:0}
+    .internet-process:before{left:18px;top:82px;bottom:54px;width:34px}
     .internet-process .flow-node{width:82px;min-width:82px}
+    .internet-process .flow-arrow{width:82px}
     .user-label{position:absolute;right:2px;color:#003b5c;font-size:21px;line-height:1;font-weight:900}
     .user-label.top{top:42px}.user-label.bottom{bottom:18px}
-    .side-label{position:absolute;left:0;color:#003b5c;font-size:10px;font-weight:900;line-height:1.05;text-align:left}
+    .side-label{position:absolute;left:0;color:#003b5c;font-size:10px;font-weight:900;line-height:1.05;text-align:left;background:rgba(251,253,255,.78);padding:1px 2px;border-radius:3px}
     .side-label.infra-1{top:126px}.side-label.content-1{top:188px}.side-label.content-2{top:250px}.side-label.eco{top:310px}.side-label.infra-2{top:356px}.side-label.data{bottom:58px}
     .data-map{position:relative;min-height:350px}
     .data-map .map-node{position:absolute;border:1px solid #315d78;background:#fff;border-radius:8px;padding:9px 12px;font-size:12px;font-weight:900;text-align:center;box-shadow:0 8px 20px rgba(0,59,92,.08)}
@@ -117,10 +119,14 @@
     .node-model-card.wide{grid-column:span 3}
     .feedback-banner{margin-top:14px;background:#16637f;color:#fff;border:3px solid #082f49;border-radius:0;padding:18px 20px;text-align:center;font-size:13px;line-height:1.5;font-weight:700}
     .feedback-banner strong{display:block;font-size:15px;margin-bottom:4px}
-    .core-triangle{position:relative;min-height:360px}
+    .core-triangle{position:relative;min-height:500px}
     .core-triangle svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
     .core-pill{position:absolute;border:2px solid #0073aa;background:#fff;border-radius:8px;padding:11px 12px;text-align:center;font-size:12px;font-weight:900;box-shadow:0 10px 24px rgba(0,59,92,.08)}
-    .core-users{left:32%;top:12%}.core-content{left:12%;top:56%}.core-infra{right:10%;top:56%}.core-data{left:34%;bottom:4%;background:#003b5c;color:#fff;border-color:#003b5c}
+    .core-pill small{display:block;margin-top:4px;color:#0b0f19;font-size:12px}
+    .core-users{left:32%;top:8%;width:88px}.core-content{left:3%;top:35%;width:96px}.core-infra{right:3%;top:35%;width:112px}.core-data{left:31%;top:56%;width:104px;background:#003b5c;color:#fff;border-color:#003b5c}
+    .layer-pill{position:absolute;left:12%;width:76%;border:1px dashed #0073aa;background:rgba(255,255,255,.94);border-radius:8px;padding:9px 10px;text-align:center;color:#003b5c;font-size:11px;line-height:1.25;font-weight:900}
+    .layer-pill span{display:block;color:#334155;font-size:10px;font-weight:700;margin-top:2px}
+    .layer-company{top:70%}.layer-exo{top:80%}.layer-ai{top:90%}
     .compare{display:grid;gap:10px;margin:18px 0}
     .compare-row{display:grid;grid-template-columns:150px 1fr;gap:12px;border:1px solid #dbe7ef;border-radius:8px;padding:12px;background:#fbfdff}
     .compare-row b{color:#003b5c}
@@ -441,19 +447,34 @@
           <aside class="visual-panel">
             <h4>Core Internet Dynamics map</h4>
             <div class="core-triangle">
-              <svg viewBox="0 0 260 360" aria-hidden="true">
-                <path d="M130 72 C82 116 56 184 64 234 C74 298 126 326 190 270" fill="none" stroke="#9ca3af" stroke-width="3"/>
-                <path d="M130 72 C184 118 214 184 198 240 C180 298 120 326 64 238" fill="none" stroke="#9ca3af" stroke-width="3"/>
-                <path d="M72 220 C118 250 156 250 198 220" fill="none" stroke="#0073aa" stroke-width="3"/>
-                <path d="M130 86 L78 212 L190 212 Z" fill="none" stroke="#0073aa" stroke-width="3"/>
-                <path d="M78 212 L130 316 L190 212" fill="none" stroke="#9ca3af" stroke-width="3"/>
+              <svg viewBox="0 0 260 500" aria-hidden="true">
+                <defs>
+                  <marker id="arrowCore" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+                    <path d="M0,0 L6,3 L0,6 Z" fill="#0073aa"/>
+                  </marker>
+                  <marker id="arrowSoft" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+                    <path d="M0,0 L6,3 L0,6 Z" fill="#9ca3af"/>
+                  </marker>
+                </defs>
+                <path d="M130 66 C68 96 34 178 58 250 C78 314 154 326 202 256 C234 202 210 106 130 66" fill="none" stroke="#9ca3af" stroke-width="3" marker-end="url(#arrowSoft)"/>
+                <path d="M130 72 L70 190 L190 190 Z" fill="none" stroke="#0073aa" stroke-width="3" marker-end="url(#arrowCore)"/>
+                <path d="M70 206 C104 244 148 244 190 206" fill="none" stroke="#0073aa" stroke-width="3" marker-end="url(#arrowCore)"/>
+                <path d="M70 206 L130 285 L190 206" fill="none" stroke="#9ca3af" stroke-width="3" marker-end="url(#arrowSoft)"/>
+                <path d="M130 285 C104 258 88 226 70 206" fill="none" stroke="#9ca3af" stroke-width="2"/>
+                <path d="M130 285 C154 258 174 226 190 206" fill="none" stroke="#9ca3af" stroke-width="2"/>
+                <path d="M130 362 L130 72 M130 362 L70 190 M130 362 L190 190" fill="none" stroke="#0073aa" stroke-width="1.8" stroke-dasharray="5 5"/>
+                <path d="M130 410 L130 72 M130 410 L70 190 M130 410 L190 190" fill="none" stroke="#0d648c" stroke-width="1.8" stroke-dasharray="5 5"/>
+                <path d="M130 458 L130 72 M130 458 L70 190 M130 458 L190 190" fill="none" stroke="#003b5c" stroke-width="1.8" stroke-dasharray="5 5"/>
+                <path d="M130 295 C94 332 92 380 130 410 C168 380 166 332 130 295" fill="none" stroke="#0073aa" stroke-width="3" marker-end="url(#arrowCore)"/>
               </svg>
               <div class="core-pill core-users">Users<br><small>U</small></div>
               <div class="core-pill core-content">Content<br><small>C</small></div>
               <div class="core-pill core-infra">Infrastructure<br><small>I</small></div>
               <div class="core-pill core-data">Data Loop</div>
+              <div class="layer-pill layer-company">Company management<span>Processes, organization, systems, data/AI</span></div>
+              <div class="layer-pill layer-exo">Exogenous management<span>Legal, market, competition, innovation, culture</span></div>
+              <div class="layer-pill layer-ai">AI acceleration<span>Agents, automation, personalization</span></div>
             </div>
-            <div class="small-loop">Management layers<br>shape the loop</div>
           </aside>
         </article>
       </div>
