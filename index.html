@@ -130,14 +130,14 @@
     .feedback-point{background:rgba(255,255,255,.08);border:1px solid rgba(216,236,248,.34);border-radius:8px;padding:10px;text-align:left}
     .feedback-point b{display:block;color:#fff;font-size:11px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
     .feedback-point span{display:block;color:#d8ecf8;font-size:12px;line-height:1.4}
-    .core-triangle{position:relative;min-height:610px}
+    .core-triangle{position:relative;min-height:650px}
     .core-triangle svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-    .core-pill{position:absolute;border:2px solid #0073aa;background:#fff;border-radius:8px;padding:11px 12px;text-align:center;font-size:12px;font-weight:900;box-shadow:0 10px 24px rgba(0,59,92,.08);word-break:keep-all;overflow-wrap:normal;hyphens:none}
+    .core-pill{position:absolute;z-index:2;border:2px solid #0073aa;background:#fff;border-radius:8px;padding:12px 10px;text-align:center;font-size:11px;font-weight:900;line-height:1.15;box-shadow:0 10px 24px rgba(0,59,92,.08);word-break:keep-all;overflow-wrap:normal;hyphens:none}
     .core-pill small{display:block;margin-top:4px;color:#0b0f19;font-size:12px;white-space:nowrap}
-    .core-users{left:50%;top:18px;width:104px;transform:translateX(-50%)}.core-content{left:6px;top:150px;width:110px}.core-infra{right:6px;top:150px;width:130px;font-size:11px}.core-data{left:50%;top:282px;width:116px;transform:translateX(-50%);background:#003b5c;color:#fff;border-color:#003b5c}
-    .layer-pill{position:absolute;left:8%;width:84%;min-height:62px;border:1px dashed #0073aa;background:rgba(255,255,255,.94);border-radius:8px;padding:9px 10px;text-align:center;color:#003b5c;font-size:11px;line-height:1.25;font-weight:900;display:flex;flex-direction:column;align-items:center;justify-content:center;word-break:keep-all;overflow-wrap:normal;hyphens:none}
-    .layer-pill span{display:block;color:#334155;font-size:10px;font-weight:700;margin-top:2px}
-    .layer-company{top:360px}.layer-exo{top:434px}.layer-ai{top:508px}
+    .core-users{left:50%;top:18px;width:104px;transform:translateX(-50%)}.core-content{left:8px;top:152px;width:104px}.core-infra{right:8px;top:152px;width:118px;font-size:10px}.core-data{left:50%;top:286px;width:118px;transform:translateX(-50%);background:#003b5c;color:#fff;border-color:#003b5c}
+    .layer-pill{position:absolute;z-index:2;left:5%;width:90%;min-height:70px;border:1px dashed #0073aa;background:rgba(255,255,255,.96);border-radius:8px;padding:10px 12px;text-align:center;color:#003b5c;font-size:10px;line-height:1.22;font-weight:900;display:flex;flex-direction:column;align-items:center;justify-content:center;word-break:keep-all;overflow-wrap:normal;hyphens:none}
+    .layer-pill span{display:block;color:#334155;font-size:9px;font-weight:700;line-height:1.22;margin-top:4px;max-width:190px}
+    .layer-company{top:380px}.layer-exo{top:464px}.layer-ai{top:548px}
     .compare{display:grid;gap:10px;margin:18px 0}
     .compare-row{display:grid;grid-template-columns:150px 1fr;gap:12px;border:1px solid #dbe7ef;border-radius:8px;padding:12px;background:#fbfdff}
     .compare-row b{color:#003b5c}
@@ -477,7 +477,7 @@
           <aside class="visual-panel">
             <h4>Core Internet Dynamics map</h4>
             <div class="core-triangle">
-              <svg viewBox="0 0 260 500" aria-hidden="true">
+              <svg viewBox="0 0 260 650" aria-hidden="true">
                 <defs>
                   <marker id="arrowCore" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
                     <path d="M0,0 L6,3 L0,6 Z" fill="#0073aa"/>
@@ -486,16 +486,17 @@
                     <path d="M0,0 L6,3 L0,6 Z" fill="#9ca3af"/>
                   </marker>
                 </defs>
-                <path d="M130 66 C68 96 34 178 58 250 C78 314 154 326 202 256 C234 202 210 106 130 66" fill="none" stroke="#9ca3af" stroke-width="3" marker-end="url(#arrowSoft)"/>
-                <path d="M130 72 L70 190 L190 190 Z" fill="none" stroke="#0073aa" stroke-width="3" marker-end="url(#arrowCore)"/>
-                <path d="M70 206 C104 244 148 244 190 206" fill="none" stroke="#0073aa" stroke-width="3" marker-end="url(#arrowCore)"/>
-                <path d="M70 206 L130 285 L190 206" fill="none" stroke="#9ca3af" stroke-width="3" marker-end="url(#arrowSoft)"/>
-                <path d="M130 285 C104 258 88 226 70 206" fill="none" stroke="#9ca3af" stroke-width="2"/>
-                <path d="M130 285 C154 258 174 226 190 206" fill="none" stroke="#9ca3af" stroke-width="2"/>
-                <path d="M130 362 L130 72 M130 362 L70 190 M130 362 L190 190" fill="none" stroke="#0073aa" stroke-width="1.8" stroke-dasharray="5 5"/>
-                <path d="M130 410 L130 72 M130 410 L70 190 M130 410 L190 190" fill="none" stroke="#0d648c" stroke-width="1.8" stroke-dasharray="5 5"/>
-                <path d="M130 458 L130 72 M130 458 L70 190 M130 458 L190 190" fill="none" stroke="#003b5c" stroke-width="1.8" stroke-dasharray="5 5"/>
-                <path d="M130 295 C94 332 92 380 130 410 C168 380 166 332 130 295" fill="none" stroke="#0073aa" stroke-width="3" marker-end="url(#arrowCore)"/>
+                <path d="M130 76 C46 104 28 242 82 306 C120 352 184 330 214 260 C242 192 212 104 130 76" fill="none" stroke="#9ca3af" stroke-width="3" marker-end="url(#arrowSoft)"/>
+                <path d="M130 76 C214 104 232 242 178 306 C140 352 76 330 46 260 C18 192 48 104 130 76" fill="none" stroke="#9ca3af" stroke-width="3" marker-end="url(#arrowSoft)"/>
+                <path d="M130 84 L60 196 L200 196 L130 84" fill="none" stroke="#0073aa" stroke-width="3" marker-end="url(#arrowCore)"/>
+                <path d="M60 220 C100 260 160 260 200 220" fill="none" stroke="#0073aa" stroke-width="3" marker-end="url(#arrowCore)"/>
+                <path d="M60 220 L130 312 L200 220" fill="none" stroke="#9ca3af" stroke-width="3" marker-end="url(#arrowSoft)"/>
+                <path d="M130 312 C98 280 82 246 60 220" fill="none" stroke="#9ca3af" stroke-width="2"/>
+                <path d="M130 312 C162 280 178 246 200 220" fill="none" stroke="#9ca3af" stroke-width="2"/>
+                <path d="M130 414 L130 84 M130 414 L60 196 M130 414 L200 196" fill="none" stroke="#0073aa" stroke-width="1.8" stroke-dasharray="5 5"/>
+                <path d="M130 498 L130 84 M130 498 L60 196 M130 498 L200 196" fill="none" stroke="#0d648c" stroke-width="1.8" stroke-dasharray="5 5"/>
+                <path d="M130 582 L130 84 M130 582 L60 196 M130 582 L200 196" fill="none" stroke="#003b5c" stroke-width="1.8" stroke-dasharray="5 5"/>
+                <path d="M130 322 C92 360 92 402 130 440 C168 402 168 360 130 322" fill="none" stroke="#0073aa" stroke-width="3" marker-end="url(#arrowCore)"/>
               </svg>
               <div class="core-pill core-users">Users<br><small>U</small></div>
               <div class="core-pill core-content">Content<br><small>C</small></div>
