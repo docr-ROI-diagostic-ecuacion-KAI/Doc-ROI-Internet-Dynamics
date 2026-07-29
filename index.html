@@ -113,6 +113,10 @@
     .formula-card{border:1px solid #dbe7ef;background:#fff;border-radius:8px;padding:14px;margin-top:14px}
     .formula-card b{display:block;color:#0073aa;font-size:12px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
     .formula-card code{display:block;background:#071d33;color:#eaf6fb;border-radius:8px;padding:12px;font-size:15px;white-space:nowrap;overflow:auto}
+    .formula-steps{display:grid;gap:8px;margin-top:10px}
+    .formula-step{border:1px solid #dbe7ef;background:#f7fafc;border-radius:8px;padding:10px 12px}
+    .formula-step code{display:block;background:transparent;color:#071d33;padding:0;font-size:13px;white-space:normal;line-height:1.45}
+    .formula-step span{display:block;color:#40586b;font-size:12px;line-height:1.45;margin-top:4px}
     .node-model-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:16px}
     .node-model-card{background:#fff;border:1px solid #dbe7ef;border-radius:8px;padding:14px;box-shadow:0 10px 24px rgba(0,59,92,.06)}
     .node-model-card b{display:block;color:#0073aa;font-size:11px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px}
@@ -367,11 +371,11 @@
             <span class="session">SESSION 3</span>
             <h2>Forrester gives us the language: stocks, flows, feedback, delays and reinforcing loops.</h2>
             <h3>Learning objective</h3>
-            <p>Understand Internet as a dynamic system, not as a list of digital channels. A system is a set of related elements that interact to produce a common purpose. A dynamic system is studied through its behaviour over time: what accumulates, what grows, what is consumed, what creates delay, and what returns as feedback.</p>
+            <p>Understand Internet as a dynamic system, not as a list of digital channels. A system is a set of related elements that interact to produce a common purpose. Forrester's key contribution is that a system can be expressed mathematically through levels that accumulate, flows that change those levels, and feedback that modifies future flows.</p>
             <div class="learning-note">In Internet Dynamics, the communication process is transferred into system entities. Users are the emitter and receiver side of the relationship. Content is the message, offer and mode. Infrastructure is the medium, coding and decoding capacity. Data is the feedback memory of the system. The ecosystem introduces noise, friction and acceleration.</div>
             <div class="method">
               <strong>Methodological rule</strong>
-              <p>Forrester's system dynamics allows the communication system to be represented with stocks, flows, feedback loops and delays. The objective is not to draw a diagram; the objective is to simulate how the communication capacity changes when users, content, infrastructure, data and external conditions change.</p>
+              <p>The laboratory applies this logic in a simple way: it treats Users, Content and Infrastructure as levels, calculates their normalized state, applies inflows and outflows as changes over time, and then adjusts the result with management, exogenous conditions and AI acceleration.</p>
             </div>
             <div class="concept-panel">
               <p><strong>Transfer from communication to system dynamics:</strong> the emitter/receiver relation becomes the user stock; the message becomes the content stock; the medium and coding/decoding capacity become infrastructure; feedback becomes data; noise becomes exogenous pressure; AI becomes an acceleration factor when the organization can act on the feedback.</p>
@@ -383,8 +387,13 @@
               </div>
             </div>
             <div class="formula-card">
-              <b>Forrester-inspired state update</b>
-              <code>Stock(t+1) = Stock(t) + inflow(t) - outflow(t)</code>
+              <b>Forrester stock-and-flow formulation</b>
+              <code>Level(t) = Level(t0) + integral[Inflow(t) - Outflow(t)] dt</code>
+              <div class="formula-steps">
+                <div class="formula-step"><code>dLevel/dt = Inflow(t) - Outflow(t)</code><span>This is the continuous form. The level changes because something enters the system and something leaves it. If inflow is greater than outflow, the level grows. If outflow is greater than inflow, the level decreases.</span></div>
+                <div class="formula-step"><code>Level(t+Delta t) = Level(t) + (Inflow - Outflow) x Delta t</code><span>This is the discrete version used by the laboratory. The simulator advances step by step: month by month, week by week or period by period.</span></div>
+                <div class="formula-step"><code>Users(t+1), Content(t+1), Infrastructure(t+1)</code><span>In Internet Dynamics, the main levels are Users, Content and Infrastructure. Each one grows through inflows such as acquisition, production, investment or AI automation, and decreases through outflows such as churn, saturation, obsolescence, cost or friction.</span></div>
+              </div>
             </div>
             <p class="key"><strong>Key concepts:</strong> dynamic system &middot; stock &middot; flow &middot; reinforcing loop &middot; delay &middot; feedback &middot; exogenous friction &middot; AI acceleration.</p>
             <p class="sources"><strong>Sources:</strong> Forrester (1961), Bertalanffy (1968), Sterman (2000), Meadows (2008), Wiener (1948), Shannon and Weaver (1949).</p>
